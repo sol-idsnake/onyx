@@ -1,5 +1,5 @@
 const initialState = {
-  sidebar: [
+  sidebarAuth: [
     {
       title: "Home",
       value: "home",
@@ -10,9 +10,21 @@ const initialState = {
       value: "users",
       path: "/users"
     }
+  ],
+  sidebarNotAuth: [
+    {
+      title: "Login",
+      value: "login",
+      path: "/login"
+    },
+    {
+      title: "Register",
+      value: "register",
+      path: "/register"
+    }
   ]
 };
 
-export const reducer = (state = initialState, action) => {
+export default function reducer(state = initialState, action) {
   return state;
-};
+}

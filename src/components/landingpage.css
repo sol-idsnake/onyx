@@ -12,7 +12,12 @@
 	align-content: flex-end;
 }
 
-.controls > button {
+.controls {
+	display: flex;
+	justify-content: center;
+}
+
+.controls > .button {
 	background-color: #eee;
 	border: 0;
 	border-radius: 5px;

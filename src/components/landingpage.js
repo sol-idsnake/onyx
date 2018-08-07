@@ -1,6 +1,6 @@
-import React from 'react'
-import LogoWithText from '../img/logowithtext.png'
-
+import React from 'react';
+import LogoWithText from '../img/logowithtext.png';
+import {Link} from 'react-router-dom'
 import './landingpage.css'
 
 export default function LandingPage() {
@@ -14,8 +14,8 @@ export default function LandingPage() {
 				<p>Manage a group of people efficiently and quickly with Onyx.</p>
 				<p>Already have an account? Log in or signup</p>
 				<div className="controls">
-					<button>Login</button>
-					<button>Signup</button>
+					<div className="button"><Link to="/login">Login</Link></div>
+					<div className="button"><Link to="/register">Signup</Link></div>
 				</div>
 			</div>
 		</div>
