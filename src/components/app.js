@@ -1,14 +1,14 @@
 import React from "react";
-import {connect} from 'react-redux';
-import { BrowserRouter as Route, Switch, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { Route, withRouter } from "react-router-dom";
 
 import Navbar from "./navbar";
 import LandingPage from "./landingpage";
 import Member from "./member";
 import Register from "./register";
-import Login from "./login";
+import LoginPage from "./login";
 import Dashboard from "./dashboard";
-import {refreshAuthToken} from '../actions/auth';
+import { refreshAuthToken } from "../actions/auth";
 
 export class App extends React.Component {
   componentDidUpdate(prevProps) {
@@ -42,18 +42,16 @@ export class App extends React.Component {
 
   render() {
     return (
-        <div>
-          <Navbar />
-          <main>
-            <Switch>
-              <Route exact path="/" component={LandingPage} />
-              <Route exact path="/register" component={Register} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/users" component={Member} />
-              <Route exact path="/dashboard" component={Dashboard} />
-            </Switch>
-          </main>
-        </div>
+      <div>
+        <Navbar />
+        <main>
+          <Route exact path="/" component={LandingPage} />
+          <Route exact path="/register" component={Register} />
+          <Route exact path="/login" component={LoginPage} />
+          <Route exact path="/users" component={Member} />
+          <Route exact path="/dashboard" component={Dashboard} />
+        </main>
+      </div>
     );
   }
 }

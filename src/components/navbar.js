@@ -1,33 +1,50 @@
 import React from "react";
 import { connect } from "react-redux";
-import {Link} from 'react-router-dom';
-import './navbar.css'
-import LogoImg from '../img/logo.png'
+import { clearAuth } from "../actions/auth";
+import { clearAuthToken } from "../local-storage";
+import { Link } from "react-router-dom";
+import "./navbar.css";
+import LogoImg from "../img/logo.png";
 
-export const Navbar = props => {
-  let links
-  if (!props.loggedIn) {
-    links = props.sidebarNotAuth.map(link => (
-      <li key={link.value}>
-        <Link to={link.path}>{link.title}</Link>
-      </li>
-    ))
-  } else {
-    links = props.sidebarAuth.map(link => (
-      <li key={link.value}>
-        <Link to={link.path}>{link.title}</Link>
-      </li>
-    ));
-  } 
-  return (
-    <header>
-      <Link to="/"><img src={LogoImg} alt="Onyx Logo" className="logoWithoutText"/></Link>
-      <ul>{links}</ul>
-    </header>
-  );
-};
+export class Navbar extends React.Component {
+  logOut() {
+    this.props.dispatch(clearAuth());
+    clearAuthToken();
+  }
 
-export const mapStateToProps = (state) => ({
+  render() {
+    let links;
+    let logOutButton;
+
+    if (!this.props.loggedIn) {
+      links = this.props.sidebarNotAuth.map(link => (
+        <li key={link.value}>
+          <Link to={link.path}>{link.title}</Link>
+        </li>
+      ));
+    } else {
+      logOutButton = <button onClick={() => this.logOut()}>Log out</button>;
+      links = this.props.sidebarAuth.map(link => (
+        <li key={link.value}>
+          <Link to={link.path}>{link.title}</Link>
+        </li>
+      ));
+    }
+
+    return (
+      <header>
+        <Link to="/">
+          <img src={LogoImg} alt="Onyx Logo" className="logoWithoutText" />
+        </Link>
+        <ul>
+          {links} {logOutButton}
+        </ul>
+      </header>
+    );
+  }
+}
+
+const mapStateToProps = state => ({
   sidebarAuth: state.initialReducer.sidebarAuth,
   sidebarNotAuth: state.initialReducer.sidebarNotAuth,
   loggedIn: state.auth.currentUser !== null
