@@ -1,9 +1,9 @@
 const initialState = {
   sidebarAuth: [
     {
-      title: "Home",
-      value: "home",
-      path: "/"
+      title: "Dashboard",
+      value: "dashboard",
+      path: "/dashboard"
     },
     {
       title: "Users",
