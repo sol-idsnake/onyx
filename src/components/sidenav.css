@@ -1,0 +1,17 @@
+.sidebar {
+	background: #eaeaea;
+	border-radius: 8px;
+	margin: 1em 0 0 2em;
+	padding: 1em;
+	width: 200px;
+}
+
+.sidebar-ul {
+	display: flex;
+	flex-direction: column;
+}
+
+li {
+	/*flex-grow: 1;*/
+	padding: 0 0 .3em 1em;
+}

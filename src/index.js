@@ -7,13 +7,13 @@ import store from "./store";
 import "./index.css";
 
 ReactDOM.render(
-  <Provider store={store}>
-    <Router>
-      <App />
-    </Router>
-  </Provider>,
-  document.getElementById("root")
+	<Provider store={store}>
+		<Router>
+			<App />
+		</Router>
+	</Provider>,
+	document.getElementById("root")
 );
 
-// console.log(store.getState());
-// store.subscribe(() => console.log(store.getState()));
+console.log(store.getState());
+store.subscribe(() => console.log(store.getState()));

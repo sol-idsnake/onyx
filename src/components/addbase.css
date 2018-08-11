@@ -1,0 +1,9 @@
+.add-list-wrapper > .add-button {
+	background: #eee;
+	border-radius: 0.3em;
+	padding: 0.5em;
+}
+
+.add-button:hover {
+	background: #ddd;
+}
