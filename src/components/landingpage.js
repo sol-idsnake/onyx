@@ -1,7 +1,7 @@
 import React from "react";
 import LogoWithText from "../img/logowithtext.png";
 import { connect } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import "./landingpage.css";
 
@@ -43,7 +43,7 @@ export function LandingPage(props) {
 }
 
 const mapStateToProps = state => ({
-  loggedIn: state.auth.currentUser !== null
+  loggedIn: state.auth.currentUser !== null,
 });
 
 export default connect(mapStateToProps)(LandingPage);

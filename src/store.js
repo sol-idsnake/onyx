@@ -14,7 +14,7 @@ const store = createStore(
     auth: authReducer,
     protectedData: protectedDataReducer,
     initialReducer: initialReducer,
-    interaction: interactionReducer
+    interaction: interactionReducer,
   }),
   applyMiddleware(thunk)
 );

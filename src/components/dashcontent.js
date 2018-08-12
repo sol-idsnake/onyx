@@ -4,58 +4,47 @@ import requiresLogin from "./requires-login";
 import AddBase from "./addbase";
 import "./dashcontent.css";
 import { Link } from "react-router-dom";
+import { fetchBases, addBaseToDb } from "../actions/interaction";
 
-export function DashContent() {
-	// render() {
-	const userbases = [
-		{
-			title: "test1",
-			users: null,
-			admins: null,
-			messages: null
-		},
-		{
-			title: "test2",
-			users: 14,
-			admins: 2,
-			messages: 7
-		}
-	];
+export class DashContent extends React.Component {
+	componentDidMount() {
+		this.props.dispatch(fetchBases());
+	}
 
-	const bases = userbases.map(base => (
-		<li key={base.title} className="userbase">
-			<Link to={base.title}>Whatever title</Link>
-			<small>Users in this base: {base.users !== null ? base.users : 0}</small>
-			<small>
-				Admins in this base: {base.admins !== null ? base.admins : 0}
-			</small>
-			<small>
-				Messages in this base: {base.messages !== null ? base.messages : 0}
-			</small>
-		</li>
-	));
-
-	return (
-		<ul>
-			{bases}
-			<li className="add-list-wrapper">
-				<AddBase type="base" />
+	addBase(title) {
+		this.props.dispatch(addBaseToDb(this.props.userId, title));
+	}
+	render() {
+		const baseList = this.props.bases.map(base => (
+			<li key={base.title} className="base">
+				<Link to={base.title}>{base.title}</Link>
 			</li>
-		</ul>
-	);
-	// }
+		));
+
+		return (
+			<ul className="baseWrapper">
+				{baseList}
+				<li className="add-list-wrapper">
+					<AddBase type="base" onAdd={title => this.addBase(title)} />
+				</li>
+			</ul>
+		);
+	}
 }
 
-// <input
-// 	type="text"
-// 	ref={input => (this.input = input)}
-// 	onChange={this.onChange}
-// />
-
-const mapStateToProps = state => {
-	return {
-		hasUserbases: state.auth.currentUser.hasUserbases
-	};
-};
+const mapStateToProps = state => ({
+	bases: state.interaction.bases,
+	userId: state.auth.currentUser.userId,
+});
 
 export default requiresLogin()(connect(mapStateToProps)(DashContent));
+//
+
+// <small>
+// 	Admins in this base: {base.admins !== null ? base.admins : 0}
+// </small>
+// <small>
+// 	Messages in this base: {base.messages !== null ? base.messages : 0}
+// </small>
+
+// <small>Users in this base: {users !== null ? base.users : 0}</small>
