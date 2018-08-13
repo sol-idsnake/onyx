@@ -63,3 +63,40 @@ export const fetchBases = () => dispatch => {
 		.then(bases => dispatch(fetchBasesSuccess(bases)))
 		.catch(error => dispatch(fetchBasesError(error)));
 };
+
+export const REMOVE_BASE_REQUEST = "REMOVE_BASE_REQUEST";
+export const removeBaseRequest = () => ({
+	type: REMOVE_BASE_REQUEST,
+});
+
+export const REMOVE_BASE_SUCCESS = "REMOVE_BASE_SUCCESS";
+export const removeBaseSuccess = (base) => ({
+	type: REMOVE_BASE_SUCCESS,
+	base
+});
+
+export const REMOVE_BASE_ERROR = "REMOVE_BASE_ERROR";
+export const removeBaseError = () => ({
+	type: REMOVE_BASE_ERROR,
+});
+
+export const removeBase = title => dispatch => {
+	dispatch(removeBaseRequest());
+	fetch(`${API_BASE_URL}/base/delete`, {
+		method: "DELETE",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify({
+			title: title
+		})
+	})
+	.then(res => {
+		if (!res.ok) {
+			return Promise.reject(res.statusText)
+		}
+		return res.json()
+	})
+	.then(() => dispatch(removeBaseSuccess()))
+	.catch(error => dispatch(removeBaseError(error)))
+};

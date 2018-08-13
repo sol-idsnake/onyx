@@ -17,6 +17,16 @@
 	height: 100px;
 	margin: 0 0 1em 1em;
 	padding: 0.5em;
+	position: relative;
 	width: 80px;
 }
 
+.base > i {
+	position: absolute;
+	right: 0.3em;
+	opacity: 0.4;
+}
+
+.base > i:hover {
+	opacity: 0.7;
+}

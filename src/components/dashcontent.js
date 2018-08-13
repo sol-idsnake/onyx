@@ -4,7 +4,7 @@ import requiresLogin from "./requires-login";
 import AddBase from "./addbase";
 import "./dashcontent.css";
 import { Link } from "react-router-dom";
-import { fetchBases, addBaseToDb } from "../actions/interaction";
+import { fetchBases, addBaseToDb, removeBase } from "../actions/interaction";
 
 export class DashContent extends React.Component {
 	componentDidMount() {
@@ -14,10 +14,16 @@ export class DashContent extends React.Component {
 	addBase(title) {
 		this.props.dispatch(addBaseToDb(this.props.userId, title));
 	}
+
+	deleteBase(title) {
+		this.props.dispatch(removeBase(title));
+	}
+
 	render() {
 		const baseList = this.props.bases.map(base => (
 			<li key={base.title} className="base">
 				<Link to={base.title}>{base.title}</Link>
+				<i className="fas fa-times" onClick={() => this.deleteBase(base.title)} />
 			</li>
 		));
 
