@@ -15,15 +15,15 @@ export class DashContent extends React.Component {
 		this.props.dispatch(addBaseToDb(this.props.userId, title));
 	}
 
-	deleteBase(title) {
-		this.props.dispatch(removeBase(title));
+	deleteBase(id) {
+		this.props.dispatch(removeBase(id));
 	}
 
 	render() {
 		const baseList = this.props.bases.map(base => (
-			<li key={base.title} className="base">
+			<li key={base.id} className="base">
 				<Link to={base.title}>{base.title}</Link>
-				<i className="fas fa-times" onClick={() => this.deleteBase(base.title)} />
+				<i className="fas fa-times" onClick={() => this.deleteBase(base.id)} />
 			</li>
 		));
 

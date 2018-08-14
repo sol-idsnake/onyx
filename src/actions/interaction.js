@@ -70,9 +70,9 @@ export const removeBaseRequest = () => ({
 });
 
 export const REMOVE_BASE_SUCCESS = "REMOVE_BASE_SUCCESS";
-export const removeBaseSuccess = (base) => ({
+export const removeBaseSuccess = (id) => ({
 	type: REMOVE_BASE_SUCCESS,
-	base
+	id
 });
 
 export const REMOVE_BASE_ERROR = "REMOVE_BASE_ERROR";
@@ -80,7 +80,7 @@ export const removeBaseError = () => ({
 	type: REMOVE_BASE_ERROR,
 });
 
-export const removeBase = title => dispatch => {
+export const removeBase = id => dispatch => {
 	dispatch(removeBaseRequest());
 	fetch(`${API_BASE_URL}/base/delete`, {
 		method: "DELETE",
@@ -88,15 +88,18 @@ export const removeBase = title => dispatch => {
 			"Content-Type": "application/json"
 		},
 		body: JSON.stringify({
-			title: title
+			id: id
 		})
 	})
 	.then(res => {
 		if (!res.ok) {
 			return Promise.reject(res.statusText)
 		}
-		return res.json()
+		return true
 	})
-	.then(() => dispatch(removeBaseSuccess()))
+	.then(() => dispatch(removeBaseSuccess(id)))
 	.catch(error => dispatch(removeBaseError(error)))
 };
+
+
+//  look up js promises

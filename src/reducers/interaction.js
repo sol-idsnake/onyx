@@ -45,7 +45,6 @@ export default function interactionReducer(state = initialState, action) {
 			error: null,
 		});
 	} else if (action.type === ADD_BASE_SUCCESS) {
-		console.log(action)
 		return Object.assign({}, state, {
 			bases: [...state.bases, action.base],
 		});
@@ -60,8 +59,9 @@ export default function interactionReducer(state = initialState, action) {
 			error: null
 		})
 	} else if (action.type === REMOVE_BASE_SUCCESS) {
+		const newArray = state.bases.filter(base => base.id !== action.id)
 		return Object.assign({}, state, {
-			bases: [...state.bases.slice(0, action.base), ...state.bases.slice(action.base + 1)],
+			bases: newArray,
 			loading: false,
 			error: null,
 		})		
