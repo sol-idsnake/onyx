@@ -22,17 +22,29 @@ export class DashContent extends React.Component {
 	render() {
 		const baseList = this.props.bases.map(base => (
 			<li key={base.id} className="base">
-				<Link to={base.title}>{base.title}</Link>
+				<Link to={`/basepage/${base.title}`}>{base.title}</Link>
+				<p>
+					Current Users:
+					<Link to={`/addUser/${base.id}`}>
+						{base.currentUsers === 0 ? "Add users" : base.currentUsers}
+					</Link>
+				</p>
+				<p>
+					Current Messages:
+					<Link to={`/messages/${base.id}`}>
+						{base.messages === 0 ? "Post a message" : base.messages}
+					</Link>
+				</p>
 				<i className="fas fa-times" onClick={() => this.deleteBase(base.id)} />
 			</li>
 		));
 
 		return (
 			<ul className="baseWrapper">
-				{baseList}
-				<li className="add-list-wrapper">
+				<li className="base add-list-wrapper">
 					<AddBase type="base" onAdd={title => this.addBase(title)} />
 				</li>
+				{baseList}
 			</ul>
 		);
 	}
@@ -40,7 +52,7 @@ export class DashContent extends React.Component {
 
 const mapStateToProps = state => ({
 	bases: state.interaction.bases,
-	userId: state.auth.currentUser.userId,
+	userId: state.auth.currentUser.userId
 });
 
 export default requiresLogin()(connect(mapStateToProps)(DashContent));

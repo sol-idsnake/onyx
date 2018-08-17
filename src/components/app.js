@@ -8,6 +8,7 @@ import Member from "./member";
 import Register from "./register";
 import LoginPage from "./login";
 import Dashboard from "./dashboard";
+import BasePage from "./basepage";
 import { refreshAuthToken } from "../actions/auth";
 
 export class App extends React.Component {
@@ -50,6 +51,7 @@ export class App extends React.Component {
           <Route exact path="/login" component={LoginPage} />
           <Route exact path="/users" component={Member} />
           <Route exact path="/dashboard" component={Dashboard} />
+          <Route exact path="/addUser/:baseId" component={BasePage} />
         </main>
       </div>
     );

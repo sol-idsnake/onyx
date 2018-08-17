@@ -11,9 +11,9 @@ ul {
 	padding: 0;
 }
 
-li {
+header > ul > li {
 	list-style-type: none;
-	padding: 0 .5em;
+	margin-right: 1em;
 	text-decoration: none;
 }
 

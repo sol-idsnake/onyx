@@ -30,3 +30,12 @@
 .base > i:hover {
 	opacity: 0.7;
 }
+
+.baseWrapper > li {
+	height: 200px;
+	width: 300px;
+}
+
+.add-list-wrapper {
+	list-style-type: none;
+}

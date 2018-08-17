@@ -11,10 +11,7 @@ export function Sidenav(props) {
 		<div className="sidebar">
 			<strong>Welcome back, {upperUsername}.</strong>
 			<hr />
-			<ul className="sidebar-ul">
-				<li className="sidebar-li">Create Userbase</li>
-				<li className="sidebar-li">View User lists</li>
-			</ul>
+			<i className="fas fa-plus-square fa-2x" />
 		</div>
 	);
 }
@@ -29,3 +26,8 @@ const mapStateToProps = state => {
 };
 
 export default requiresLogin()(connect(mapStateToProps)(Sidenav));
+
+// <ul className="sidebar-ul">
+// 	<li className="sidebar-li">Create Userbase</li>
+// 	<li className="sidebar-li">View User lists</li>
+// </ul>

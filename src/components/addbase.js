@@ -30,7 +30,7 @@ export class AddBase extends React.Component {
 
 		const label = `Enter a ${this.props.type}`;
 		return (
-			<form className="base add-form" onSubmit={e => this.onSubmit(e)}>
+			<form className="add-form" onSubmit={e => this.onSubmit(e)}>
 				<input
 					type="text"
 					ref={input => (this.textInput = input)}
