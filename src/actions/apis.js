@@ -4,19 +4,19 @@ export function add(userId, title) {
 	return fetch(`${API_BASE_URL}/base/add`, {
 		method: "POST",
 		headers: {
-			"Content-Type": "application/json",
+			"Content-Type": "application/json"
 			// add auth token
 		},
 		body: JSON.stringify({
 			userId: userId,
-			title: title,
-		}),
+			title: title
+		})
 	})
 		.then(res => {
+			console.log(res);
 			return res.json();
 		})
 		.catch(error => {
 			console.log("Request failed", error);
 		});
 }
-

@@ -9,7 +9,15 @@ import {
 	REMOVE_BASE_REQUEST,
 	REMOVE_BASE_SUCCESS,
 	REMOVE_BASE_ERROR,
-	FETCH_USERS_REQUEST
+	FETCH_SINGLE_BASE_REQUEST,
+	FETCH_SINGLE_BASE_SUCCESS,
+	FETCH_SINGLE_BASE_ERROR,
+	ADD_USER_TO_LIST_REQUEST,
+	ADD_USER_TO_LIST_SUCCESS,
+	ADD_USER_TO_LIST_ERROR,
+	ADD_MESSAGE_TO_LIST_REQUEST,
+	ADD_MESSAGE_TO_LIST_SUCCESS,
+	ADD_MESSAGE_TO_LIST_ERROR
 } from "../actions/interaction";
 
 const initialState = {
@@ -71,10 +79,56 @@ export default function interactionReducer(state = initialState, action) {
 			error: action.error,
 			loading: false
 		});
-	} else if (action.type === FETCH_USERS_REQUEST) {
+	} else if (action.type === FETCH_SINGLE_BASE_REQUEST) {
 		return Object.assign({}, state, {
 			loading: true,
 			error: null
+		});
+	} else if (action.type === FETCH_SINGLE_BASE_SUCCESS) {
+		return Object.assign({}, state, {
+			currentBase: {
+				...action.base
+			},
+			loading: false
+		});
+	} else if (action.type === FETCH_SINGLE_BASE_ERROR) {
+		return Object.assign({}, state, {
+			error: action.error,
+			loading: false
+		});
+	} else if (action.type === ADD_USER_TO_LIST_REQUEST) {
+		return Object.assign({}, state, {
+			loading: true,
+			error: null
+		});
+	} else if (action.type === ADD_USER_TO_LIST_SUCCESS) {
+		return Object.assign({}, state, {
+			currentBase: {
+				...action.base,
+				userList: [...action.base.userList]
+			}
+		});
+	} else if (action.type === ADD_USER_TO_LIST_ERROR) {
+		return Object.assign({}, state, {
+			error: action.error,
+			loading: false
+		});
+	} else if (action.type === ADD_MESSAGE_TO_LIST_REQUEST) {
+		return Object.assign({}, state, {
+			loading: true,
+			error: null
+		});
+	} else if (action.type === ADD_MESSAGE_TO_LIST_SUCCESS) {
+		return Object.assign({}, state, {
+			currentBase: {
+				...action.base,
+				messages: [...action.base.messages]
+			}
+		});
+	} else if (action.type === ADD_MESSAGE_TO_LIST_ERROR) {
+		return Object.assign({}, state, {
+			error: action.error,
+			loading: false
 		});
 	}
 	return state;

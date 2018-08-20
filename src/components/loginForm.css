@@ -1,20 +1,20 @@
-form {
-	align-items: 	center;	
-	display: 	flex;	
-	flex-direction: column;	
+.login-form {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
 	margin-top: 5em;
-	width: 	300px;
+	width: 300px;
 }
 
 form > label {
-	margin-bottom: 	.3em;
+	margin-bottom: 0.3em;
 }
 
 form > button {
 	background: #eee;
 	border: 1px solid lightgray;
 	cursor: pointer;
-	padding: 	.5em 2em;
+	padding: 0.5em 2em;
 	outline: none;
 	width: 150px;
 }
@@ -22,7 +22,6 @@ form > button {
 .form-input > input {
 	font-size: 1em;
 	line-height: 1em;
-	padding: 	.2em .5em;
-	margin-bottom: 	1em;
+	padding: 0.2em 0.5em;
+	margin-bottom: 1em;
 }
-

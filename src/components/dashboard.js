@@ -5,12 +5,12 @@ import Sidenav from "./sidenav";
 import DashContent from "./dashcontent";
 import "./dashboard.css";
 
-import { fetchProtectedData } from "../actions/protected-data";
+// import { fetchProtectedData } from "../actions/protected-data";
 
 export class Dashboard extends React.Component {
-  componentDidMount() {
-    // this.props.dispatch(fetchProtectedData());
-  }
+  // componentDidMount() {
+  // this.props.dispatch(fetchProtectedData());
+  // }
 
   render() {
     return (
@@ -29,7 +29,7 @@ const mapStateToProps = state => {
   return {
     username: currentUser.username,
     name: `${currentUser.firstName} ${currentUser.lastName}`,
-    protectedData: state.protectedData.data,
+    protectedData: state.protectedData.data
   };
 };
 

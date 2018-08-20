@@ -1,0 +1,64 @@
+.listChat {
+	display: flex;
+	justify-content: center;
+	margin-top: 3em;
+}
+
+.listChat > aside {
+	background: lightgray;
+	border-radius: 5px;
+	display: flex;
+	flex-direction: column;
+	width: 250px;
+}
+
+.listChat > aside:first-child {
+	margin-right: 2em;
+}
+
+aside > p {
+	margin: 0.5em;
+}
+
+aside > form {
+	width: 100%;
+}
+
+.userlist-ul {
+	flex-direction: column;
+	height: 250px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+.messagelist-ul {
+	flex-direction: column;
+	flex-grow: 1;
+	justify-content: flex-end;
+}
+
+.userlist-ul,
+.messagelist-ul > li {
+	list-style-type: none;
+	padding: 0 0.75em;
+}
+
+.userlist-ul > li:first-child {
+	padding-top: 0.5em;
+}
+
+.userlist-ul > li:last-child {
+	padding-bottom: 0.5em;
+}
+
+.chat {
+	/*align-items: center;*/
+	/*justify-content: flex-end;*/
+}
+
+.chat-messages {
+	background: #fff;
+	flex-grow: 1;
+	height: 100px;
+	width: 98%;
+}

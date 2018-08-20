@@ -51,7 +51,7 @@ export class App extends React.Component {
           <Route exact path="/login" component={LoginPage} />
           <Route exact path="/users" component={Member} />
           <Route exact path="/dashboard" component={Dashboard} />
-          <Route exact path="/addUser/:baseId" component={BasePage} />
+          <Route exact path="/user-message/:baseId" component={BasePage} />
         </main>
       </div>
     );

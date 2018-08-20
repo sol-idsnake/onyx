@@ -25,14 +25,14 @@ export class DashContent extends React.Component {
 				<Link to={`/basepage/${base.title}`}>{base.title}</Link>
 				<p>
 					Current Users:
-					<Link to={`/addUser/${base.id}`}>
-						{base.currentUsers === 0 ? "Add users" : base.currentUsers}
+					<Link to={`/user-message/${base.id}`}>
+						{base.userList.length === 0 ? "Add users" : base.userList.length}
 					</Link>
 				</p>
 				<p>
 					Current Messages:
-					<Link to={`/messages/${base.id}`}>
-						{base.messages === 0 ? "Post a message" : base.messages}
+					<Link to={`/user-message/${base.id}`}>
+						{base.messages === 0 ? "Post a message" : base.messages.length}
 					</Link>
 				</p>
 				<i className="fas fa-times" onClick={() => this.deleteBase(base.id)} />
