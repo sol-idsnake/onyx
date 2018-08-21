@@ -12,14 +12,21 @@ export class BasePage extends React.Component {
 	}
 
 	render() {
-		const users =
-			this.props.currentBase &&
-			this.props.currentBase.userList.length !== undefined
-				? this.props.currentBase.userList.length
-				: 0;
+		// const users =
+		// 	this.props.currentBase &&
+		// 	this.props.currentBase.userList.length !== undefined
+		// 		? this.props.currentBase.userList.length
+		// 		: 0;
+		const title = this.props.currentBase ? (
+			<h2>{this.props.currentBase.title}</h2>
+		) : (
+			<h2>Loading...</h2>
+		);
+
 		return (
 			<div>
-				<h2>You currently have {users} users assigned to this base</h2>
+				{title}
+				<h2>You currently have users assigned to this base</h2>
 				<UserChat />
 			</div>
 		);

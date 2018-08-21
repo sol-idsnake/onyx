@@ -31,6 +31,10 @@
 	opacity: 0.7;
 }
 
+.base > p {
+	margin-bottom: 0;
+}
+
 .baseWrapper > li {
 	height: 200px;
 	width: 300px;

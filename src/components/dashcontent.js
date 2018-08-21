@@ -16,24 +16,23 @@ export class DashContent extends React.Component {
 	}
 
 	deleteBase(id) {
+		// add to also remove all BaseUsers upon delete
 		this.props.dispatch(removeBase(id));
 	}
+	// {base.userList.length === 0 ? "Add users" : base.userList.length}
+	// {base.messages === 0 ? "Post a message" : base.messages.length}
 
 	render() {
 		const baseList = this.props.bases.map(base => (
-			<li key={base.id} className="base">
-				<Link to={`/basepage/${base.title}`}>{base.title}</Link>
+			<li key={base.created} className="base">
+				<Link to={`/user-message/${base.id}`}>{base.title}</Link>
 				<p>
 					Current Users:
-					<Link to={`/user-message/${base.id}`}>
-						{base.userList.length === 0 ? "Add users" : base.userList.length}
-					</Link>
+					<Link to={`/user-message/${base.id}`} />
 				</p>
 				<p>
 					Current Messages:
-					<Link to={`/user-message/${base.id}`}>
-						{base.messages === 0 ? "Post a message" : base.messages.length}
-					</Link>
+					<Link to={`/user-message/${base.id}`} />
 				</p>
 				<i className="fas fa-times" onClick={() => this.deleteBase(base.id)} />
 			</li>

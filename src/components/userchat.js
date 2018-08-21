@@ -21,8 +21,8 @@ export class UserChat extends React.Component {
 
 	render() {
 		// --- Add these for input accessibility
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.input = React.createRef();
+		// this.handleSubmit = this.handleSubmit.bind(this);
+		// this.input = React.createRef();
 		// ---
 
 		let users;
@@ -30,33 +30,33 @@ export class UserChat extends React.Component {
 
 		// this.props.currentBase needs to be fetched fully to display data,
 		// hence the check for it AND the array it contains
-		if (
-			this.props.currentBase &&
-			this.props.currentBase.userList.length === 0
-		) {
-			users = <li>Add some users</li>;
-		} else if (
-			this.props.currentBase &&
-			this.props.currentBase.userList.length !== 0
-		) {
-			users = this.props.currentBase.userList.map((user, index) => {
-				return <li key={user + index}>{user}</li>;
-			});
-		}
+		// if (
+		// 	this.props.currentBase &&
+		// 	this.props.currentBase.userList.length === 0
+		// ) {
+		// 	users = <li>Add some users</li>;
+		// } else if (
+		// 	this.props.currentBase &&
+		// 	this.props.currentBase.userList.length !== 0
+		// ) {
+		// 	users = this.props.currentBase.userList.map((user, index) => {
+		// 		return <li key={user + index}>{user}</li>;
+		// 	});
+		// }
 
-		if (
-			this.props.currentBase &&
-			this.props.currentBase.messages.length === 0
-		) {
-			messages = <li>Start a conversation</li>;
-		} else if (
-			this.props.currentBase &&
-			this.props.currentBase.messages !== 0
-		) {
-			messages = this.props.currentBase.messages.map((message, index) => {
-				return <li key={message + index}>{message}</li>;
-			});
-		}
+		// if (
+		// 	this.props.currentBase &&
+		// 	this.props.currentBase.messages.length === 0
+		// ) {
+		// 	messages = <li>Start a conversation</li>;
+		// } else if (
+		// 	this.props.currentBase &&
+		// 	this.props.currentBase.messages !== 0
+		// ) {
+		// 	messages = this.props.currentBase.messages.map((message, index) => {
+		// 		return <li key={message + index}>{message}</li>;
+		// 	});
+		// }
 
 		return (
 			<div className="listChat">
