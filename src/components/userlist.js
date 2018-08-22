@@ -10,6 +10,20 @@ export class UserChat extends React.Component {
 		this.props.dispatch(fetchUsersOfList());
 	}
 
+	componentDidUpdate(prevProps) {
+		if (this.props.currentUserBase.length === 0) {
+			if (this.props.currentBase !== prevProps.currentBase) {
+				const userName = this.props.currentAuthUser;
+				const baseId = this.props.currentBase.id;
+				const acceptedMembership = true;
+				const isCreator = true;
+				this.props.dispatch(
+					addUserToList(baseId, userName, acceptedMembership, isCreator)
+				);
+			}
+		}
+	}
+
 	handleSubmit(event) {
 		event.preventDefault();
 		const userId = this.userName.value;
@@ -18,15 +32,15 @@ export class UserChat extends React.Component {
 	}
 
 	render() {
-		// this.props.currentBase && console.log(this.props.currentBase.id);
 		// --- Add these for input accessibility
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.input = React.createRef();
 		// ---
 
-		let users;
-		// for (let user of this.props)
-		this.props.currentUserBase && console.log(this.props.currentUserBase);
+		const users = this.props.currentUserBase.map(user => (
+			<li key={user.userId}>{user.userId}</li>
+		));
+
 		return (
 			<div className="listChat">
 				<aside className="userlist">
@@ -50,21 +64,8 @@ export class UserChat extends React.Component {
 const mapStateToProps = state => ({
 	currentBase: state.interaction.currentBase,
 	loading: state.interaction.loading,
-	currentUserBase: state.interaction.currentUserBase
+	currentUserBase: state.interaction.currentUserBase,
+	currentAuthUser: state.auth.currentUser.username
 });
 
 export default requiresLogin()(connect(mapStateToProps)(UserChat));
-
-// <aside className="chat">
-// <p>Chat</p>
-// <ul className="messagelist-ul">{messages}</ul>
-// <form onSubmit={this.handleSubmit} className="messageForm">
-// 	<input
-// 		type="text"
-// 		placeholder="Add a message"
-// 			ref={input => (this.message = input)}
-// 			name="messageForm"
-// 		/>
-// 		<input type="submit" value="Submit" />
-// 	</form>
-// </aside>;

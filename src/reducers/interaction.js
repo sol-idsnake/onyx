@@ -22,7 +22,8 @@ import {
 
 const initialState = {
 	bases: [],
-	// currentUserBase: [],
+	currentUserBase: [],
+	currentBase: {},
 	editing: false,
 	loading: false,
 	error: null
@@ -103,9 +104,9 @@ export default function interactionReducer(state = initialState, action) {
 			loading: false
 		});
 	} else if (action.type === ADD_USER_TO_LIST_SUCCESS) {
-		// return Object.assign({}, state, {
-		// 	currentUserBase: [...action.user, { ...action.user }]
-		// });
+		return Object.assign({}, state, {
+			currentUserBase: [...state.currentUserBase, { ...action.user }]
+		});
 	} else if (action.type === ADD_USER_TO_LIST_ERROR) {
 		return Object.assign({}, state, {
 			error: action.error,
@@ -117,11 +118,11 @@ export default function interactionReducer(state = initialState, action) {
 			loading: false
 		});
 	} else if (action.type === FETCH_USERS_OF_LIST_SUCCESS) {
-		console.log(action);
 		return Object.assign({}, state, {
-			currentUserBase: [...action.user]
+			currentUserBase: [...action.users]
 		});
 	} else if (action.type === FETCH_USERS_OF_LIST_ERROR) {
+		console.log(action);
 		return Object.assign({}, state, {
 			error: action.error,
 			loading: false

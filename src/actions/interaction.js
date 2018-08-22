@@ -72,7 +72,12 @@ export const fetchSingleBase = baseId => dispatch => {
 		.then(error => dispatch(fetchSingleBaseError(error)));
 };
 
-export const addUserToList = (baseId, userName) => dispatch => {
+export const addUserToList = (
+	baseId,
+	userName,
+	acceptedMembership,
+	isCreator
+) => dispatch => {
 	dispatch(addUserToListRequest());
 	fetch(`${API_BASE_URL}/user-message/addUser`, {
 		method: "POST",
@@ -81,10 +86,15 @@ export const addUserToList = (baseId, userName) => dispatch => {
 		},
 		body: JSON.stringify({
 			baseId,
-			userName
+			userName,
+			acceptedMembership,
+			isCreator
 		})
 	})
 		.then(res => {
+			if (!res.ok) {
+				return Promise.reject(res.statusText);
+			}
 			return res.json();
 		})
 		.then(user => dispatch(addUserToListSuccess(user)))
@@ -204,7 +214,7 @@ export const fetchUsersOfListRequest = () => ({
 
 export const FETCH_USERS_OF_LIST_SUCCESS = "FETCH_USERS_OF_LIST_SUCCESS";
 export const fetchUsersOfListSuccess = users => ({
-	typ: FETCH_USERS_OF_LIST_SUCCESS,
+	type: FETCH_USERS_OF_LIST_SUCCESS,
 	users
 });
 
