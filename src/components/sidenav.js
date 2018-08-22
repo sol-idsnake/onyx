@@ -20,14 +20,8 @@ const mapStateToProps = state => {
 	const { currentUser } = state.auth;
 	return {
 		username: state.auth.currentUser.username,
-		name: `${currentUser.firstName} ${currentUser.lastName}`,
-		protectedData: state.protectedData.data
+		name: `${currentUser.firstName} ${currentUser.lastName}`
 	};
 };
 
 export default requiresLogin()(connect(mapStateToProps)(Sidenav));
-
-// <ul className="sidebar-ul">
-// 	<li className="sidebar-li">Create Userbase</li>
-// 	<li className="sidebar-li">View User lists</li>
-// </ul>

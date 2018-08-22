@@ -1,5 +1,4 @@
 import { API_BASE_URL } from "../config";
-// import { add } from "./apis";
 import fetch from "cross-fetch";
 
 export const fetchBases = () => dispatch => {
@@ -17,22 +16,6 @@ export const fetchBases = () => dispatch => {
 		.catch(error => dispatch(fetchBasesError(error)));
 };
 
-export const fetchSingleBase = baseId => dispatch => {
-	dispatch(fetchSingleBaseRequest());
-	fetch(`${API_BASE_URL}/user-message/${baseId}`, {
-		method: "GET",
-		dataType: "json"
-	})
-		.then(res => {
-			if (!res.ok) {
-				return Promise.reject(res.statusText);
-			}
-			return res.json();
-		})
-		.then(base => dispatch(fetchSingleBaseSuccess(base)))
-		.catch(error => dispatch(fetchSingleBaseError(error)));
-};
-
 export const addBaseToDb = (userId, title) => dispatch => {
 	dispatch(addBaseRequest());
 	fetch(`${API_BASE_URL}/baselist/add`, {
@@ -47,11 +30,7 @@ export const addBaseToDb = (userId, title) => dispatch => {
 		})
 	})
 		.then(res => {
-			console.log(res);
 			return res.json();
-		})
-		.catch(error => {
-			console.log("Request failed", error);
 		})
 		.then(base => dispatch(addBaseSuccess(base)))
 		.catch(error => dispatch(addBaseError(error)));
@@ -78,49 +57,53 @@ export const removeBase = id => dispatch => {
 		.catch(error => dispatch(removeBaseError(error)));
 };
 
-export const addUserToList = (baseId, userName) => dispatch => {
-	dispatch(addUserToListRequest());
-	fetch(`${API_BASE_URL}/user-message/${baseId}/user`, {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json"
-			// add auth token
-		},
-		body: JSON.stringify({
-			baseId: baseId,
-			userName: userName
-		})
+export const fetchSingleBase = baseId => dispatch => {
+	dispatch(fetchSingleBaseRequest());
+	fetch(`${API_BASE_URL}/baselist/single/${baseId}`, {
+		method: "GET"
 	})
-		// If .then does not 'return' an object, the next .then statement will get passed 'null', and it breaks
-		// .then(res => console.log(res))
 		.then(res => {
+			if (!res.ok) {
+				return Promise.reject(res.statusText);
+			}
 			return res.json();
 		})
-		.then(base => dispatch(addUserToListSuccess(base)))
-		.catch(error => {
-			console.log("Request failed", error);
-		});
+		.then(base => dispatch(fetchSingleBaseSuccess(base)))
+		.then(error => dispatch(fetchSingleBaseError(error)));
 };
 
-export const addMessageToList = (baseId, message) => dispatch => {
-	dispatch(addMessageToListRequest());
-	fetch(`${API_BASE_URL}/user-message/${baseId}/message`, {
+export const addUserToList = (baseId, userName) => dispatch => {
+	dispatch(addUserToListRequest());
+	fetch(`${API_BASE_URL}/user-message/addUser`, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json"
 		},
 		body: JSON.stringify({
 			baseId,
-			message
+			userName
 		})
 	})
 		.then(res => {
 			return res.json();
 		})
-		.then(message => dispatch(addMessageToListSuccess(message)))
-		.catch(error => {
-			console.log("Request failed", error);
-		});
+		.then(user => dispatch(addUserToListSuccess(user)))
+		.then(error => dispatch(addUserToListError(error)));
+};
+
+export const fetchUsersOfList = () => dispatch => {
+	dispatch(fetchUsersOfListRequest());
+	fetch(`${API_BASE_URL}/user-message/list`, {
+		method: "GET"
+	})
+		.then(res => {
+			if (!res.ok) {
+				return Promise.reject(res.statusText);
+			}
+			return res.json();
+		})
+		.then(users => dispatch(fetchUsersOfListSuccess(users)))
+		.catch(error => dispatch(fetchUsersOfListError(error)));
 };
 
 export const SET_EDITING = "SET_EDITING";
@@ -203,9 +186,9 @@ export const addUserToListRequest = () => ({
 });
 
 export const ADD_USER_TO_LIST_SUCCESS = "ADD_USER_TO_LIST_SUCCESS";
-export const addUserToListSuccess = base => ({
+export const addUserToListSuccess = user => ({
 	type: ADD_USER_TO_LIST_SUCCESS,
-	base
+	user
 });
 
 export const ADD_USER_TO_LIST_ERROR = "ADD_USER_TO_LIST_ERROR";
@@ -214,20 +197,21 @@ export const addUserToListError = error => ({
 	error
 });
 
-export const ADD_MESSAGE_TO_LIST_REQUEST = "ADD_MESSAGE_TO_LIST_REQUEST";
-export const addMessageToListRequest = () => ({
-	type: ADD_MESSAGE_TO_LIST_REQUEST
+export const FETCH_USERS_OF_LIST_REQUEST = "FETCH_USERS_OF_LIST_REQUEST";
+export const fetchUsersOfListRequest = () => ({
+	type: FETCH_USERS_OF_LIST_REQUEST
 });
 
-export const ADD_MESSAGE_TO_LIST_SUCCESS = "ADD_MESSAGE_TO_LIST_SUCCESS";
-export const addMessageToListSuccess = base => ({
-	type: ADD_MESSAGE_TO_LIST_SUCCESS,
-	base
+export const FETCH_USERS_OF_LIST_SUCCESS = "FETCH_USERS_OF_LIST_SUCCESS";
+export const fetchUsersOfListSuccess = users => ({
+	typ: FETCH_USERS_OF_LIST_SUCCESS,
+	users
 });
 
-export const ADD_MESSAGE_TO_LIST_ERROR = "ADD_MESSAGE_TO_LIST_ERROR";
-export const addMessageToListError = error => ({
-	type: ADD_MESSAGE_TO_LIST_ERROR,
+export const FETCH_USERS_OF_LIST_ERROR = "FETCH_USERS_OF_LIST_ERROR";
+export const fetchUsersOfListError = error => ({
+	type: FETCH_USERS_OF_LIST_ERROR,
 	error
 });
+
 //  look up js promises

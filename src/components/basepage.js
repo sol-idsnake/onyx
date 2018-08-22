@@ -3,7 +3,7 @@ import React from "react";
 import { connect } from "react-redux";
 import requiresLogin from "./requires-login";
 import { fetchSingleBase } from "../actions/interaction";
-import UserChat from "./userchat";
+import UserList from "./userlist";
 
 export class BasePage extends React.Component {
 	componentDidMount() {
@@ -12,11 +12,6 @@ export class BasePage extends React.Component {
 	}
 
 	render() {
-		// const users =
-		// 	this.props.currentBase &&
-		// 	this.props.currentBase.userList.length !== undefined
-		// 		? this.props.currentBase.userList.length
-		// 		: 0;
 		const title = this.props.currentBase ? (
 			<h2>{this.props.currentBase.title}</h2>
 		) : (
@@ -27,7 +22,7 @@ export class BasePage extends React.Component {
 			<div>
 				{title}
 				<h2>You currently have users assigned to this base</h2>
-				<UserChat />
+				<UserList />
 			</div>
 		);
 	}

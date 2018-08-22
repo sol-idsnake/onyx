@@ -19,12 +19,10 @@ export class DashContent extends React.Component {
 		// add to also remove all BaseUsers upon delete
 		this.props.dispatch(removeBase(id));
 	}
-	// {base.userList.length === 0 ? "Add users" : base.userList.length}
-	// {base.messages === 0 ? "Post a message" : base.messages.length}
 
 	render() {
 		const baseList = this.props.bases.map(base => (
-			<li key={base.created} className="base">
+			<li key={base.id} className="base">
 				<Link to={`/user-message/${base.id}`}>{base.title}</Link>
 				<p>
 					Current Users:
@@ -55,13 +53,3 @@ const mapStateToProps = state => ({
 });
 
 export default requiresLogin()(connect(mapStateToProps)(DashContent));
-//
-
-// <small>
-// 	Admins in this base: {base.admins !== null ? base.admins : 0}
-// </small>
-// <small>
-// 	Messages in this base: {base.messages !== null ? base.messages : 0}
-// </small>
-
-// <small>Users in this base: {users !== null ? base.users : 0}</small>
