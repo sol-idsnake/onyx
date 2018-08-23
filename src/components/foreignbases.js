@@ -13,28 +13,24 @@ export class ForeignBases extends React.Component {
 
 	render() {
 		let toAccept;
-		// console.log(this.props.email);
-		// console.log(this.props.userBases);
-		// for (let i = 0; i < this.props.userBases.length; i++) {}
 
-		for (let base of this.props.userBases) {
-			if (this.props.email === base.userId) {
-				if (base.acceptedMembership === false) {
-					toAccept = (
-						<li>
-							<p>You have been invited to join this base.</p>
-							<input
-								type="button"
-								value="Accept"
-								onClick={() => this.onClick(true)}
-							/>
-						</li>
-					);
-				}
-			}
-		}
+		// for (let base of this.props.userBases) {
+		// 	if (this.props.userBases && this.props.email === base.userId) {
+		// 		if (base.acceptedMembership === false) {
+		// 			toAccept = (
+		// 				<li className="acceptanceLi">
+		// 					<p>You have been invited to join this base.</p>
+		// 					<input
+		// 						type="button"
+		// 						value="Accept"
+		// 						onClick={() => this.onClick(true)}
+		// 					/>
+		// 				</li>
+		// 			);
+		// 		}
+		// 	}
+		// }
 
-		// console.log(this.props);
 		return (
 			<div className="foreignBases">
 				<p>Bases I am part of:</p>

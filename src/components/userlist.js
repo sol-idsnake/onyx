@@ -6,21 +6,23 @@ import { addUserToList, fetchUsersOfList } from "../actions/interaction";
 import "./userlist.css";
 
 export class UserChat extends React.Component {
-	componentDidMount() {}
-
-	componentDidUpdate(prevProps) {
-		if (this.props.userBases.length === 0) {
-			if (this.props.currentBase !== prevProps.currentBase) {
-				const userName = this.props.currentAuthUser;
-				const baseId = this.props.currentBase.id;
-				const acceptedMembership = true;
-				const isCreator = true;
-				this.props.dispatch(
-					addUserToList(baseId, userName, acceptedMembership, isCreator)
-				);
-			}
-		}
+	componentDidMount() {
+		this.props.dispatch(fetchUsersOfList());
 	}
+
+	// componentDidUpdate(prevProps) {
+	// 	if (this.props.currentBase !== prevProps.currentBase) {
+	// 		if (this.props.userBases.length === 0) {
+	// 			const userName = this.props.currentAuthUser;
+	// 			const baseId = this.props.currentBase.id;
+	// 			const acceptedMembership = true;
+	// 			const isCreator = true;
+	// 			this.props.dispatch(
+	// 				addUserToList(baseId, userName, acceptedMembership, isCreator)
+	// 			);
+	// 		}
+	// 	}
+	// }
 
 	handleSubmit(event) {
 		event.preventDefault();
@@ -30,9 +32,15 @@ export class UserChat extends React.Component {
 	}
 
 	render() {
-		console.log(this.props.currentAuthUser);
-		console.log(this.props.currentBase.id);
-		console.log(this.props.currentBase.id);
+		if (this.props.userBases && this.props.userBases.length === 0) {
+			const userName = this.props.currentAuthUser;
+			const baseId = this.props.currentBase.id;
+			const acceptedMembership = true;
+			const isCreator = true;
+			// this.props.dispatch(
+			// 	addUserToList(baseId, userName, acceptedMembership, isCreator)
+			// );
+		}
 
 		// --- Add these for input accessibility
 		this.handleSubmit = this.handleSubmit.bind(this);

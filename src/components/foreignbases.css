@@ -1,3 +1,14 @@
 .foreignBases {
 	flex-basis: 100%;
 }
+
+.acceptanceUl {
+	flex-direction: column;
+}
+
+.acceptanceLi {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	list-style-type: none;
+}
