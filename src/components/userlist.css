@@ -4,7 +4,9 @@
 	margin-top: 3em;
 }
 
-.listChat > aside {
+aside {
+	justify-content: center;
+	margin-top: 3em;
 	background: lightgray;
 	border-radius: 5px;
 	display: flex;
@@ -51,14 +53,15 @@ aside > form {
 	padding-bottom: 0.5em;
 }
 
-.chat {
-	/*align-items: center;*/
-	/*justify-content: flex-end;*/
+.user-list-entry {
+	align-items: center;
+	display: flex;
 }
 
-.chat-messages {
-	background: #fff;
-	flex-grow: 1;
-	height: 100px;
-	width: 98%;
+.user-list-entry:hover {
+	text-decoration: underline;
+}
+
+.user-list-entry > p {
+	margin-right: auto;
 }

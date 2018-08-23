@@ -1,9 +1,9 @@
 import { API_BASE_URL } from "../config";
 import fetch from "cross-fetch";
 
-export const fetchBases = () => dispatch => {
+export const fetchBases = userId => dispatch => {
 	dispatch(fetchBasesRequest());
-	fetch(`${API_BASE_URL}/baselist/list`, {
+	fetch(`${API_BASE_URL}/baselist/list/${userId}`, {
 		method: "GET"
 	})
 		.then(res => {
@@ -25,8 +25,8 @@ export const addBaseToDb = (userId, title) => dispatch => {
 			// add auth token
 		},
 		body: JSON.stringify({
-			userId: userId,
-			title: title
+			userId,
+			title
 		})
 	})
 		.then(res => {
@@ -44,7 +44,7 @@ export const removeBase = id => dispatch => {
 			"Content-Type": "application/json"
 		},
 		body: JSON.stringify({
-			id: id
+			id
 		})
 	})
 		.then(res => {
@@ -113,6 +113,25 @@ export const fetchUsersOfList = () => dispatch => {
 			return res.json();
 		})
 		.then(users => dispatch(fetchUsersOfListSuccess(users)))
+		.catch(error => dispatch(fetchUsersOfListError(error)));
+};
+
+export const modifier = (bool, target, email) => dispatch => {
+	dispatch(modifyValueRequest());
+	fetch(`${API_BASE_URL}/user-message/modify`, {
+		method: "PUT",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify({ bool, target, email })
+	})
+		.then(res => {
+			if (!res.ok) {
+				return Promise.reject(res.statusText);
+			}
+			return res.json();
+		})
+		.then(baseUser => dispatch(modifyValueSuccess(baseUser)))
 		.catch(error => dispatch(fetchUsersOfListError(error)));
 };
 
@@ -221,6 +240,23 @@ export const fetchUsersOfListSuccess = users => ({
 export const FETCH_USERS_OF_LIST_ERROR = "FETCH_USERS_OF_LIST_ERROR";
 export const fetchUsersOfListError = error => ({
 	type: FETCH_USERS_OF_LIST_ERROR,
+	error
+});
+
+export const MODIFY_VALUE_REQUEST = "MODIFY_VALUE_REQUEST";
+export const modifyValueRequest = () => ({
+	type: MODIFY_VALUE_REQUEST
+});
+
+export const MODIFY_VALUE_SUCCESS = "MODIFY_VALUE_SUCCESS";
+export const modifyValueSuccess = baseUser => ({
+	type: MODIFY_VALUE_SUCCESS,
+	baseUser
+});
+
+export const MODIFY_VALUE_ERROR = "MODIFY_VALUE_ERROR";
+export const modifyValueError = error => ({
+	type: MODIFY_VALUE_ERROR,
 	error
 });
 

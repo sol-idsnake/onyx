@@ -2,13 +2,21 @@ import React from "react";
 import { connect } from "react-redux";
 import requiresLogin from "./requires-login";
 import AddBase from "./addbase";
+import ForeignBases from "./foreignbases";
 import "./dashcontent.css";
 import { Link } from "react-router-dom";
-import { fetchBases, addBaseToDb, removeBase } from "../actions/interaction";
+import {
+	fetchBases,
+	addBaseToDb,
+	removeBase,
+	fetchUsersOfList
+} from "../actions/interaction";
 
 export class DashContent extends React.Component {
 	componentDidMount() {
-		this.props.dispatch(fetchBases());
+		const userId = this.props.userId;
+		this.props.dispatch(fetchBases(userId));
+		this.props.dispatch(fetchUsersOfList());
 	}
 
 	addBase(title) {
@@ -38,10 +46,12 @@ export class DashContent extends React.Component {
 
 		return (
 			<ul className="baseWrapper">
+				<p>My Bases:</p>
 				<li className="base add-list-wrapper">
 					<AddBase type="base" onAdd={title => this.addBase(title)} />
 				</li>
 				{baseList}
+				<ForeignBases />
 			</ul>
 		);
 	}

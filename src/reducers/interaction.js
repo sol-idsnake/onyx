@@ -17,12 +17,15 @@ import {
 	ADD_USER_TO_LIST_ERROR,
 	FETCH_USERS_OF_LIST_REQUEST,
 	FETCH_USERS_OF_LIST_SUCCESS,
-	FETCH_USERS_OF_LIST_ERROR
+	FETCH_USERS_OF_LIST_ERROR,
+	MODIFY_VALUE_REQUEST,
+	MODIFY_VALUE_SUCCESS,
+	MODIFY_VALUE_ERROR
 } from "../actions/interaction";
 
 const initialState = {
 	bases: [],
-	currentUserBase: [],
+	userBases: [],
 	currentBase: {},
 	editing: false,
 	loading: false,
@@ -105,7 +108,7 @@ export default function interactionReducer(state = initialState, action) {
 		});
 	} else if (action.type === ADD_USER_TO_LIST_SUCCESS) {
 		return Object.assign({}, state, {
-			currentUserBase: [...state.currentUserBase, { ...action.user }]
+			userBases: [...state.userBases, { ...action.user }]
 		});
 	} else if (action.type === ADD_USER_TO_LIST_ERROR) {
 		return Object.assign({}, state, {
@@ -119,10 +122,29 @@ export default function interactionReducer(state = initialState, action) {
 		});
 	} else if (action.type === FETCH_USERS_OF_LIST_SUCCESS) {
 		return Object.assign({}, state, {
-			currentUserBase: [...action.users]
+			userBases: [...action.users]
 		});
 	} else if (action.type === FETCH_USERS_OF_LIST_ERROR) {
-		console.log(action);
+		return Object.assign({}, state, {
+			error: action.error,
+			loading: false
+		});
+	} else if (action.type === MODIFY_VALUE_REQUEST) {
+		return Object.assign({}, state, {
+			error: action.error,
+			loading: false
+		});
+	} else if (action.type === MODIFY_VALUE_SUCCESS) {
+		const newState = state.userBases.map(
+			baseUser =>
+				baseUser.userId === action.baseUser.userId
+					? { ...action.baseUser }
+					: baseUser
+		);
+		return Object.assign({}, state, {
+			userBases: newState
+		});
+	} else if (action.type === MODIFY_VALUE_ERROR) {
 		return Object.assign({}, state, {
 			error: action.error,
 			loading: false
