@@ -15,8 +15,7 @@ import {
 export class DashContent extends React.Component {
 	componentDidMount() {
 		const userId = this.props.userId;
-		this.props.dispatch(fetchBases(userId));
-		this.props.dispatch(fetchUsersOfList());
+		this.props.dispatch(fetchBases());
 	}
 
 	addBase(title) {
@@ -29,7 +28,14 @@ export class DashContent extends React.Component {
 	}
 
 	render() {
-		const baseList = this.props.bases.map(base => (
+		let baseList = [];
+		for (let key of this.props.bases) {
+			if (key.creatorId === this.props.userId) {
+				baseList.push(key);
+			}
+		}
+
+		const baseMap = baseList.map(base => (
 			<li key={base.id} className="base">
 				<Link to={`/user-message/${base.id}`}>{base.title}</Link>
 				<p>
@@ -40,7 +46,9 @@ export class DashContent extends React.Component {
 					Current Messages:
 					<Link to={`/user-message/${base.id}`} />
 				</p>
-				<i className="fas fa-times" onClick={() => this.deleteBase(base.id)} />
+				<span className="fas fa-times" onClick={() => this.deleteBase(base.id)}>
+					X
+				</span>
 			</li>
 		));
 
@@ -50,7 +58,8 @@ export class DashContent extends React.Component {
 				<li className="base add-list-wrapper">
 					<AddBase type="base" onAdd={title => this.addBase(title)} />
 				</li>
-				{baseList}
+				{baseMap}
+				<p>Bases I was added to:</p>
 				<ForeignBases />
 			</ul>
 		);

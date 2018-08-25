@@ -12,3 +12,26 @@
 	align-items: center;
 	list-style-type: none;
 }
+
+.foreignLi {
+	background: #eee;
+	border-radius: 0.3em;
+	display: flex;
+	flex-direction: column;
+	height: 100px;
+	list-style-type: none;
+	margin: 0 0 1em 1em;
+	padding: 0.5em;
+	position: relative;
+	width: 300px;
+}
+
+.foreignLi > i {
+	position: absolute;
+	right: 0.3em;
+	opacity: 0.4;
+}
+
+.foreignLi > i:hover {
+	opacity: 0.7;
+}

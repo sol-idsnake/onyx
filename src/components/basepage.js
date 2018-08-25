@@ -22,7 +22,7 @@ export class BasePage extends React.Component {
 			<div>
 				{title}
 				<h2>You currently have users assigned to this base</h2>
-				<UserList />
+				<UserList baseId={this.props.match.params.baseId} />
 			</div>
 		);
 	}

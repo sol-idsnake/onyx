@@ -1,9 +1,9 @@
 import { API_BASE_URL } from "../config";
 import fetch from "cross-fetch";
 
-export const fetchBases = userId => dispatch => {
+export const fetchBases = () => dispatch => {
 	dispatch(fetchBasesRequest());
-	fetch(`${API_BASE_URL}/baselist/list/${userId}`, {
+	fetch(`${API_BASE_URL}/baselist/list/`, {
 		method: "GET"
 	})
 		.then(res => {
@@ -15,6 +15,25 @@ export const fetchBases = userId => dispatch => {
 		.then(bases => dispatch(fetchBasesSuccess(bases)))
 		.catch(error => dispatch(fetchBasesError(error)));
 };
+
+// export const fetchForeignBases = id => dispatch => {
+// 	dispatch(fetchForeignBasesRequest());
+// 	console.log("trigger");
+// 	fetch(`${API_BASE_URL}/baselist/foreignBases/${id}`, {
+// 		method: "GET"
+// 	})
+// 		.then(res => {
+// 			if (!res.ok) {
+// 				return Promise.reject(res.statusText);
+// 			}
+// 			return res.json();
+// 		})
+// 		.then(bases => {
+// 			console.log(bases);
+// 			return dispatch(fetchForeignBasesSuccess(bases));
+// 		})
+// 		.catch(error => dispatch(fetchForeignBasesError(error)));
+// };
 
 export const addBaseToDb = (userId, title) => dispatch => {
 	dispatch(addBaseRequest());
@@ -101,9 +120,10 @@ export const addUserToList = (
 		.then(error => dispatch(addUserToListError(error)));
 };
 
-export const fetchUsersOfList = () => dispatch => {
+export const fetchUsersOfList = baseId => dispatch => {
+	console.log(baseId);
 	dispatch(fetchUsersOfListRequest());
-	fetch(`${API_BASE_URL}/user-message/list`, {
+	fetch(`${API_BASE_URL}/user-message/list/${baseId}`, {
 		method: "GET"
 	})
 		.then(res => {
@@ -132,7 +152,7 @@ export const modifier = (bool, target, email) => dispatch => {
 			return res.json();
 		})
 		.then(baseUser => dispatch(modifyValueSuccess(baseUser)))
-		.catch(error => dispatch(fetchUsersOfListError(error)));
+		.catch(error => dispatch(modifyValueError(error)));
 };
 
 export const SET_EDITING = "SET_EDITING";
@@ -155,6 +175,23 @@ export const addBaseSuccess = base => ({
 export const ADD_BASE_ERROR = "ADD_BASE_ERROR";
 export const addBaseError = error => ({
 	type: ADD_BASE_ERROR,
+	error
+});
+
+export const FETCH_FOREIGN_BASES_REQUEST = "FETCH_FOREIGN_BASES_REQUEST";
+export const fetchForeignBasesRequest = () => ({
+	type: FETCH_FOREIGN_BASES_REQUEST
+});
+
+export const FETCH_FOREIGN_BASES_SUCCESS = "FETCH_FOREIGN_BASES_SUCCESS";
+export const fetchForeignBasesSuccess = foreignBases => ({
+	type: FETCH_FOREIGN_BASES_SUCCESS,
+	foreignBases
+});
+
+export const FETCH_FOREIGN_BASES_ERROR = "FETCH_FOREIGN_BASES_ERROR";
+export const fetchForeignBasesError = error => ({
+	type: FETCH_FOREIGN_BASES_ERROR,
 	error
 });
 

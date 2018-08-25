@@ -20,7 +20,10 @@ import {
 	FETCH_USERS_OF_LIST_ERROR,
 	MODIFY_VALUE_REQUEST,
 	MODIFY_VALUE_SUCCESS,
-	MODIFY_VALUE_ERROR
+	MODIFY_VALUE_ERROR,
+	FETCH_FOREIGN_BASES_REQUEST,
+	FETCH_FOREIGN_BASES_SUCCESS,
+	FETCH_FOREIGN_BASES_ERROR
 } from "../actions/interaction";
 
 const initialState = {
@@ -49,7 +52,25 @@ export default function interactionReducer(state = initialState, action) {
 			error: action.error,
 			loading: false
 		});
-	} else if (action.type === SET_EDITING) {
+	}
+	//  else if (action.type === FETCH_FOREIGN_BASES_REQUEST) {
+	// 	return Object.assign({}, state, {
+	// 		loading: true,
+	// 		error: null
+	// 	});
+	// }
+	// else if ((action.type = FETCH_FOREIGN_BASES_SUCCESS)) {
+	// 	console.log(action);
+	// 	// return Object.assign({}, state, {
+	// 	// foreignBases: [{ ...action.bases }]
+	// 	// });
+	// } else if ((action.type = FETCH_FOREIGN_BASES_ERROR)) {
+	// 	return Object.assign({}, state, {
+	// 		error: action.error,
+	// 		loading: false
+	// 	});
+	// }
+	else if (action.type === SET_EDITING) {
 		return Object.assign({}, state, {
 			editing: action.editing
 		});
