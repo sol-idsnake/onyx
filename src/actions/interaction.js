@@ -16,25 +16,6 @@ export const fetchBases = () => dispatch => {
 		.catch(error => dispatch(fetchBasesError(error)));
 };
 
-// export const fetchForeignBases = id => dispatch => {
-// 	dispatch(fetchForeignBasesRequest());
-// 	console.log("trigger");
-// 	fetch(`${API_BASE_URL}/baselist/foreignBases/${id}`, {
-// 		method: "GET"
-// 	})
-// 		.then(res => {
-// 			if (!res.ok) {
-// 				return Promise.reject(res.statusText);
-// 			}
-// 			return res.json();
-// 		})
-// 		.then(bases => {
-// 			console.log(bases);
-// 			return dispatch(fetchForeignBasesSuccess(bases));
-// 		})
-// 		.catch(error => dispatch(fetchForeignBasesError(error)));
-// };
-
 export const addBaseToDb = (userId, title) => dispatch => {
 	dispatch(addBaseRequest());
 	fetch(`${API_BASE_URL}/baselist/add`, {
@@ -120,10 +101,9 @@ export const addUserToList = (
 		.then(error => dispatch(addUserToListError(error)));
 };
 
-export const fetchUsersOfList = baseId => dispatch => {
-	console.log(baseId);
+export const fetchUsersOfList = userId => dispatch => {
 	dispatch(fetchUsersOfListRequest());
-	fetch(`${API_BASE_URL}/user-message/list/${baseId}`, {
+	fetch(`${API_BASE_URL}/user-message/byusername/${userId}`, {
 		method: "GET"
 	})
 		.then(res => {
@@ -134,6 +114,25 @@ export const fetchUsersOfList = baseId => dispatch => {
 		})
 		.then(users => dispatch(fetchUsersOfListSuccess(users)))
 		.catch(error => dispatch(fetchUsersOfListError(error)));
+};
+
+export const fetchBasesByUsername = userId => dispatch => {
+	dispatch(fetchBasesByUsernameRequest());
+	fetch(`${API_BASE_URL}/user-message/list/${userId}`, {
+		method: "GET"
+	})
+		.then(res => {
+			if (!res.ok) {
+				return Promise.reject(res.statusText);
+			}
+			console.log(res);
+			// return res.json();
+		})
+		.then(bases => console.log(bases))
+		.then(bases => dispatch(fetchBasesByUsernameSuccess(bases)))
+		.catch(error => dispatch(fetchBasesByUsernameError(error)));
+
+	fetch();
 };
 
 export const modifier = (bool, target, email) => dispatch => {
@@ -294,6 +293,33 @@ export const modifyValueSuccess = baseUser => ({
 export const MODIFY_VALUE_ERROR = "MODIFY_VALUE_ERROR";
 export const modifyValueError = error => ({
 	type: MODIFY_VALUE_ERROR,
+	error
+});
+
+export const FETCH_BASES_BY_USERNAME_REQUEST =
+	"FETCH_BASES_BY_USERNAME_REQUEST";
+export const fetchBasesByUsernameRequest = () => ({
+	type: FETCH_BASES_BY_USERNAME_REQUEST
+});
+
+export const FETCH_BASES_BY_USERNAME_SUCCESS =
+	"FETCH_BASES_BY_USERNAME_SUCCESS";
+// export const fetchBasesByUsernameSuccess = foreignBases => ({
+// 	type: FETCH_BASES_BY_USERNAME_SUCCESS,
+// 	foreignBases
+// });
+
+export function fetchBasesByUsernameSuccess(foreignBases) {
+	console.log(foreignBases);
+	return {
+		type: FETCH_BASES_BY_USERNAME_SUCCESS,
+		foreignBases
+	};
+}
+
+export const FETCH_BASES_BY_USERNAME_ERROR = "FETCH_BASES_BY_USERNAME_ERROR";
+export const fetchBasesByUsernameError = error => ({
+	type: FETCH_BASES_BY_USERNAME_ERROR,
 	error
 });
 

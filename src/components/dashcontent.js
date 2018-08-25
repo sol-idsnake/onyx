@@ -15,7 +15,7 @@ import {
 export class DashContent extends React.Component {
 	componentDidMount() {
 		const userId = this.props.userId;
-		this.props.dispatch(fetchBases());
+		this.props.dispatch(fetchBases(userId));
 	}
 
 	addBase(title) {
@@ -46,9 +46,7 @@ export class DashContent extends React.Component {
 					Current Messages:
 					<Link to={`/user-message/${base.id}`} />
 				</p>
-				<span className="fas fa-times" onClick={() => this.deleteBase(base.id)}>
-					X
-				</span>
+				<i className="fas fa-times" onClick={() => this.deleteBase(base.id)} />
 			</li>
 		));
 

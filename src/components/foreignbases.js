@@ -2,17 +2,12 @@ import React from "react";
 import "./foreignbases.css";
 import { connect } from "react-redux";
 import requiresLogin from "./requires-login";
-import {
-	modifier,
-	fetchUsersOfList,
-	fetchForeignBases
-} from "../actions/interaction";
+import { modifier, fetchUsersOfList } from "../actions/interaction";
 import { Link } from "react-router-dom";
 
 export class ForeignBases extends React.Component {
 	componentDidMount() {
-		let baseId = "generic";
-		this.props.dispatch(fetchUsersOfList(baseId));
+		this.props.dispatch(fetchUsersOfList(this.props.currentUser.username));
 	}
 
 	onClick(bool) {
@@ -21,49 +16,48 @@ export class ForeignBases extends React.Component {
 	}
 
 	render() {
-		let foreignBases = [];
-		let acceptanceBases = [];
-		for (let key of this.props.userBases) {
-			if (key.userId === this.props.email && key.acceptedMembership === true) {
-				foreignBases.push(key);
-			} else if (
-				key.userId === this.props.email &&
-				key.acceptedMembership === false
-			) {
-				acceptanceBases.push(key);
-			}
-		}
-		let foreignbases = foreignBases.map(base => (
-			<li key={base.created} className="foreignLi">
-				<Link to={`/user-message/${base.baseId}`}>{base.baseId}</Link>
-				<i className="fas fa-times" onClick={() => this.deleteBase(base.id)} />
-			</li>
-		));
+		console.log(this.props.foreignBases);
 
-		let acceptancebases = acceptanceBases.map(base => (
-			<li key={base.created} className="acceptanceLi">
-				<p>You have been invited to join this base: </p>
-				<input
-					type="button"
-					value="Accept"
-					onClick={() => this.onClick(true)}
-				/>
-			</li>
-		));
+		// let foreignBases = [];
+		// let acceptanceBases = [];
+		// for (let key of this.props.userBases) {
+		// 	if (key.userId === this.props.email && key.acceptedMembership === true) {
+		// 		foreignBases.push(key);
+		// 	} else if (
+		// 		key.userId === this.props.email &&
+		// 		key.acceptedMembership === false
+		// 	) {
+		// 		acceptanceBases.push(key);
+		// 	}
+		// }
+		// let foreignbases = foreignBases.map(base => (
+		// 	<li key={base.created} className="foreignLi">
+		// 		<Link to={`/user-message/${base.baseId}`}>{base.baseId}</Link>
+		// 		<i className="fas fa-times" onClick={() => this.deleteBase(base.id)} />
+		// 	</li>
+		// ));
 
-		return (
-			<div className="foreignBases">
-				{acceptancebases}
-				{foreignbases}
-			</div>
-		);
+		// let acceptancebases = acceptanceBases.map(base => (
+		// 	<li key={base.created} className="acceptanceLi">
+		// 		<p>You have been invited to join this base: </p>
+		// 		<input
+		// 			type="button"
+		// 			value="Accept"
+		// 			onClick={() => this.onClick(true)}
+		// 		/>
+		// 	</li>
+		// ));
+
+		// {acceptancebases}
+		// {foreignbases}
+		return <div className="foreignBases" />;
 	}
 }
 
 const mapStateToProps = state => ({
-	email: state.auth.currentUser.email,
+	currentUser: state.auth.currentUser,
 	bases: state.interaction.bases,
-	userBases: state.interaction.userBases
+	foreignBases: state.interaction.foreignBases
 });
 
 export default requiresLogin()(connect(mapStateToProps)(ForeignBases));
