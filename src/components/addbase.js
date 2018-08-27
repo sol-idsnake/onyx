@@ -19,7 +19,8 @@ export class AddBase extends React.Component {
 			return (
 				<div
 					className="add-button"
-					onClick={() => this.props.dispatch(setEditing(true))}>
+					onClick={() => this.props.dispatch(setEditing(true))}
+				>
 					<a href="#">
 						{text}
 						...
@@ -27,7 +28,6 @@ export class AddBase extends React.Component {
 				</div>
 			);
 		}
-
 		const label = `Enter a ${this.props.type}`;
 		return (
 			<form className="add-form" onSubmit={e => this.onSubmit(e)}>
@@ -39,7 +39,8 @@ export class AddBase extends React.Component {
 				<button>Add</button>
 				<button
 					type="button"
-					onClick={() => this.props.dispatch(setEditing(false))}>
+					onClick={() => this.props.dispatch(setEditing(false))}
+				>
 					Cancel
 				</button>
 			</form>
@@ -49,7 +50,7 @@ export class AddBase extends React.Component {
 
 const mapStateToProps = state => {
 	return {
-		editing: state.interaction.editing,
+		editing: state.interaction.editing
 	};
 };
 

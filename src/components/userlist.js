@@ -7,7 +7,8 @@ import "./userlist.css";
 
 export class UserChat extends React.Component {
 	componentDidMount() {
-		this.props.dispatch(fetchUsersOfList(this.props.baseId));
+		console.log(this.props.baseId);
+		// this.props.dispatch(fetchUsersOfList(this.props.baseId));
 	}
 
 	componentDidUpdate(prevProps) {
@@ -19,9 +20,9 @@ export class UserChat extends React.Component {
 			const userName = this.props.currentAuthUser;
 			const acceptedMembership = true;
 			const isCreator = true;
-			this.props.dispatch(
-				addUserToList(baseId, userName, acceptedMembership, isCreator)
-			);
+			// this.props.dispatch(
+			// addUserToList(baseId, userName, acceptedMembership, isCreator)
+			// );
 		}
 	}
 
@@ -29,7 +30,7 @@ export class UserChat extends React.Component {
 		event.preventDefault();
 		const userId = this.userName.value;
 		const baseId = this.props.currentBase.id;
-		this.props.dispatch(addUserToList(baseId, userId));
+		// this.props.dispatch(addUserToList(baseId, userId));
 	}
 
 	render() {
@@ -64,10 +65,10 @@ export class UserChat extends React.Component {
 }
 
 const mapStateToProps = state => ({
-	currentBase: state.interaction.currentBase,
-	loading: state.interaction.loading,
-	userBases: state.interaction.userBases,
-	currentAuthUser: state.auth.currentUser.username
+	// currentBase: state.interaction.currentBase,
+	// loading: state.interaction.loading,
+	// userBases: state.interaction.userBases,
+	// currentAuthUser: state.auth.currentUser.username
 });
 
-export default requiresLogin()(connect(mapStateToProps)(UserChat));
+export default requiresLogin()(connect()(UserChat));

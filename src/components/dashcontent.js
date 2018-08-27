@@ -6,16 +6,15 @@ import ForeignBases from "./foreignbases";
 import "./dashcontent.css";
 import { Link } from "react-router-dom";
 import {
-	fetchBases,
+	fetchBasesByCreatorId,
 	addBaseToDb,
-	removeBase,
-	fetchUsersOfList
+	removeBase
 } from "../actions/interaction";
 
 export class DashContent extends React.Component {
 	componentDidMount() {
-		const userId = this.props.userId;
-		this.props.dispatch(fetchBases(userId));
+		const creatorId = this.props.userId;
+		this.props.dispatch(fetchBasesByCreatorId(creatorId));
 	}
 
 	addBase(title) {
@@ -28,14 +27,7 @@ export class DashContent extends React.Component {
 	}
 
 	render() {
-		let baseList = [];
-		for (let key of this.props.bases) {
-			if (key.creatorId === this.props.userId) {
-				baseList.push(key);
-			}
-		}
-
-		const baseMap = baseList.map(base => (
+		const baseList = this.props.bases.map(base => (
 			<li key={base.id} className="base">
 				<Link to={`/user-message/${base.id}`}>{base.title}</Link>
 				<p>
@@ -56,7 +48,7 @@ export class DashContent extends React.Component {
 				<li className="base add-list-wrapper">
 					<AddBase type="base" onAdd={title => this.addBase(title)} />
 				</li>
-				{baseMap}
+				{baseList}
 				<p>Bases I was added to:</p>
 				<ForeignBases />
 			</ul>
