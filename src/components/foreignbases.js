@@ -20,20 +20,22 @@ export class ForeignBases extends React.Component {
 	}
 
 	render() {
-		this.props.foreignBases &&
-			this.props.foreignBases.map(base => console.log(base));
+		let acceptedBaseList = [];
+		let toBeAcceptedBaseList = [];
 
-		if (this.props.foreignBases) {
-			for (let base of this.props.foreignBases) {
-				if (base.id !== this.props.currentUser.userId) {
-					console.log(base.id);
-					console.log(this.props.currentUser.userId);
-					console.log(base);
-				}
-			}
-		}
+		// if (this.props.foreignBases) {
+		// 	for (let base of this.props.foreignBases) {
+		// 		if (base.acceptedMembership) {
+		// 			// acceptedBaseList.push(base);
+		// 			console.log(base);
+		// 		} else {
+		// 			toBeAcceptedBaseList.push(base);
+		// 		}
+		// 	}
+		// }
+		// console.log(acceptedBaseList, toBeAcceptedBaseList);
 
-		// let baseList = this.props.foreignBases.map(base => (
+		// = this.props.foreignBases.map(base => (
 		// 	<li key={base.id} className="base">
 		// 		<Link to={`/user-message/${base.id}`}>{base.title}</Link>
 		// 		<p>

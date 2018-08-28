@@ -1,36 +1,40 @@
 import React from "react";
 import { connect } from "react-redux";
 import requiresLogin from "./requires-login";
-import { addUserToList, fetchUsersOfList } from "../actions/interaction";
+import { addUserToList, deleteUserFromBase } from "../actions/interaction";
 
 import "./userlist.css";
 
 export class UserChat extends React.Component {
 	componentDidMount() {
-		console.log(this.props.baseId);
 		// this.props.dispatch(fetchUsersOfList(this.props.baseId));
 	}
 
-	componentDidUpdate(prevProps) {
-		if (
-			this.props.userBases !== prevProps.userBases &&
-			this.props.userBases.length === 0
-		) {
-			const baseId = this.props.baseId;
-			const userName = this.props.currentAuthUser;
-			const acceptedMembership = true;
-			const isCreator = true;
-			// this.props.dispatch(
-			// addUserToList(baseId, userName, acceptedMembership, isCreator)
-			// );
-		}
-	}
+	// componentDidUpdate(prevProps) {
+	// 	if (
+	// 		this.props.userBases !== prevProps.userBases &&
+	// 		this.props.userBases.length === 0
+	// 	) {
+	// 		const baseId = this.props.baseId;
+	// 		const userName = this.props.currentAuthUser;
+	// 		const acceptedMembership = true;
+	// 		const isCreator = true;
+	// 		// this.props.dispatch(
+	// 		// addUserToList(baseId, userName, acceptedMembership, isCreator)
+	// 		// );
+	// 	}
+	// }
 
 	handleSubmit(event) {
 		event.preventDefault();
 		const userId = this.userName.value;
-		const baseId = this.props.currentBase.id;
-		// this.props.dispatch(addUserToList(baseId, userId));
+		const baseId = this.props.baseId;
+		this.props.dispatch(addUserToList(baseId, userId));
+	}
+
+	deleteUser(event) {
+		const timeStamp = event.target.id;
+		this.props.dispatch(deleteUserFromBase(timeStamp));
 	}
 
 	render() {
@@ -39,12 +43,29 @@ export class UserChat extends React.Component {
 		this.input = React.createRef();
 		// ---
 
-		const users = this.props.userBases.map(user => (
-			<li key={user.created} className="user-list-entry">
-				<p>{user.userId}</p>
-				<i className="fas fa-times" />
-			</li>
-		));
+		let users;
+		if (
+			this.props.currentBase.users &&
+			this.props.currentBase.users.length === 0
+		) {
+			const myId = this.props.currentAuthUser;
+			this.props.dispatch(addUserToList(this.props.baseId, myId));
+		} else if (this.props.currentBase.users) {
+			users = this.props.currentBase.users.map(user => (
+				<li
+					key={user.created}
+					className="user-list-entry"
+					ref={li => (this.userLi = li)}
+				>
+					<p>{user.userId}</p>
+					<i
+						className="fas fa-times"
+						id={user.created}
+						onClick={event => this.deleteUser(event)}
+					/>
+				</li>
+			));
+		}
 
 		return (
 			<aside className="userlist">
@@ -65,10 +86,10 @@ export class UserChat extends React.Component {
 }
 
 const mapStateToProps = state => ({
-	// currentBase: state.interaction.currentBase,
+	currentBase: state.interaction.currentBase,
 	// loading: state.interaction.loading,
-	// userBases: state.interaction.userBases,
-	// currentAuthUser: state.auth.currentUser.username
+	// userBases: state.interaction.userBases
+	currentAuthUser: state.auth.currentUser.username
 });
 
-export default requiresLogin()(connect()(UserChat));
+export default requiresLogin()(connect(mapStateToProps)(UserChat));

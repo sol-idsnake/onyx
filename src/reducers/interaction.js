@@ -14,13 +14,16 @@ import {
 	REMOVE_BASE_ERROR,
 	FETCH_FOREIGN_BASES_REQUEST,
 	FETCH_FOREIGN_BASES_SUCCESS,
-	FETCH_FOREIGN_BASES_ERROR
-	// 	FETCH_SINGLE_BASE_REQUEST,
-	// 	FETCH_SINGLE_BASE_SUCCESS,
-	// 	FETCH_SINGLE_BASE_ERROR,
-	// 	ADD_USER_TO_LIST_REQUEST,
-	// 	ADD_USER_TO_LIST_SUCCESS,
-	// 	ADD_USER_TO_LIST_ERROR,
+	FETCH_FOREIGN_BASES_ERROR,
+	FETCH_SINGLE_BASE_REQUEST,
+	FETCH_SINGLE_BASE_SUCCESS,
+	FETCH_SINGLE_BASE_ERROR,
+	ADD_USER_TO_LIST_REQUEST,
+	ADD_USER_TO_LIST_SUCCESS,
+	ADD_USER_TO_LIST_ERROR,
+	DELETE_USER_FROM_BASE_REQUEST,
+	DELETE_USER_FROM_BASE_SUCCESS,
+	DELETE_USER_FROM_BASE_ERROR
 	// 	FETCH_USERS_OF_LIST_REQUEST,
 	// 	FETCH_USERS_OF_LIST_SUCCESS,
 	// 	FETCH_USERS_OF_LIST_ERROR,
@@ -36,7 +39,9 @@ const initialState = {
 	bases: [],
 	foreignBases: [],
 	// userBases: [],
-	// currentBase: {},
+	currentBase: {
+		users: []
+	},
 	editing: false,
 	loading: false,
 	error: null
@@ -95,53 +100,77 @@ export default function interactionReducer(state = initialState, action) {
 			error: action.error,
 			loading: false
 		});
-	} else if (action.type === FETCH_FOREIGN_BASES_REQUEST) {
+		// } else if (action.type === FETCH_FOREIGN_BASES_REQUEST) {
+		// 	return Object.assign({}, state, {
+		// 		loading: true,
+		// 		error: null
+		// 	});
+		// } else if ((action.type = FETCH_FOREIGN_BASES_SUCCESS)) {
+		// console.log(action);
+		// 	return Object.assign({}, state, {
+		// 		foreignBases: action.foreignBases,
+		// 		loading: false
+		// 	});
+		// } else if ((action.type = FETCH_FOREIGN_BASES_ERROR)) {
+		// 	return Object.assign({}, state, {
+		// 		error: action.error,
+		// 		loading: false
+		// 	});
+	} else if (action.type === FETCH_SINGLE_BASE_REQUEST) {
 		return Object.assign({}, state, {
 			loading: true,
 			error: null
 		});
-	} else if ((action.type = FETCH_FOREIGN_BASES_SUCCESS)) {
+	} else if (action.type === FETCH_SINGLE_BASE_SUCCESS) {
 		return Object.assign({}, state, {
-			foreignBases: action.foreignBases,
+			currentBase: {
+				users: [...action.users]
+			},
+			loading: false,
+			error: null
+		});
+	} else if (action.type === FETCH_SINGLE_BASE_ERROR) {
+		return Object.assign({}, state, {
+			error: action.error,
 			loading: false
 		});
-	} else if ((action.type = FETCH_FOREIGN_BASES_ERROR)) {
+	} else if (action.type === ADD_USER_TO_LIST_REQUEST) {
+		return Object.assign({}, state, {
+			error: action.error,
+			loading: true
+		});
+	} else if (action.type === ADD_USER_TO_LIST_SUCCESS) {
+		return Object.assign({}, state, {
+			currentBase: { users: [...state.currentBase.users, { ...action.user }] },
+			loading: false
+		});
+	} else if (action.type === ADD_USER_TO_LIST_ERROR) {
+		return Object.assign({}, state, {
+			error: action.error,
+			loading: false
+		});
+	} else if (action.type === DELETE_USER_FROM_BASE_REQUEST) {
+		return Object.assign({}, state, {
+			error: action.error,
+			loading: true
+		});
+	} else if (action.type === DELETE_USER_FROM_BASE_SUCCESS) {
+		const newArray = state.currentBase.users.filter(
+			user => user.created !== action.timeStamp
+		);
+		return Object.assign({}, state, {
+			currentBase: {
+				users: [...newArray]
+			},
+			loading: false,
+			error: null
+		});
+	} else if (action.type === DELETE_USER_FROM_BASE_ERROR) {
 		return Object.assign({}, state, {
 			error: action.error,
 			loading: false
 		});
 	}
-	// 	} else if (action.type === FETCH_SINGLE_BASE_REQUEST) {
-	// 		return Object.assign({}, state, {
-	// 			loading: true,
-	// 			error: null
-	// 		});
-	// 	} else if (action.type === FETCH_SINGLE_BASE_SUCCESS) {
-	// 		return Object.assign({}, state, {
-	// 			currentBase: {
-	// 				...action.base
-	// 			},
-	// 			loading: false
-	// 		});
-	// 	} else if (action.type === FETCH_SINGLE_BASE_ERROR) {
-	// 		return Object.assign({}, state, {
-	// 			error: action.error,
-	// 			loading: false
-	// 		});
-	// 	} else if (action.type === ADD_USER_TO_LIST_REQUEST) {
-	// 		return Object.assign({}, state, {
-	// 			error: action.error,
-	// 			loading: true
-	// 		});
-	// 	} else if (action.type === ADD_USER_TO_LIST_SUCCESS) {
-	// 		return Object.assign({}, state, {
-	// 			userBases: [...state.userBases, { ...action.user }]
-	// 		});
-	// 	} else if (action.type === ADD_USER_TO_LIST_ERROR) {
-	// 		return Object.assign({}, state, {
-	// 			error: action.error,
-	// 			loading: false
-	// 		});
 	// 	} else if (action.type === FETCH_USERS_OF_LIST_REQUEST) {
 	// 		return Object.assign({}, state, {
 	// 			error: action.error,

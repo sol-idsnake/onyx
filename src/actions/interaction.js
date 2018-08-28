@@ -8,7 +8,9 @@ export const setEditing = editing => ({
 	editing
 });
 
+///////////////////////////////////
 // Dashcontent fetches all bases created by the current User
+///////////////////////////////////
 export const fetchBasesByCreatorId = creatorId => dispatch => {
 	dispatch(fetchBasesByCreatorIdRequest());
 	fetch(`${API_BASE_URL}/baselist/list/${creatorId}`, {
@@ -44,7 +46,9 @@ export const fetchBasesByCreatorIdError = error => ({
 	error
 });
 
+///////////////////////////////////
 // addbase.js Add base to DB
+///////////////////////////////////
 export const addBaseToDb = (userId, title) => dispatch => {
 	dispatch(addBaseRequest());
 	fetch(`${API_BASE_URL}/baselist/add`, {
@@ -82,6 +86,9 @@ export const addBaseError = error => ({
 	error
 });
 
+///////////////////////////////////
+// Remove Base and users from base
+///////////////////////////////////
 export const removeBase = id => dispatch => {
 	dispatch(removeBaseRequest());
 	fetch(`${API_BASE_URL}/baselist/delete`, {
@@ -120,6 +127,9 @@ export const removeBaseError = error => ({
 	error
 });
 
+///////////////////////////////////
+// Fetch foreign bases/userlist on foreignbases.js
+///////////////////////////////////
 export const fetchForeignBases = userId => dispatch => {
 	dispatch(fetchForeignBasesRequest());
 	fetch(`${API_BASE_URL}/user-message/foreignbases/${userId}`, {
@@ -152,49 +162,127 @@ export const fetchForeignBasesError = error => ({
 	error
 });
 
-// export const fetchSingleBase = baseId => dispatch => {
-// 	dispatch(fetchSingleBaseRequest());
-// 	fetch(`${API_BASE_URL}/baselist/single/${baseId}`, {
-// 		method: "GET"
-// 	})
-// 		.then(res => {
-// 			if (!res.ok) {
-// 				return Promise.reject(res.statusText);
-// 			}
-// 			return res.json();
-// 		})
-// 		.then(base => dispatch(fetchSingleBaseSuccess(base)))
-// 		.then(error => dispatch(fetchSingleBaseError(error)));
-// };
+///////////////////////////////////
+// Fetch single base, to include members and messages
+///////////////////////////////////
+export const fetchSingleBase = baseId => dispatch => {
+	dispatch(fetchSingleBaseRequest());
+	fetch(`${API_BASE_URL}/baselist/single-base/${baseId}`, {
+		method: "GET"
+	})
+		.then(res => {
+			if (!res.ok) {
+				return Promise.reject(res.statusText);
+			}
+			return res.json();
+		})
+		.then(data => dispatch(fetchSingleBaseSuccess(data)))
+		.then(error => dispatch(fetchSingleBaseError(error)));
+};
 
-// export const addUserToList = (
-// 	baseId,
-// 	userName,
-// 	acceptedMembership,
-// 	isCreator
-// ) => dispatch => {
-// 	dispatch(addUserToListRequest());
-// 	fetch(`${API_BASE_URL}/user-message/addUser`, {
-// 		method: "POST",
-// 		headers: {
-// 			"Content-Type": "application/json"
-// 		},
-// 		body: JSON.stringify({
-// 			baseId,
-// 			userName,
-// 			acceptedMembership,
-// 			isCreator
-// 		})
-// 	})
-// 		.then(([res]) => {
-// 			if (!res.ok) {
-// 				return Promise.reject(res.statusText);
-// 			}
-// 			return res.json();
-// 		})
-// 		.then(user => dispatch(addUserToListSuccess(user)))
-// 		.then(error => dispatch(addUserToListError(error)));
-// };
+export const FETCH_SINGLE_BASE_REQUEST = "FETCH_SINGLE_BASE_REQUEST";
+export const fetchSingleBaseRequest = () => ({
+	type: FETCH_SINGLE_BASE_REQUEST
+});
+
+export const FETCH_SINGLE_BASE_SUCCESS = "FETCH_SINGLE_BASE_SUCCESS";
+export const fetchSingleBaseSuccess = users => ({
+	type: FETCH_SINGLE_BASE_SUCCESS,
+	users
+});
+
+export const FETCH_SINGLE_BASE_ERROR = "FETCH_SINGLE_BASE_ERROR";
+export const fetchSingleBaseError = error => ({
+	type: FETCH_SINGLE_BASE_ERROR,
+	error
+});
+
+///////////////////////////////////
+// Add user to DB via userlist.js
+///////////////////////////////////
+export const addUserToList = (
+	baseId,
+	userName,
+	acceptedMembership,
+	isCreator
+) => dispatch => {
+	dispatch(addUserToListRequest());
+	fetch(`${API_BASE_URL}/user-message/addUser`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify({
+			baseId,
+			userName,
+			acceptedMembership,
+			isCreator
+		})
+	})
+		.then(res => {
+			if (!res.ok) {
+				return Promise.reject(res.statusText);
+			}
+			return res.json();
+		})
+		.then(user => dispatch(addUserToListSuccess(user)))
+		.then(error => dispatch(addUserToListError(error)));
+};
+
+export const ADD_USER_TO_LIST_REQUEST = "ADD_USER_TO_LIST_REQUEST";
+export const addUserToListRequest = () => ({
+	type: ADD_USER_TO_LIST_REQUEST
+});
+
+export const ADD_USER_TO_LIST_SUCCESS = "ADD_USER_TO_LIST_SUCCESS";
+export const addUserToListSuccess = user => ({
+	type: ADD_USER_TO_LIST_SUCCESS,
+	user
+});
+
+export const ADD_USER_TO_LIST_ERROR = "ADD_USER_TO_LIST_ERROR";
+export const addUserToListError = error => ({
+	type: ADD_USER_TO_LIST_ERROR,
+	error
+});
+
+export const deleteUserFromBase = timeStamp => dispatch => {
+	dispatch(deleteUserFromBaseRequest());
+	fetch(`${API_BASE_URL}/user-message/userDelete`, {
+		method: "DELETE",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify({
+			timeStamp
+		})
+	})
+		.then(res => {
+			if (!res.ok) {
+				return Promise.reject(res.statusText);
+			}
+			return true;
+		})
+		.then(() => dispatch(deleteUserFromBaseSuccess(timeStamp)))
+		.then(error => dispatch(deleteUserFromBaseError(error)));
+};
+
+export const DELETE_USER_FROM_BASE_REQUEST = "DELETE_USER_FROM_BASE_REQUEST";
+export const deleteUserFromBaseRequest = () => ({
+	type: DELETE_USER_FROM_BASE_REQUEST
+});
+
+export const DELETE_USER_FROM_BASE_SUCCESS = "DELETE_USER_FROM_BASE_SUCCESS";
+export const deleteUserFromBaseSuccess = timeStamp => ({
+	type: DELETE_USER_FROM_BASE_SUCCESS,
+	timeStamp
+});
+
+export const DELETE_USER_FROM_BASE_ERROR = "DELETE_USER_FROM_BASE_ERROR";
+export const deleteUserFromBaseError = error => ({
+	type: DELETE_USER_FROM_BASE_ERROR,
+	error
+});
 
 // // For when the user looks at a single Base
 // export const fetchUsersOfList = userId => dispatch => {
@@ -232,40 +320,6 @@ export const fetchForeignBasesError = error => ({
 // 		.then(baseUser => dispatch(modifyValueSuccess(baseUser)))
 // 		.catch(error => dispatch(modifyValueError(error)));
 // };
-
-// export const FETCH_SINGLE_BASE_REQUEST = "FETCH_SINGLE_BASE_REQUEST";
-// export const fetchSingleBaseRequest = () => ({
-// 	type: FETCH_SINGLE_BASE_REQUEST
-// });
-
-// export const FETCH_SINGLE_BASE_SUCCESS = "FETCH_SINGLE_BASE_SUCCESS";
-// export const fetchSingleBaseSuccess = base => ({
-// 	type: FETCH_SINGLE_BASE_SUCCESS,
-// 	base
-// });
-
-// export const FETCH_SINGLE_BASE_ERROR = "FETCH_SINGLE_BASE_ERROR";
-// export const fetchSingleBaseError = error => ({
-// 	type: FETCH_SINGLE_BASE_ERROR,
-// 	error
-// });
-
-// export const ADD_USER_TO_LIST_REQUEST = "ADD_USER_TO_LIST_REQUEST";
-// export const addUserToListRequest = () => ({
-// 	type: ADD_USER_TO_LIST_REQUEST
-// });
-
-// export const ADD_USER_TO_LIST_SUCCESS = "ADD_USER_TO_LIST_SUCCESS";
-// export const addUserToListSuccess = user => ({
-// 	type: ADD_USER_TO_LIST_SUCCESS,
-// 	user
-// });
-
-// export const ADD_USER_TO_LIST_ERROR = "ADD_USER_TO_LIST_ERROR";
-// export const addUserToListError = error => ({
-// 	type: ADD_USER_TO_LIST_ERROR,
-// 	error
-// });
 
 // export const FETCH_USERS_OF_LIST_REQUEST = "FETCH_USERS_OF_LIST_REQUEST";
 // export const fetchUsersOfListRequest = () => ({

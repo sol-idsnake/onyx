@@ -29,14 +29,14 @@ export class DashContent extends React.Component {
 	render() {
 		const baseList = this.props.bases.map(base => (
 			<li key={base.id} className="base">
-				<Link to={`/user-message/${base.id}`}>{base.title}</Link>
+				<Link to={`/single-base/${base.id}`}>{base.title}</Link>
 				<p>
 					Current Users:
-					<Link to={`/user-message/${base.id}`} />
+					<Link to={`/single-base/${base.id}`} />
 				</p>
 				<p>
 					Current Messages:
-					<Link to={`/user-message/${base.id}`} />
+					<Link to={`/single-base/${base.id}`} />
 				</p>
 				<i className="fas fa-times" onClick={() => this.deleteBase(base.id)} />
 			</li>

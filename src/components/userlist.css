@@ -27,14 +27,13 @@ aside > form {
 }
 
 .userlist-ul {
-	flex-direction: column;
+	display: block;
 	height: 250px;
 	overflow-y: scroll;
 	overflow-x: hidden;
 }
 
 .messagelist-ul {
-	flex-direction: column;
 	flex-grow: 1;
 	justify-content: flex-end;
 }
@@ -54,6 +53,8 @@ aside > form {
 }
 
 .user-list-entry {
+	box-sizing: content-box;
+	height: 25px;
 	align-items: center;
 	display: flex;
 }

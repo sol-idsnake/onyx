@@ -8,7 +8,7 @@ import UserList from "./userlist";
 export class BasePage extends React.Component {
 	componentDidMount() {
 		const baseId = this.props.match.params.baseId;
-		// this.props.dispatch(fetchSingleBase(baseId));
+		this.props.dispatch(fetchSingleBase(baseId));
 	}
 
 	render() {
@@ -29,7 +29,6 @@ export class BasePage extends React.Component {
 }
 
 const mapStateToProps = state => ({
-	// currentBase: state.interaction.currentBase,
 	// loading: state.interaction.loading
 });
 
