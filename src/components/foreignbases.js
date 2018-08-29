@@ -5,7 +5,8 @@ import requiresLogin from "./requires-login";
 import {
 	modifier,
 	fetchUsersOfList,
-	fetchForeignBases
+	fetchForeignBases,
+	deleteUserFromBase
 } from "../actions/interaction";
 import { Link } from "react-router-dom";
 import Loader from "../img/doubleRing.svg";
@@ -17,6 +18,10 @@ export class ForeignBases extends React.Component {
 
 	acceptMembership(bool, baseId) {
 		this.props.dispatch(modifier(bool, baseId));
+	}
+
+	removeMeFromBase(timeStamp) {
+		this.props.dispatch(deleteUserFromBase(timeStamp));
 	}
 
 	render() {
@@ -73,6 +78,7 @@ export class ForeignBases extends React.Component {
 		) : (
 			acceptedBase &&
 			acceptedBase.map(item => {
+				console.log();
 				return (
 					<li key={item.base.id} className="base">
 						<Link to={`/user-message/${item.base.id}`}>{item.base.title}</Link>
@@ -82,10 +88,12 @@ export class ForeignBases extends React.Component {
 						<p>
 							Current Messages: <Link to={`/user-message/${item.base.id}`} />
 						</p>
-						<i
-							className="fas fa-times"
-							onClick={() => this.deleteBase(item.base.id)}
-						/>
+						<span
+							className="optOut"
+							onClick={() => this.removeMeFromBase(item.baseuser.created)}
+						>
+							Opt out
+						</span>
 					</li>
 				);
 			})

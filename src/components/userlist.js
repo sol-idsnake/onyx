@@ -2,29 +2,11 @@ import React from "react";
 import { connect } from "react-redux";
 import requiresLogin from "./requires-login";
 import { addUserToList, deleteUserFromBase } from "../actions/interaction";
+import Loader from "../img/doubleRing.svg";
 
 import "./userlist.css";
 
 export class UserChat extends React.Component {
-	componentDidMount() {
-		// this.props.dispatch(fetchUsersOfList(this.props.baseId));
-	}
-
-	// componentDidUpdate(prevProps) {
-	// 	if (
-	// 		this.props.userBases !== prevProps.userBases &&
-	// 		this.props.userBases.length === 0
-	// 	) {
-	// 		const baseId = this.props.baseId;
-	// 		const userName = this.props.currentAuthUser;
-	// 		const acceptedMembership = true;
-	// 		const isCreator = true;
-	// 		// this.props.dispatch(
-	// 		// addUserToList(baseId, userName, acceptedMembership, isCreator)
-	// 		// );
-	// 	}
-	// }
-
 	handleSubmit(event) {
 		event.preventDefault();
 		const userId = this.userName.value;
@@ -33,8 +15,9 @@ export class UserChat extends React.Component {
 	}
 
 	deleteUser(event) {
-		const timeStamp = event.target.id;
-		this.props.dispatch(deleteUserFromBase(timeStamp));
+		const userName = event.target.parentNode.innerText;
+		console.log(this.props.baseId);
+		this.props.dispatch(deleteUserFromBase(this.props.baseId, userName));
 	}
 
 	render() {
@@ -43,34 +26,27 @@ export class UserChat extends React.Component {
 		this.input = React.createRef();
 		// ---
 
-		// let users;
-		// if (
-		// 	this.props.currentBase.users &&
-		// 	this.props.currentBase.users.length === 0
-		// ) {
-		// 	const myId = this.props.currentAuthUser;
-		// 	this.props.dispatch(addUserToList(this.props.baseId, myId));
-		// } else if (this.props.currentBase.users) {
-		// 	users = this.props.currentBase.users.map(user => (
-		// 		<li
-		// 			key={user.created}
-		// 			className="user-list-entry"
-		// 			ref={li => (this.userLi = li)}
-		// 		>
-		// 			<p>{user.userId}</p>
-		// 			<i
-		// 				className="fas fa-times"
-		// 				id={user.created}
-		// 				onClick={event => this.deleteUser(event)}
-		// 			/>
-		// 		</li>
-		// 	));
-		// }
+		const users = this.props.loading ? (
+			<img src={Loader} />
+		) : (
+			this.props.users &&
+			this.props.users.map(user => {
+				return (
+					<li key={user} className="user-list-entry">
+						{user}
+						<i
+							className="fas fa-times"
+							onClick={event => this.deleteUser(event)}
+						/>
+					</li>
+				);
+			})
+		);
 
-		// <ul className="userlist-ul">{users}</ul>;
 		return (
 			<aside className="userlist">
 				<p>UserList</p>
+				<ul className="userlist-ul">{users}</ul>
 				<form onSubmit={this.handleSubmit} className="userForm">
 					<input
 						type="text"
@@ -86,8 +62,8 @@ export class UserChat extends React.Component {
 }
 
 const mapStateToProps = state => ({
-	currentBase: state.interaction.currentBase,
-	// loading: state.interaction.loading,
+	users: state.interaction.currentBase.users,
+	loading: state.interaction.loading,
 	// userBases: state.interaction.userBases
 	currentAuthUser: state.auth.currentUser.username
 });

@@ -11,7 +11,6 @@ export class BasePage extends React.Component {
 		const baseId = this.props.match.params.baseId;
 		this.props.dispatch(fetchSingleBase(baseId));
 	}
-
 	render() {
 		const title = this.props.currentBase ? (
 			<h2>{this.props.currentBase.title}</h2>
@@ -28,9 +27,9 @@ export class BasePage extends React.Component {
 		);
 	}
 }
-
 const mapStateToProps = state => ({
-	loading: state.interaction.loading
+	loading: state.interaction.loading,
+	currentBase: state.interaction.currentBase
 });
 
-export default requiresLogin()(connect()(BasePage));
+export default requiresLogin()(connect(mapStateToProps)(BasePage));

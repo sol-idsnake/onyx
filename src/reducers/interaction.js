@@ -33,6 +33,7 @@ const initialState = {
 	bases: [],
 	foreignBases: [],
 	currentBase: {
+		title: "",
 		users: []
 	},
 	editing: false,
@@ -116,9 +117,11 @@ export default function interactionReducer(state = initialState, action) {
 			error: null
 		});
 	} else if (action.type === FETCH_SINGLE_BASE_SUCCESS) {
+		let currentUsers = action.data.map(users => users.baseuser.userId);
 		return Object.assign({}, state, {
 			currentBase: {
-				users: [...action.users]
+				title: action.data[0].base.title,
+				users: currentUsers
 			},
 			loading: false,
 			error: null
@@ -135,7 +138,10 @@ export default function interactionReducer(state = initialState, action) {
 		});
 	} else if (action.type === ADD_USER_TO_LIST_SUCCESS) {
 		return Object.assign({}, state, {
-			currentBase: { users: [...state.currentBase.users, { ...action.user }] },
+			currentBase: {
+				...state.currentBase,
+				users: [...state.currentBase.users, action.user.userId]
+			},
 			loading: false,
 			error: null
 		});

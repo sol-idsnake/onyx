@@ -33,10 +33,10 @@ aside > form {
 	overflow-x: hidden;
 }
 
-.messagelist-ul {
+/*.messagelist-ul {
 	flex-grow: 1;
 	justify-content: flex-end;
-}
+}*/
 
 .userlist-ul,
 .messagelist-ul > li {
@@ -63,6 +63,6 @@ aside > form {
 	text-decoration: underline;
 }
 
-.user-list-entry > p {
-	margin-right: auto;
+.user-list-entry > i {
+	margin-left: auto;
 }

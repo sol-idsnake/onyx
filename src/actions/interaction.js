@@ -186,9 +186,9 @@ export const fetchSingleBaseRequest = () => ({
 });
 
 export const FETCH_SINGLE_BASE_SUCCESS = "FETCH_SINGLE_BASE_SUCCESS";
-export const fetchSingleBaseSuccess = users => ({
+export const fetchSingleBaseSuccess = data => ({
 	type: FETCH_SINGLE_BASE_SUCCESS,
-	users
+	data
 });
 
 export const FETCH_SINGLE_BASE_ERROR = "FETCH_SINGLE_BASE_ERROR";
@@ -249,24 +249,25 @@ export const addUserToListError = error => ({
 ///////////////////////////////////
 // Remove user from DB when clicking X in the user list
 ///////////////////////////////////
-export const deleteUserFromBase = timeStamp => dispatch => {
+export const deleteUserFromBase = (baseId, userId) => dispatch => {
 	dispatch(deleteUserFromBaseRequest());
-	fetch(`${API_BASE_URL}/user-message/userDelete`, {
+	console.log(userId);
+	fetch(`${API_BASE_URL}/user-message/userDelete/${baseId}`, {
 		method: "DELETE",
 		headers: {
 			"Content-Type": "application/json"
 		},
 		body: JSON.stringify({
-			timeStamp
+			userId
 		})
 	})
 		.then(res => {
 			if (!res.ok) {
 				return Promise.reject(res.statusText);
 			}
-			return true;
+			// return true;
 		})
-		.then(() => dispatch(deleteUserFromBaseSuccess(timeStamp)))
+		.then(() => dispatch(deleteUserFromBaseSuccess(userId)))
 		.then(error => dispatch(deleteUserFromBaseError(error)));
 };
 

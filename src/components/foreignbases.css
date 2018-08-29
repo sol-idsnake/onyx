@@ -27,3 +27,13 @@
 	text-decoration: underline;
 	margin-left: 0.3em;
 }
+
+.optOut {
+	position: absolute;
+	right: 10px;
+	color: gray;
+}
+
+.optOut:hover {
+	text-decoration: underline;
+}
