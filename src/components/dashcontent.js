@@ -10,6 +10,7 @@ import {
 	addBaseToDb,
 	removeBase
 } from "../actions/interaction";
+import Loader from "../img/doubleRing.svg";
 
 export class DashContent extends React.Component {
 	componentDidMount() {
@@ -27,20 +28,28 @@ export class DashContent extends React.Component {
 	}
 
 	render() {
-		const baseList = this.props.bases.map(base => (
-			<li key={base.id} className="base">
-				<Link to={`/single-base/${base.id}`}>{base.title}</Link>
-				<p>
-					Current Users:
-					<Link to={`/single-base/${base.id}`} />
-				</p>
-				<p>
-					Current Messages:
-					<Link to={`/single-base/${base.id}`} />
-				</p>
-				<i className="fas fa-times" onClick={() => this.deleteBase(base.id)} />
-			</li>
-		));
+		let baseList;
+		if (this.props.loading) {
+			baseList = <img src={Loader} />;
+		} else {
+			baseList = this.props.bases.map(base => (
+				<li key={base.id} className="base">
+					<Link to={`/single-base/${base.id}`}>{base.title}</Link>
+					<p>
+						Current Users:
+						<Link to={`/single-base/${base.id}`} />
+					</p>
+					<p>
+						Current Messages:
+						<Link to={`/single-base/${base.id}`} />
+					</p>
+					<i
+						className="fas fa-times"
+						onClick={() => this.deleteBase(base.id)}
+					/>
+				</li>
+			));
+		}
 
 		return (
 			<ul className="baseWrapper">
@@ -48,6 +57,7 @@ export class DashContent extends React.Component {
 				<li className="base add-list-wrapper">
 					<AddBase type="base" onAdd={title => this.addBase(title)} />
 				</li>
+
 				{baseList}
 				<p>Bases I was added to:</p>
 				<ForeignBases />
@@ -58,7 +68,8 @@ export class DashContent extends React.Component {
 
 const mapStateToProps = state => ({
 	bases: state.interaction.bases,
-	userId: state.auth.currentUser.userId
+	userId: state.auth.currentUser.userId,
+	loading: state.interaction.loading
 });
 
 export default requiresLogin()(connect(mapStateToProps)(DashContent));

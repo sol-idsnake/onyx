@@ -43,34 +43,34 @@ export class UserChat extends React.Component {
 		this.input = React.createRef();
 		// ---
 
-		let users;
-		if (
-			this.props.currentBase.users &&
-			this.props.currentBase.users.length === 0
-		) {
-			const myId = this.props.currentAuthUser;
-			this.props.dispatch(addUserToList(this.props.baseId, myId));
-		} else if (this.props.currentBase.users) {
-			users = this.props.currentBase.users.map(user => (
-				<li
-					key={user.created}
-					className="user-list-entry"
-					ref={li => (this.userLi = li)}
-				>
-					<p>{user.userId}</p>
-					<i
-						className="fas fa-times"
-						id={user.created}
-						onClick={event => this.deleteUser(event)}
-					/>
-				</li>
-			));
-		}
+		// let users;
+		// if (
+		// 	this.props.currentBase.users &&
+		// 	this.props.currentBase.users.length === 0
+		// ) {
+		// 	const myId = this.props.currentAuthUser;
+		// 	this.props.dispatch(addUserToList(this.props.baseId, myId));
+		// } else if (this.props.currentBase.users) {
+		// 	users = this.props.currentBase.users.map(user => (
+		// 		<li
+		// 			key={user.created}
+		// 			className="user-list-entry"
+		// 			ref={li => (this.userLi = li)}
+		// 		>
+		// 			<p>{user.userId}</p>
+		// 			<i
+		// 				className="fas fa-times"
+		// 				id={user.created}
+		// 				onClick={event => this.deleteUser(event)}
+		// 			/>
+		// 		</li>
+		// 	));
+		// }
 
+		// <ul className="userlist-ul">{users}</ul>;
 		return (
 			<aside className="userlist">
 				<p>UserList</p>
-				<ul className="userlist-ul">{users}</ul>
 				<form onSubmit={this.handleSubmit} className="userForm">
 					<input
 						type="text"

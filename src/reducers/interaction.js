@@ -23,22 +23,15 @@ import {
 	ADD_USER_TO_LIST_ERROR,
 	DELETE_USER_FROM_BASE_REQUEST,
 	DELETE_USER_FROM_BASE_SUCCESS,
-	DELETE_USER_FROM_BASE_ERROR
-	// 	FETCH_USERS_OF_LIST_REQUEST,
-	// 	FETCH_USERS_OF_LIST_SUCCESS,
-	// 	FETCH_USERS_OF_LIST_ERROR,
-	// 	MODIFY_VALUE_REQUEST,
-	// 	MODIFY_VALUE_SUCCESS,
-	// 	MODIFY_VALUE_ERROR,
-	// 	FETCH_BASES_BY_USERNAME_REQUEST,
-	// 	FETCH_BASES_BY_USERNAME_SUCCESS,
-	// 	FETCH_BASES_BY_USERNAME_ERROR
+	DELETE_USER_FROM_BASE_ERROR,
+	MODIFY_VALUE_REQUEST,
+	MODIFY_VALUE_SUCCESS,
+	MODIFY_VALUE_ERROR
 } from "../actions/interaction";
 
 const initialState = {
 	bases: [],
 	foreignBases: [],
-	// userBases: [],
 	currentBase: {
 		users: []
 	},
@@ -72,7 +65,8 @@ export default function interactionReducer(state = initialState, action) {
 	} else if (action.type === ADD_BASE_SUCCESS) {
 		return Object.assign({}, state, {
 			bases: [...state.bases, action.base],
-			loading: false
+			loading: false,
+			error: null
 		});
 	} else if (action.type === ADD_BASE_ERROR) {
 		return Object.assign({}, state, {
@@ -100,22 +94,22 @@ export default function interactionReducer(state = initialState, action) {
 			error: action.error,
 			loading: false
 		});
-		// } else if (action.type === FETCH_FOREIGN_BASES_REQUEST) {
-		// 	return Object.assign({}, state, {
-		// 		loading: true,
-		// 		error: null
-		// 	});
-		// } else if ((action.type = FETCH_FOREIGN_BASES_SUCCESS)) {
-		// console.log(action);
-		// 	return Object.assign({}, state, {
-		// 		foreignBases: action.foreignBases,
-		// 		loading: false
-		// 	});
-		// } else if ((action.type = FETCH_FOREIGN_BASES_ERROR)) {
-		// 	return Object.assign({}, state, {
-		// 		error: action.error,
-		// 		loading: false
-		// 	});
+	} else if (action.type === FETCH_FOREIGN_BASES_REQUEST) {
+		return Object.assign({}, state, {
+			loading: true,
+			error: null
+		});
+	} else if (action.type === FETCH_FOREIGN_BASES_SUCCESS) {
+		return Object.assign({}, state, {
+			foreignBases: action.foreignBases,
+			loading: false,
+			error: null
+		});
+	} else if (action.type === FETCH_FOREIGN_BASES_ERROR) {
+		return Object.assign({}, state, {
+			error: action.error,
+			loading: false
+		});
 	} else if (action.type === FETCH_SINGLE_BASE_REQUEST) {
 		return Object.assign({}, state, {
 			loading: true,
@@ -136,13 +130,14 @@ export default function interactionReducer(state = initialState, action) {
 		});
 	} else if (action.type === ADD_USER_TO_LIST_REQUEST) {
 		return Object.assign({}, state, {
-			error: action.error,
-			loading: true
+			loading: true,
+			error: null
 		});
 	} else if (action.type === ADD_USER_TO_LIST_SUCCESS) {
 		return Object.assign({}, state, {
 			currentBase: { users: [...state.currentBase.users, { ...action.user }] },
-			loading: false
+			loading: false,
+			error: null
 		});
 	} else if (action.type === ADD_USER_TO_LIST_ERROR) {
 		return Object.assign({}, state, {
@@ -151,8 +146,8 @@ export default function interactionReducer(state = initialState, action) {
 		});
 	} else if (action.type === DELETE_USER_FROM_BASE_REQUEST) {
 		return Object.assign({}, state, {
-			error: action.error,
-			loading: true
+			loading: true,
+			error: null
 		});
 	} else if (action.type === DELETE_USER_FROM_BASE_SUCCESS) {
 		const newArray = state.currentBase.users.filter(
@@ -170,43 +165,29 @@ export default function interactionReducer(state = initialState, action) {
 			error: action.error,
 			loading: false
 		});
+	} else if (action.type === MODIFY_VALUE_REQUEST) {
+		return Object.assign({}, state, {
+			loading: true,
+			error: null
+		});
+	} else if (action.type === MODIFY_VALUE_SUCCESS) {
+		let foreignBases = state.foreignBases.map(foreignBase => {
+			if (action.baseUser.created === foreignBase.baseuser.created) {
+				return { ...foreignBase, baseuser: action.baseUser };
+			} else {
+				return foreignBase;
+			}
+		});
+		return Object.assign({}, state, {
+			foreignBases,
+			loading: false,
+			error: null
+		});
+	} else if (action.type === MODIFY_VALUE_ERROR) {
+		return Object.assign({}, state, {
+			error: action.error,
+			loading: false
+		});
 	}
-	// 	} else if (action.type === FETCH_USERS_OF_LIST_REQUEST) {
-	// 		return Object.assign({}, state, {
-	// 			error: action.error,
-	// 			loading: true
-	// 		});
-	// 	} else if (action.type === FETCH_USERS_OF_LIST_SUCCESS) {
-	// 		console.log(action);
-	// 		return Object.assign({}, state, {
-	// 			userBases: [...action.users],
-	// 			loading: false
-	// 		});
-	// 	} else if (action.type === FETCH_USERS_OF_LIST_ERROR) {
-	// 		return Object.assign({}, state, {
-	// 			error: action.error,
-	// 			loading: false
-	// 		});
-	// 	} else if (action.type === MODIFY_VALUE_REQUEST) {
-	// 		return Object.assign({}, state, {
-	// 			error: action.error,
-	// 			loading: false
-	// 		});
-	// 	} else if (action.type === MODIFY_VALUE_SUCCESS) {
-	// 		const newState = state.userBases.map(
-	// 			baseUser =>
-	// 				baseUser.userId === action.baseUser.userId
-	// 					? { ...action.baseUser }
-	// 					: baseUser
-	// 		);
-	// 		return Object.assign({}, state, {
-	// 			userBases: newState
-	// 		});
-	// 	} else if (action.type === MODIFY_VALUE_ERROR) {
-	// 		return Object.assign({}, state, {
-	// 			error: action.error,
-	// 			loading: false
-	// 		});
-	// 	}
 	return state;
 }

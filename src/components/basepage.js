@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import requiresLogin from "./requires-login";
 import { fetchSingleBase } from "../actions/interaction";
 import UserList from "./userlist";
+import Loader from "../img/doubleRing.svg";
 
 export class BasePage extends React.Component {
 	componentDidMount() {
@@ -15,7 +16,7 @@ export class BasePage extends React.Component {
 		const title = this.props.currentBase ? (
 			<h2>{this.props.currentBase.title}</h2>
 		) : (
-			<h2>Loading...</h2>
+			<img src={Loader} />
 		);
 
 		return (
@@ -29,7 +30,7 @@ export class BasePage extends React.Component {
 }
 
 const mapStateToProps = state => ({
-	// loading: state.interaction.loading
+	loading: state.interaction.loading
 });
 
 export default requiresLogin()(connect()(BasePage));

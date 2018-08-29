@@ -1,37 +1,29 @@
 .foreignBases {
-	flex-basis: 100%;
+	display: flex;
+	flex-direction: column;
 }
 
-.acceptanceUl {
+.foreignBases > ul {
 	flex-direction: column;
 }
 
-.acceptanceLi {
-	display: flex;
-	justify-content: flex-start;
-	align-items: center;
-	list-style-type: none;
-}
-
-.foreignLi {
-	background: #eee;
-	border-radius: 0.3em;
-	display: flex;
-	flex-direction: column;
+.foreignBases > ul > .base {
 	height: 100px;
-	list-style-type: none;
-	margin: 0 0 1em 1em;
-	padding: 0.5em;
-	position: relative;
 	width: 300px;
 }
 
-.foreignLi > i {
-	position: absolute;
-	right: 0.3em;
-	opacity: 0.4;
+.toBeAcceptedBase {
+	list-style-type: none;
 }
 
-.foreignLi > i:hover {
-	opacity: 0.7;
+.accept {
+	cursor: pointer;
+	font-weight: 700;
+	margin: 0 0.3em;
+	text-decoration: underline;
+}
+
+.baseName {
+	text-decoration: underline;
+	margin-left: 0.3em;
 }

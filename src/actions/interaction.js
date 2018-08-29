@@ -246,6 +246,9 @@ export const addUserToListError = error => ({
 	error
 });
 
+///////////////////////////////////
+// Remove user from DB when clicking X in the user list
+///////////////////////////////////
 export const deleteUserFromBase = timeStamp => dispatch => {
 	dispatch(deleteUserFromBaseRequest());
 	fetch(`${API_BASE_URL}/user-message/userDelete`, {
@@ -284,6 +287,45 @@ export const deleteUserFromBaseError = error => ({
 	error
 });
 
+///////////////////////////////////
+// When the user accepts membership into a base on foreignbases.js
+///////////////////////////////////
+export const modifier = (bool, baseId) => dispatch => {
+	dispatch(modifyValueRequest());
+	fetch(`${API_BASE_URL}/user-message/modify`, {
+		method: "PUT",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify({ bool, baseId })
+	})
+		.then(res => {
+			if (!res.ok) {
+				return Promise.reject(res.statusText);
+			}
+			return res.json();
+		})
+		.then(baseUser => dispatch(modifyValueSuccess(baseUser)))
+		.catch(error => dispatch(modifyValueError(error)));
+};
+
+export const MODIFY_VALUE_REQUEST = "MODIFY_VALUE_REQUEST";
+export const modifyValueRequest = () => ({
+	type: MODIFY_VALUE_REQUEST
+});
+
+export const MODIFY_VALUE_SUCCESS = "MODIFY_VALUE_SUCCESS";
+export const modifyValueSuccess = baseUser => ({
+	type: MODIFY_VALUE_SUCCESS,
+	baseUser
+});
+
+export const MODIFY_VALUE_ERROR = "MODIFY_VALUE_ERROR";
+export const modifyValueError = error => ({
+	type: MODIFY_VALUE_ERROR,
+	error
+});
+
 // // For when the user looks at a single Base
 // export const fetchUsersOfList = userId => dispatch => {
 // 	console.log(userId);
@@ -302,25 +344,6 @@ export const deleteUserFromBaseError = error => ({
 // 		.catch(error => dispatch(fetchUsersOfListError(error)));
 // };
 
-// export const modifier = (bool, target, email) => dispatch => {
-// 	dispatch(modifyValueRequest());
-// 	fetch(`${API_BASE_URL}/user-message/modify`, {
-// 		method: "PUT",
-// 		headers: {
-// 			"Content-Type": "application/json"
-// 		},
-// 		body: JSON.stringify({ bool, target, email })
-// 	})
-// 		.then(res => {
-// 			if (!res.ok) {
-// 				return Promise.reject(res.statusText);
-// 			}
-// 			return res.json();
-// 		})
-// 		.then(baseUser => dispatch(modifyValueSuccess(baseUser)))
-// 		.catch(error => dispatch(modifyValueError(error)));
-// };
-
 // export const FETCH_USERS_OF_LIST_REQUEST = "FETCH_USERS_OF_LIST_REQUEST";
 // export const fetchUsersOfListRequest = () => ({
 // 	type: FETCH_USERS_OF_LIST_REQUEST
@@ -335,23 +358,6 @@ export const deleteUserFromBaseError = error => ({
 // export const FETCH_USERS_OF_LIST_ERROR = "FETCH_USERS_OF_LIST_ERROR";
 // export const fetchUsersOfListError = error => ({
 // 	type: FETCH_USERS_OF_LIST_ERROR,
-// 	error
-// });
-
-// export const MODIFY_VALUE_REQUEST = "MODIFY_VALUE_REQUEST";
-// export const modifyValueRequest = () => ({
-// 	type: MODIFY_VALUE_REQUEST
-// });
-
-// export const MODIFY_VALUE_SUCCESS = "MODIFY_VALUE_SUCCESS";
-// export const modifyValueSuccess = baseUser => ({
-// 	type: MODIFY_VALUE_SUCCESS,
-// 	baseUser
-// });
-
-// export const MODIFY_VALUE_ERROR = "MODIFY_VALUE_ERROR";
-// export const modifyValueError = error => ({
-// 	type: MODIFY_VALUE_ERROR,
 // 	error
 // });
 
