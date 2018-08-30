@@ -364,4 +364,39 @@ export const addMessageToListError = error => ({
 	error
 });
 
+///////////////////////////////////
+// Delete a message from the DB in messagelist.js
+///////////////////////////////////
+export const deleteMessage = messageId => dispatch => {
+	dispatch(deleteMessageRequest());
+	fetch(`${API_BASE_URL}/user-message/deleteMsg/${messageId}`, {
+		method: "DELETE"
+	})
+		.then(res => {
+			if (!res.ok) {
+				return Promise.reject(res.statusText);
+			}
+			return true;
+		})
+		.then(() => dispatch(deleteMessageSuccess(messageId)))
+		.then(error => dispatch(deleteMessageError(error)));
+};
+
+export const DELETE_MESSAGE_REQUEST = "DELETE_MESSAGE_REQUEST";
+export const deleteMessageRequest = () => ({
+	type: "DELETE_MESSAGE_REQUEST"
+});
+
+export const DELETE_MESSAGE_SUCCESS = "DELETE_MESSAGE_SUCCESS";
+export const deleteMessageSuccess = message => ({
+	type: "DELETE_MESSAGE_SUCCESS",
+	message
+});
+
+export const DELETE_MESSAGE_ERROR = "DELETE_MESSAGE_ERROR";
+export const deleteMessageError = error => ({
+	type: "DELETE_MESSAGE_ERROR",
+	error
+});
+
 //  look up js promises

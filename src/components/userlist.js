@@ -48,7 +48,7 @@ export class UserChat extends React.Component {
 				<p>Users</p>
 				<ul className="userlist-ul">{users}</ul>
 				<form
-					onSubmit={this.userName == "" ? "no" : this.handleSubmit}
+					onSubmit={this.userName === "" ? "no" : this.handleSubmit}
 					className="userForm"
 				>
 					<input

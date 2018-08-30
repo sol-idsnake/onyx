@@ -26,7 +26,10 @@ import {
 	MODIFY_VALUE_ERROR,
 	ADD_MESSAGE_TO_LIST_REQUEST,
 	ADD_MESSAGE_TO_LIST_SUCCESS,
-	ADD_MESSAGE_TO_LIST_ERROR
+	ADD_MESSAGE_TO_LIST_ERROR,
+	DELETE_MESSAGE_REQUEST,
+	DELETE_MESSAGE_SUCCESS,
+	DELETE_MESSAGE_ERROR
 } from "../actions/interaction";
 
 const initialState = {
@@ -200,18 +203,36 @@ export default function interactionReducer(state = initialState, action) {
 			error: null
 		});
 	} else if (action.type === ADD_MESSAGE_TO_LIST_SUCCESS) {
-		console.log(action);
-		console.log(state);
 		return Object.assign({}, state, {
 			currentBase: {
 				...state.currentBase,
-				users: [...state.currentBase.users],
+				// users: [...state.currentBase.users],
 				messages: [...state.currentBase.messages, { ...action.message }]
 			},
 			loading: false,
 			error: null
 		});
 	} else if (action.type === ADD_MESSAGE_TO_LIST_ERROR) {
+		return Object.assign({}, state, {
+			loading: false,
+			error: null
+		});
+	} else if (action.type === DELETE_MESSAGE_REQUEST) {
+		return Object.assign({}, state, {
+			loading: true,
+			error: null
+		});
+	} else if (action.type === DELETE_MESSAGE_SUCCESS) {
+		const newArr = state.currentBase.messages.filter(
+			message => action.message !== message._id
+		);
+		return Object.assign({}, state, {
+			currentBase: {
+				...state.currentBase,
+				messages: [...newArr]
+			}
+		});
+	} else if (action.type === DELETE_MESSAGE_ERROR) {
 		return Object.assign({}, state, {
 			loading: false,
 			error: null
