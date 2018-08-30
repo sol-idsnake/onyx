@@ -4,11 +4,6 @@ const initialState = {
       title: "Dashboard",
       value: "dashboard",
       path: "/dashboard"
-    },
-    {
-      title: "Users",
-      value: "users",
-      path: "/users"
     }
   ],
   sidebarNotAuth: [

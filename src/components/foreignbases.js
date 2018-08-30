@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import requiresLogin from "./requires-login";
 import {
 	modifier,
-	fetchUsersOfList,
 	fetchForeignBases,
 	deleteUserFromBase
 } from "../actions/interaction";
@@ -29,6 +28,10 @@ export class ForeignBases extends React.Component {
 		let toBeAcceptedBase;
 		let acceptedBase;
 
+		if (!this.props.foreignBases) {
+			console.log("trigger");
+		}
+
 		for (let i = 0; i < propsBases.length; i++) {
 			toBeAcceptedBase = this.props.foreignBases.filter(item => {
 				return (
@@ -49,12 +52,12 @@ export class ForeignBases extends React.Component {
 		}
 
 		const toBeAcceptedBaseList = this.props.loading ? (
-			<img src={Loader} />
+			<img src={Loader} alt="Loading..." />
 		) : (
 			toBeAcceptedBase &&
 			toBeAcceptedBase.map(item => {
 				return (
-					<li key={item.baseuser.baseId} className="toBeAcceptedBase">
+					<li key={item.baseuser.created} className="toBeAcceptedBase">
 						<p>
 							You have been invited to join base:
 							<span className="baseName">{item.base.title}</span>. Click
@@ -74,11 +77,10 @@ export class ForeignBases extends React.Component {
 		);
 
 		const acceptedBaseList = this.props.loading ? (
-			<img src={Loader} />
+			<img src={Loader} alt="Loading..." />
 		) : (
 			acceptedBase &&
 			acceptedBase.map(item => {
-				console.log();
 				return (
 					<li key={item.base.id} className="base">
 						<Link to={`/user-message/${item.base.id}`}>{item.base.title}</Link>

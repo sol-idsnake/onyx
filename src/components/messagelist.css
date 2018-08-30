@@ -1,0 +1,47 @@
+.messagelist {
+	background: lightgray;
+	border-radius: 5px;
+	grid-column: 3/9;
+	grid-row: 2/3;
+	min-width: 375px;
+}
+
+.messagelist > p {
+	border-bottom: 1px solid #ff5c5c;
+	padding: 0.5em;
+	margin: 0;
+}
+
+.messagelist-ul {
+	background: white;
+	border-top: 1px solid lightgray;
+	border-left: 1px solid lightgray;
+	border-right: 1px solid lightgray;
+	display: block;
+	height: 250px;
+}
+
+.message-list-entry {
+	list-style-type: none;
+	margin-top: 0.5em;
+	padding: 0 0.75em;
+}
+
+.message-list-entry > i {
+	margin-left: auto;
+}
+
+.userForm > input[type="text"] {
+	outline: none;
+	padding: 0.3em 0.5em;
+	width: 70%;
+}
+
+.userForm > input[type="submit"] {
+	padding: 0.3em 0.5em;
+	width: 30%;
+}
+
+hr {
+	opacity: 0.3;
+}

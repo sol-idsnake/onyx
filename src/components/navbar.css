@@ -22,3 +22,14 @@ header > ul > li {
 	padding: 1em;
 	width: auto;
 }
+
+.logout {
+	background: none;
+	border: 1px solid lightblue;
+	padding: 0.5em;
+	/*cursor: pointer;*/
+}
+
+.navlinks {
+	align-items: center;
+}

@@ -1,0 +1,32 @@
+.basepage {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, 1fr);
+	grid-template-rows: repeat(auto-fill, 1fr);
+	grid-gap: 25px;
+	width: 80%;
+	grid-auto-flow: row;
+}
+
+.baseHeader {
+	background: #eee;
+	border-bottom: 3px solid #9fce30;
+	border-left: 1px solid gray;
+	border-right: 1px solid gray;
+	border-top: 1px solid gray;
+	grid-column: 1/9;
+	grid-row: 1/2;
+	margin: 2em auto 0 auto;
+	padding: 1em;
+	text-align: center;
+	width: 70%;
+}
+
+.baseHeader > span {
+	font-family: "Halant", serif;
+	font-size: 1.25em;
+}
+
+.baseTitle {
+	margin: 0 0.3em;
+	text-decoration: underline;
+}

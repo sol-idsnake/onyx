@@ -1,29 +1,26 @@
-.listChat {
-	display: flex;
-	justify-content: center;
-	margin-top: 3em;
-}
-
-aside {
-	justify-content: center;
-	margin-top: 3em;
+.userlist {
 	background: lightgray;
 	border-radius: 5px;
-	display: flex;
-	flex-direction: column;
-	width: 250px;
+	grid-column: 1/3;
+	grid-row: 2/3;
+	min-width: 150px;
 }
 
-.listChat > aside:first-child {
-	margin-right: 2em;
+.userlist > p {
+	border-bottom: 1px solid #58aae8;
+	margin: 0;
+	padding: 0.5em;
 }
 
-aside > p {
-	margin: 0.5em;
+.userForm > input[type="text"] {
+	outline: none;
+	padding: 0.3em 0.5em;
+	width: 70%;
 }
 
-aside > form {
-	width: 100%;
+.userForm > input[type="submit"] {
+	padding: 0.3em 0.5em;
+	width: 30%;
 }
 
 .userlist-ul {
@@ -31,17 +28,16 @@ aside > form {
 	height: 250px;
 	overflow-y: scroll;
 	overflow-x: hidden;
+	padding-bottom: 0.5em;
 }
 
-/*.messagelist-ul {
-	flex-grow: 1;
-	justify-content: flex-end;
-}*/
+.userlist-ul::-webkit-scrollbar {
+	width: 0.5em;
+}
 
-.userlist-ul,
-.messagelist-ul > li {
-	list-style-type: none;
-	padding: 0 0.75em;
+.userlist-ul::-webkit-scrollbar-thumb {
+	background-color: darkgrey;
+	outline: 1px solid slategrey;
 }
 
 .userlist-ul > li:first-child {
@@ -53,6 +49,8 @@ aside > form {
 }
 
 .user-list-entry {
+	list-style-type: none;
+	padding: 0 0.75em;
 	box-sizing: content-box;
 	height: 25px;
 	align-items: center;
@@ -63,6 +61,15 @@ aside > form {
 	text-decoration: underline;
 }
 
+.user-list-entry > span {
+	font-family: "Nunito Sans", sans-serif;
+}
+
 .user-list-entry > i {
 	margin-left: auto;
+	opacity: 0.4;
+}
+
+.userlist > p {
+	/*font-family: "Nunito Sans", sans-serif;*/
 }

@@ -9,14 +9,14 @@ import "./userlist.css";
 export class UserChat extends React.Component {
 	handleSubmit(event) {
 		event.preventDefault();
-		const userId = this.userName.value;
+		const userId = this.userName.value.trim();
 		const baseId = this.props.baseId;
 		this.props.dispatch(addUserToList(baseId, userId));
+		this.userName.value = " ";
 	}
 
 	deleteUser(event) {
-		const userName = event.target.parentNode.innerText;
-		console.log(this.props.baseId);
+		const userName = event.target.parentNode.innerText.trim();
 		this.props.dispatch(deleteUserFromBase(this.props.baseId, userName));
 	}
 
@@ -27,13 +27,13 @@ export class UserChat extends React.Component {
 		// ---
 
 		const users = this.props.loading ? (
-			<img src={Loader} />
+			<img src={Loader} alt="Loading..." />
 		) : (
 			this.props.users &&
 			this.props.users.map(user => {
 				return (
-					<li key={user} className="user-list-entry">
-						{user}
+					<li key={user.created} className="user-list-entry">
+						<span>{user.userId}</span>
 						<i
 							className="fas fa-times"
 							onClick={event => this.deleteUser(event)}
@@ -45,9 +45,12 @@ export class UserChat extends React.Component {
 
 		return (
 			<aside className="userlist">
-				<p>UserList</p>
+				<p>Users</p>
 				<ul className="userlist-ul">{users}</ul>
-				<form onSubmit={this.handleSubmit} className="userForm">
+				<form
+					onSubmit={this.userName == "" ? "no" : this.handleSubmit}
+					className="userForm"
+				>
 					<input
 						type="text"
 						placeholder="Add a user"

@@ -23,7 +23,11 @@ export class Navbar extends React.Component {
         </li>
       ));
     } else {
-      logOutButton = <button onClick={() => this.logOut()}>Log out</button>;
+      logOutButton = (
+        <button className="logout" onClick={() => this.logOut()}>
+          Log out
+        </button>
+      );
       links = this.props.sidebarAuth.map(link => (
         <li key={link.value}>
           <Link to={link.path}>{link.title}</Link>
@@ -36,7 +40,7 @@ export class Navbar extends React.Component {
         <Link to="/">
           <img src={LogoImg} alt="Onyx Logo" className="logoWithoutText" />
         </Link>
-        <ul>
+        <ul className="navlinks">
           {links} {logOutButton}
         </ul>
       </header>

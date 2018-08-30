@@ -4,7 +4,9 @@ import { connect } from "react-redux";
 import requiresLogin from "./requires-login";
 import { fetchSingleBase } from "../actions/interaction";
 import UserList from "./userlist";
+import MessageList from "./messagelist";
 import Loader from "../img/doubleRing.svg";
+import "./basepage.css";
 
 export class BasePage extends React.Component {
 	componentDidMount() {
@@ -13,16 +15,23 @@ export class BasePage extends React.Component {
 	}
 	render() {
 		const title = this.props.currentBase ? (
-			<h2>{this.props.currentBase.title}</h2>
+			<div className="baseHeader">
+				<span>
+					You currently have {this.props.currentBase.users.length} users
+					assigned to
+					<span className="baseTitle">{this.props.currentBase.base.title}</span>
+					base.
+				</span>
+			</div>
 		) : (
-			<img src={Loader} />
+			<img src={Loader} alt="Loading..." />
 		);
 
 		return (
-			<div>
+			<div className="basepage">
 				{title}
-				<h2>You currently have users assigned to this base</h2>
 				<UserList baseId={this.props.match.params.baseId} />
+				<MessageList baseId={this.props.match.params.baseId} />
 			</div>
 		);
 	}

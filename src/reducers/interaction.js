@@ -3,9 +3,6 @@ import {
 	FETCH_BASES_BY_CREATOR_ID_REQUEST,
 	FETCH_BASES_BY_CREATOR_ID_SUCCESS,
 	FETCH_BASES_BY_CREATOR_ID_ERROR,
-	// 	FETCH_BASES_REQUEST,
-	// 	FETCH_BASES_SUCCESS,
-	// 	FETCH_BASES_ERROR,
 	ADD_BASE_REQUEST,
 	ADD_BASE_SUCCESS,
 	ADD_BASE_ERROR,
@@ -26,15 +23,19 @@ import {
 	DELETE_USER_FROM_BASE_ERROR,
 	MODIFY_VALUE_REQUEST,
 	MODIFY_VALUE_SUCCESS,
-	MODIFY_VALUE_ERROR
+	MODIFY_VALUE_ERROR,
+	ADD_MESSAGE_TO_LIST_REQUEST,
+	ADD_MESSAGE_TO_LIST_SUCCESS,
+	ADD_MESSAGE_TO_LIST_ERROR
 } from "../actions/interaction";
 
 const initialState = {
 	bases: [],
 	foreignBases: [],
 	currentBase: {
-		title: "",
-		users: []
+		base: {},
+		users: [],
+		messages: []
 	},
 	editing: false,
 	loading: false,
@@ -117,11 +118,9 @@ export default function interactionReducer(state = initialState, action) {
 			error: null
 		});
 	} else if (action.type === FETCH_SINGLE_BASE_SUCCESS) {
-		let currentUsers = action.data.map(users => users.baseuser.userId);
 		return Object.assign({}, state, {
 			currentBase: {
-				title: action.data[0].base.title,
-				users: currentUsers
+				...action.data
 			},
 			loading: false,
 			error: null
@@ -140,7 +139,7 @@ export default function interactionReducer(state = initialState, action) {
 		return Object.assign({}, state, {
 			currentBase: {
 				...state.currentBase,
-				users: [...state.currentBase.users, action.user.userId]
+				users: [...state.currentBase.users, action.user]
 			},
 			loading: false,
 			error: null
@@ -156,12 +155,13 @@ export default function interactionReducer(state = initialState, action) {
 			error: null
 		});
 	} else if (action.type === DELETE_USER_FROM_BASE_SUCCESS) {
-		const newArray = state.currentBase.users.filter(
-			user => user.created !== action.timeStamp
+		const newArr = state.currentBase.users.filter(
+			user => user.userId !== action.user
 		);
 		return Object.assign({}, state, {
 			currentBase: {
-				users: [...newArray]
+				...state.currentBase,
+				users: [...newArr]
 			},
 			loading: false,
 			error: null
@@ -193,6 +193,28 @@ export default function interactionReducer(state = initialState, action) {
 		return Object.assign({}, state, {
 			error: action.error,
 			loading: false
+		});
+	} else if (action.type === ADD_MESSAGE_TO_LIST_REQUEST) {
+		return Object.assign({}, state, {
+			loading: true,
+			error: null
+		});
+	} else if (action.type === ADD_MESSAGE_TO_LIST_SUCCESS) {
+		console.log(action);
+		console.log(state);
+		return Object.assign({}, state, {
+			currentBase: {
+				...state.currentBase,
+				users: [...state.currentBase.users],
+				messages: [...state.currentBase.messages, { ...action.message }]
+			},
+			loading: false,
+			error: null
+		});
+	} else if (action.type === ADD_MESSAGE_TO_LIST_ERROR) {
+		return Object.assign({}, state, {
+			loading: false,
+			error: null
 		});
 	}
 	return state;

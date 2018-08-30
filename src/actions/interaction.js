@@ -49,7 +49,8 @@ export const fetchBasesByCreatorIdError = error => ({
 ///////////////////////////////////
 // addbase.js Add base to DB
 ///////////////////////////////////
-export const addBaseToDb = (userId, title) => dispatch => {
+export const addBaseToDb = (userId, title, username) => dispatch => {
+	console.log(userId, title, username);
 	dispatch(addBaseRequest());
 	fetch(`${API_BASE_URL}/baselist/add`, {
 		method: "POST",
@@ -59,7 +60,8 @@ export const addBaseToDb = (userId, title) => dispatch => {
 		},
 		body: JSON.stringify({
 			userId,
-			title
+			title,
+			username
 		})
 	})
 		.then(res => {
@@ -200,13 +202,9 @@ export const fetchSingleBaseError = error => ({
 ///////////////////////////////////
 // Add user to DB via userlist.js
 ///////////////////////////////////
-export const addUserToList = (
-	baseId,
-	userName,
-	acceptedMembership,
-	isCreator
-) => dispatch => {
+export const addUserToList = (baseId, userName) => dispatch => {
 	dispatch(addUserToListRequest());
+	console.log(baseId, userName);
 	fetch(`${API_BASE_URL}/user-message/addUser`, {
 		method: "POST",
 		headers: {
@@ -214,9 +212,7 @@ export const addUserToList = (
 		},
 		body: JSON.stringify({
 			baseId,
-			userName,
-			acceptedMembership,
-			isCreator
+			userName
 		})
 	})
 		.then(res => {
@@ -251,7 +247,6 @@ export const addUserToListError = error => ({
 ///////////////////////////////////
 export const deleteUserFromBase = (baseId, userId) => dispatch => {
 	dispatch(deleteUserFromBaseRequest());
-	console.log(userId);
 	fetch(`${API_BASE_URL}/user-message/userDelete/${baseId}`, {
 		method: "DELETE",
 		headers: {
@@ -265,7 +260,7 @@ export const deleteUserFromBase = (baseId, userId) => dispatch => {
 			if (!res.ok) {
 				return Promise.reject(res.statusText);
 			}
-			// return true;
+			return true;
 		})
 		.then(() => dispatch(deleteUserFromBaseSuccess(userId)))
 		.then(error => dispatch(deleteUserFromBaseError(error)));
@@ -277,9 +272,9 @@ export const deleteUserFromBaseRequest = () => ({
 });
 
 export const DELETE_USER_FROM_BASE_SUCCESS = "DELETE_USER_FROM_BASE_SUCCESS";
-export const deleteUserFromBaseSuccess = timeStamp => ({
+export const deleteUserFromBaseSuccess = user => ({
 	type: DELETE_USER_FROM_BASE_SUCCESS,
-	timeStamp
+	user
 });
 
 export const DELETE_USER_FROM_BASE_ERROR = "DELETE_USER_FROM_BASE_ERROR";
@@ -327,66 +322,46 @@ export const modifyValueError = error => ({
 	error
 });
 
-// // For when the user looks at a single Base
-// export const fetchUsersOfList = userId => dispatch => {
-// 	console.log(userId);
-// 	dispatch(fetchUsersOfListRequest());
-// 	fetch(`${API_BASE_URL}/user-message/list/${userId}`, {
-// 		method: "GET"
-// 	})
-// 		.then(res => {
-// 			if (!res.ok) {
-// 				return Promise.reject(res.statusText);
-// 			}
-// 			console.log(res);
-// 			return res.json();
-// 		})
-// 		.then(users => dispatch(fetchUsersOfListSuccess(users)))
-// 		.catch(error => dispatch(fetchUsersOfListError(error)));
-// };
+///////////////////////////////////
+// Add a message to the DB in messagelist.js
+///////////////////////////////////
+export const addMessageToList = (baseId, content) => dispatch => {
+	dispatch(addMessageToListRequest());
+	fetch(`${API_BASE_URL}/user-message/messageAdd`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify({
+			baseId,
+			content
+		})
+	})
+		.then(res => {
+			if (!res.ok) {
+				return Promise.reject(res.statusText);
+			}
+			return res.json();
+		})
+		.then(message => dispatch(addMessageToListSuccess(message)))
+		.catch(error => dispatch(addMessageToListError(error)));
+};
 
-// export const FETCH_USERS_OF_LIST_REQUEST = "FETCH_USERS_OF_LIST_REQUEST";
-// export const fetchUsersOfListRequest = () => ({
-// 	type: FETCH_USERS_OF_LIST_REQUEST
-// });
+export const ADD_MESSAGE_TO_LIST_REQUEST = "ADD_MESSAGE_TO_LIST_REQUEST";
+export const addMessageToListRequest = () => ({
+	type: ADD_MESSAGE_TO_LIST_REQUEST
+});
 
-// export const FETCH_USERS_OF_LIST_SUCCESS = "FETCH_USERS_OF_LIST_SUCCESS";
-// export const fetchUsersOfListSuccess = users => ({
-// 	type: FETCH_USERS_OF_LIST_SUCCESS,
-// 	users
-// });
+export const ADD_MESSAGE_TO_LIST_SUCCESS = "ADD_MESSAGE_TO_LIST_SUCCESS";
+export const addMessageToListSuccess = message => ({
+	type: "ADD_MESSAGE_TO_LIST_SUCCESS",
+	message
+});
 
-// export const FETCH_USERS_OF_LIST_ERROR = "FETCH_USERS_OF_LIST_ERROR";
-// export const fetchUsersOfListError = error => ({
-// 	type: FETCH_USERS_OF_LIST_ERROR,
-// 	error
-// });
-
-// export const FETCH_BASES_BY_USERNAME_REQUEST =
-// 	"FETCH_BASES_BY_USERNAME_REQUEST";
-// export const fetchBasesByUsernameRequest = () => ({
-// 	type: FETCH_BASES_BY_USERNAME_REQUEST
-// });
-
-// export const FETCH_BASES_BY_USERNAME_SUCCESS =
-// 	"FETCH_BASES_BY_USERNAME_SUCCESS";
-// // export const fetchBasesByUsernameSuccess = foreignBases => ({
-// // 	type: FETCH_BASES_BY_USERNAME_SUCCESS,
-// // 	foreignBases
-// // });
-
-// export function fetchBasesByUsernameSuccess(foreignBases) {
-// 	console.log(foreignBases);
-// 	return {
-// 		type: FETCH_BASES_BY_USERNAME_SUCCESS,
-// 		foreignBases
-// 	};
-// }
-
-// export const FETCH_BASES_BY_USERNAME_ERROR = "FETCH_BASES_BY_USERNAME_ERROR";
-// export const fetchBasesByUsernameError = error => ({
-// 	type: FETCH_BASES_BY_USERNAME_ERROR,
-// 	error
-// });
+export const ADD_MESSAGE_TO_LIST_ERROR = "ADD_MESSAGE_TO_LIST_ERROR";
+export const addMessageToListError = error => ({
+	type: ADD_MESSAGE_TO_LIST_ERROR,
+	error
+});
 
 //  look up js promises
