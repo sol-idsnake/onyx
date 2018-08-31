@@ -245,15 +245,16 @@ export const addUserToListError = error => ({
 ///////////////////////////////////
 // Remove user from DB when clicking X in the user list
 ///////////////////////////////////
-export const deleteUserFromBase = (baseId, userId) => dispatch => {
+export const deleteUserFromBase = (baseId, username) => dispatch => {
 	dispatch(deleteUserFromBaseRequest());
-	fetch(`${API_BASE_URL}/user-message/userDelete/${baseId}`, {
+	fetch(`${API_BASE_URL}/user-message/userDelete/`, {
 		method: "DELETE",
 		headers: {
 			"Content-Type": "application/json"
 		},
 		body: JSON.stringify({
-			userId
+			baseId,
+			username
 		})
 	})
 		.then(res => {
@@ -262,7 +263,7 @@ export const deleteUserFromBase = (baseId, userId) => dispatch => {
 			}
 			return true;
 		})
-		.then(() => dispatch(deleteUserFromBaseSuccess(userId)))
+		.then(() => dispatch(deleteUserFromBaseSuccess(username)))
 		.then(error => dispatch(deleteUserFromBaseError(error)));
 };
 
@@ -286,14 +287,14 @@ export const deleteUserFromBaseError = error => ({
 ///////////////////////////////////
 // When the user accepts membership into a base on foreignbases.js
 ///////////////////////////////////
-export const modifier = (bool, baseId) => dispatch => {
+export const modifier = (bool, baseId, username) => dispatch => {
 	dispatch(modifyValueRequest());
 	fetch(`${API_BASE_URL}/user-message/modify`, {
 		method: "PUT",
 		headers: {
 			"Content-Type": "application/json"
 		},
-		body: JSON.stringify({ bool, baseId })
+		body: JSON.stringify({ bool, baseId, username })
 	})
 		.then(res => {
 			if (!res.ok) {

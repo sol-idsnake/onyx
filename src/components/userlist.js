@@ -21,6 +21,7 @@ export class UserChat extends React.Component {
 	}
 
 	render() {
+		// console.log(this.props.myValue(this.props.users.length));
 		// --- Add these for input accessibility
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.input = React.createRef();
@@ -67,7 +68,6 @@ export class UserChat extends React.Component {
 const mapStateToProps = state => ({
 	users: state.interaction.currentBase.users,
 	loading: state.interaction.loading,
-	// userBases: state.interaction.userBases
 	currentAuthUser: state.auth.currentUser.username
 });
 

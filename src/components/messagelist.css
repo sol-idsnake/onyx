@@ -56,7 +56,7 @@
 	width: 30%;
 }
 
-hr {
+.message-list-entry > hr {
 	position: absolute;
 	opacity: 0.3;
 	width: 95%;

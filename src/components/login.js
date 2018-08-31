@@ -5,19 +5,15 @@ import { Redirect } from "react-router-dom";
 import LoginForm from "./loginForm";
 
 export function LoginPage(props) {
-  if (props.loggedIn) {
-    return <Redirect to="/dashboard" />;
-  }
+	if (props.loggedIn) {
+		return <Redirect to="/dashboard" />;
+	}
 
-  return (
-    <div className="home">
-      <LoginForm />
-    </div>
-  );
+	return <LoginForm />;
 }
 
 const mapStateToProps = state => ({
-  loggedIn: state.auth.currentUser !== null
+	loggedIn: state.auth.currentUser !== null
 });
 
 export default connect(mapStateToProps)(LoginPage);

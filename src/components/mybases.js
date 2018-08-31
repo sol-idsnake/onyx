@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import requiresLogin from "./requires-login";
 import AddBase from "./addbase";
 import ForeignBases from "./foreignbases";
-import "./dashcontent.css";
+import "./mybases.css";
 import { Link } from "react-router-dom";
 import {
 	fetchBasesByCreatorId,
@@ -41,14 +41,8 @@ export class DashContent extends React.Component {
 			baseList = this.props.bases.map(base => (
 				<li key={base.id} className="base">
 					<Link to={`/single-base/${base.id}`}>{base.title}</Link>
-					<p>
-						Current Users:
-						<Link to={`/single-base/${base.id}`} />
-					</p>
-					<p>
-						Current Messages:
-						<Link to={`/single-base/${base.id}`} />
-					</p>
+					<p>Current Users:</p>
+					<p>Current Messages:</p>
 					<i
 						className="fas fa-times"
 						onClick={() => this.deleteBase(base.id)}
@@ -58,16 +52,12 @@ export class DashContent extends React.Component {
 		}
 
 		return (
-			<ul className="baseWrapper">
-				<p>My Bases:</p>
-				<li className="base add-list-wrapper">
+			<div className="myBases">
+				<div className="base add-list-wrapper">
 					<AddBase type="base" onAdd={title => this.addBase(title)} />
-				</li>
-
+				</div>
 				{baseList}
-				<p>Bases I was added to:</p>
-				<ForeignBases />
-			</ul>
+			</div>
 		);
 	}
 }

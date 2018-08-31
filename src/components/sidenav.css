@@ -2,9 +2,9 @@
 	background: #eaeaea;
 	border-radius: 8px;
 	height: 200px;
-	margin: 1em 0 0 2em;
+	margin: 0 0 0 2em;
 	padding: 1em;
-	min-width: 200px;
+	width: 150px;
 }
 
 .sidebar-ul {

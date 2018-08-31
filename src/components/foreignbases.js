@@ -16,21 +16,20 @@ export class ForeignBases extends React.Component {
 	}
 
 	acceptMembership(bool, baseId) {
-		this.props.dispatch(modifier(bool, baseId));
+		const username = this.props.currentUser.username;
+		this.props.dispatch(modifier(bool, baseId, username));
 	}
 
-	removeMeFromBase(timeStamp) {
-		this.props.dispatch(deleteUserFromBase(timeStamp));
+	removeMeFromBase(event) {
+		const baseId = event.target.id;
+		const username = this.props.currentUser.username;
+		this.props.dispatch(deleteUserFromBase(baseId, username));
 	}
 
 	render() {
-		let propsBases = this.props.bases;
+		let propsBases = this.props.foreignBases;
 		let toBeAcceptedBase;
 		let acceptedBase;
-
-		if (!this.props.foreignBases) {
-			console.log("trigger");
-		}
 
 		for (let i = 0; i < propsBases.length; i++) {
 			toBeAcceptedBase = this.props.foreignBases.filter(item => {
@@ -75,24 +74,29 @@ export class ForeignBases extends React.Component {
 				);
 			})
 		);
-
+		// console.log(this.props);
 		const acceptedBaseList = this.props.loading ? (
 			<img src={Loader} alt="Loading..." />
 		) : (
 			acceptedBase &&
 			acceptedBase.map(item => {
+				// console.log(item);
 				return (
 					<li key={item.base.id} className="base">
-						<Link to={`/user-message/${item.base.id}`}>{item.base.title}</Link>
-						<p>
-							Current Users: <Link to={`/user-message/${item.base.id}`} />
-						</p>
-						<p>
-							Current Messages: <Link to={`/user-message/${item.base.id}`} />
-						</p>
+						<Link
+							to={{
+								pathname: `/single-base/${item.base.id}`,
+								search: `isCreator=${item.baseuser.isCreator}`
+							}}
+						>
+							{item.base.title}
+						</Link>
+						<p>Current Users: /></p>
+						<p>Current Messages:</p>
 						<span
+							id={item.base.id}
 							className="optOut"
-							onClick={() => this.removeMeFromBase(item.baseuser.created)}
+							onClick={event => this.removeMeFromBase(event)}
 						>
 							Opt out
 						</span>

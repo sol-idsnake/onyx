@@ -1,5 +1,42 @@
 .dashboard {
-	display: flex;
-	justify-content: flex-start;
+	display: grid;
+	grid-gap: 30px;
+	grid-template-columns: repeat(auto-fill, 100px);
+	grid-template-rows: auto auto auto auto auto auto;
 	width: 100%;
+	/*grid-auto-flow: row;*/
+}
+
+.sidebar {
+	grid-column: 1/3;
+	grid-row: 2/4;
+}
+
+.myBaseHeader {
+	grid-column: 1/16;
+	grid-row: 2/3;
+	text-align: center;
+}
+
+.myBases {
+	grid-column: 3/16;
+	grid-row: 3/4;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.foreignBaseHeader {
+	grid-column: 1/16;
+	grid-row: 4/5;
+	text-align: center;
+}
+
+.foreignBases {
+	grid-column: 3/16;
+	grid-row: 5/6;
+}
+
+.myBaseHeader > h4,
+.foreignBaseHeader > h4 {
+	margin: 0;
 }

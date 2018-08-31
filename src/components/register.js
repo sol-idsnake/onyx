@@ -10,12 +10,7 @@ export function Register(props) {
   if (props.loggedIn) {
     return <Redirect to="/dashboard" />;
   }
-  return (
-    <div className="registrationForm">
-      <h2>Register</h2>
-      <RegistrationForm />
-    </div>
-  );
+  return <RegistrationForm />;
 }
 
 const mapStateToProps = state => ({

@@ -2,19 +2,23 @@ import React from "react";
 import { connect } from "react-redux";
 import requiresLogin from "./requires-login";
 import Sidenav from "./sidenav";
-import DashContent from "./dashcontent";
+import MyBases from "./mybases";
+import ForeignBases from "./foreignbases";
 import "./dashboard.css";
-
-// import { fetchProtectedData } from "../actions/protected-data";
 
 export class Dashboard extends React.Component {
   render() {
     return (
       <div className="dashboard">
         <Sidenav />
-        <div className="dashcontent">
-          <DashContent />
+        <div className="myBaseHeader">
+          <h4>My Bases</h4>
         </div>
+        <MyBases />
+        <div className="foreignBaseHeader">
+          <h4>Bases I am part of</h4>
+        </div>
+        <ForeignBases />
       </div>
     );
   }
@@ -25,17 +29,7 @@ const mapStateToProps = state => {
   return {
     username: currentUser.username,
     name: `${currentUser.firstName} ${currentUser.lastName}`
-    // protectedData: state.protectedData.data
   };
 };
 
 export default requiresLogin()(connect(mapStateToProps)(Dashboard));
-
-// <h1>Success</h1>
-// <div className="dashboard-username">
-// Username: {this.props.username}
-// </div>
-// <div className="dashboard-name">Name: {this.props.name}</div>
-// <div className="dashboard-protected-data">
-// Protected data: {this.props.protectedData}
-// </div>

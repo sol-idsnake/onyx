@@ -158,17 +158,24 @@ export default function interactionReducer(state = initialState, action) {
 			error: null
 		});
 	} else if (action.type === DELETE_USER_FROM_BASE_SUCCESS) {
-		const newArr = state.currentBase.users.filter(
-			user => user.userId !== action.user
-		);
-		return Object.assign({}, state, {
-			currentBase: {
-				...state.currentBase,
-				users: [...newArr]
-			},
-			loading: false,
-			error: null
+		// console.log(action);
+		// console.log(state);
+		// const newUserArr = state.currentBase.users.filter(
+		// 	user => user.userId !== action.user
+		// );
+		const newForeignBaseArr = state.foreignBases.map(base => {
+			base.baseuser.userId !== action.user;
 		});
+		console.log(newForeignBaseArr);
+		// return Object.assign({}, state, {
+		// 	currentBase: {
+		// 		...state.currentBase,
+		// 		users: [...newUserArr]
+		// 	},
+		// 	// foreignBases: ...state.foreignBases,
+		// 	loading: false,
+		// 	error: null
+		// });
 	} else if (action.type === DELETE_USER_FROM_BASE_ERROR) {
 		return Object.assign({}, state, {
 			error: action.error,
@@ -182,7 +189,10 @@ export default function interactionReducer(state = initialState, action) {
 	} else if (action.type === MODIFY_VALUE_SUCCESS) {
 		let foreignBases = state.foreignBases.map(foreignBase => {
 			if (action.baseUser.created === foreignBase.baseuser.created) {
-				return { ...foreignBase, baseuser: action.baseUser };
+				return Object.assign({}, state, {
+					...foreignBase,
+					baseuser: { ...action.baseUser }
+				});
 			} else {
 				return foreignBase;
 			}
@@ -206,7 +216,6 @@ export default function interactionReducer(state = initialState, action) {
 		return Object.assign({}, state, {
 			currentBase: {
 				...state.currentBase,
-				// users: [...state.currentBase.users],
 				messages: [...state.currentBase.messages, { ...action.message }]
 			},
 			loading: false,

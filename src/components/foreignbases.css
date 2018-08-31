@@ -1,15 +1,15 @@
 .foreignBases {
-	display: flex;
-	flex-direction: column;
-}
-
-.foreignBases > ul {
-	flex-direction: column;
+	/*display: flex;*/
+	/*flex-direction: column;*/
 }
 
 .foreignBases > ul > .base {
 	height: 100px;
 	width: 300px;
+}
+
+.acceptedBasesList {
+	flex-wrap: wrap;
 }
 
 .toBeAcceptedBase {

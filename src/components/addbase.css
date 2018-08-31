@@ -1,3 +1,15 @@
+.add-form {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+}
+
+input[type="text"] {
+	font-size: 0.9em;
+	line-height: 1.5em;
+	margin-bottom: 0.5em;
+}
+
 .add-list-wrapper {
 	align-items: center;
 }
@@ -10,9 +22,4 @@
 
 .add-button:hover {
 	background: #ddd;
-}
-
-.add-form {
-	margin-top: 0;
-	width: 152px;
 }

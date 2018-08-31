@@ -1,42 +1,31 @@
-.dashcontent {
-	display: flex;
-	padding: 1em 0 0 1em;
-	flex-wrap: wrap;
-}
-
-.baseWrapper {
-	display: flex;
-	flex-wrap: wrap;
-}
-
-.baseWrapper > p {
-	flex-basis: 100%;
-}
-
 .base {
 	background: #eee;
 	border-radius: 0.3em;
 	display: flex;
 	flex-direction: column;
-	height: 100px;
+	height: 153px;
 	margin: 0 0 1em 1em;
 	padding: 0.5em;
 	position: relative;
-	width: 80px;
+	width: 200px;
+}
+
+.base > p {
+	margin-bottom: 0.3em;
+}
+
+.base > p:nth-child(3) {
+	margin: 0;
 }
 
 .base > i {
 	position: absolute;
-	right: 0.3em;
+	right: 0.4em;
 	opacity: 0.4;
 }
 
 .base > i:hover {
 	opacity: 0.7;
-}
-
-.base > p {
-	margin-bottom: 0;
 }
 
 .baseWrapper > li {
@@ -45,5 +34,6 @@
 }
 
 .add-list-wrapper {
+	justify-content: center;
 	list-style-type: none;
 }
