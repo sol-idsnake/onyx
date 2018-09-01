@@ -31,11 +31,11 @@ export class MessageList extends React.Component {
 			this.props.messages &&
 			this.props.messages.map(message => {
 				return (
-					<li key={message._id} className="message-list-entry">
+					<li key={message.id} className="message-list-entry">
 						<span className="content">{message.content}</span>
 						<span className="date">{message.created.slice(0, 10)}</span>
 						<i
-							id={message._id}
+							id={message.id}
 							className="fas fa-times"
 							onClick={event => this.deleteMessage(event)}
 						/>

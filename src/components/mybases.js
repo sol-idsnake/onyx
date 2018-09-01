@@ -43,7 +43,7 @@ export class DashContent extends React.Component {
 					<Link to={`/single-base/${base.id}`}>{base.title}</Link>
 					<p>Current Users:</p>
 					<p>Current Messages:</p>
-					<i
+					<span
 						className="fas fa-times"
 						onClick={() => this.deleteBase(base.id)}
 					/>
