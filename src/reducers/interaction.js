@@ -158,24 +158,21 @@ export default function interactionReducer(state = initialState, action) {
 			error: null
 		});
 	} else if (action.type === DELETE_USER_FROM_BASE_SUCCESS) {
-		// console.log(action);
-		// console.log(state);
-		// const newUserArr = state.currentBase.users.filter(
-		// 	user => user.userId !== action.user
-		// );
-		const newForeignBaseArr = state.foreignBases.map(base => {
-			base.baseuser.userId !== action.user;
+		const newUserArr = state.currentBase.users.filter(
+			user => user.userId !== action.data.baseuser.userId
+		);
+		const newForeignBaseArr = state.foreignBases.filter(
+			data => data.base.title !== action.data.base.title
+		);
+		return Object.assign({}, state, {
+			currentBase: {
+				...state.currentBase,
+				users: [...newUserArr]
+			},
+			foreignBases: newForeignBaseArr,
+			loading: false,
+			error: null
 		});
-		console.log(newForeignBaseArr);
-		// return Object.assign({}, state, {
-		// 	currentBase: {
-		// 		...state.currentBase,
-		// 		users: [...newUserArr]
-		// 	},
-		// 	// foreignBases: ...state.foreignBases,
-		// 	loading: false,
-		// 	error: null
-		// });
 	} else if (action.type === DELETE_USER_FROM_BASE_ERROR) {
 		return Object.assign({}, state, {
 			error: action.error,
@@ -187,18 +184,17 @@ export default function interactionReducer(state = initialState, action) {
 			error: null
 		});
 	} else if (action.type === MODIFY_VALUE_SUCCESS) {
-		let foreignBases = state.foreignBases.map(foreignBase => {
-			if (action.baseUser.created === foreignBase.baseuser.created) {
-				return Object.assign({}, state, {
-					...foreignBase,
-					baseuser: { ...action.baseUser }
-				});
-			} else {
+		let newArr = state.foreignBases.map(foreignBase => {
+			if (action.baseUser.created !== foreignBase.baseuser.created) {
 				return foreignBase;
 			}
+			return {
+				base: { ...foreignBase.base },
+				baseuser: { ...action.baseUser }
+			};
 		});
 		return Object.assign({}, state, {
-			foreignBases,
+			foreignBases: [...newArr],
 			loading: false,
 			error: null
 		});

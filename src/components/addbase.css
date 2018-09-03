@@ -4,7 +4,7 @@
 	flex-direction: column;
 }
 
-input[type="text"] {
+.add-form > input[type="text"] {
 	font-size: 0.9em;
 	line-height: 1.5em;
 	margin-bottom: 0.5em;

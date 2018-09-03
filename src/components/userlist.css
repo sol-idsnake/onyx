@@ -12,13 +12,23 @@
 	padding: 0.5em;
 }
 
+.userForm {
+	display: flex;
+}
+
 .userForm > input[type="text"] {
+	font-size: 0.9em;
+	line-height: 1.5em;
 	outline: none;
+	margin: 0;
 	padding: 0.3em 0.5em;
 	width: 70%;
 }
 
 .userForm > input[type="submit"] {
+	background: #9fce30;
+	border: 1px solid #638020;
+	margin: 0;
 	padding: 0.3em 0.5em;
 	width: 30%;
 }

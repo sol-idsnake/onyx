@@ -10,13 +10,15 @@ export class MessageList extends React.Component {
 		event.preventDefault();
 		const baseId = this.props.baseId;
 		const content = this.message.value;
-		this.props.dispatch(addMessageToList(baseId, content));
+		const access_token = this.props.auth;
+		this.props.dispatch(addMessageToList(baseId, content, access_token));
 		this.message.value = " ";
 	}
 
 	deleteMessage(event) {
-		console.log();
-		this.props.dispatch(deleteMessage(event.target.id));
+		event.preventDefault();
+		const access_token = this.props.auth;
+		this.props.dispatch(deleteMessage(event.target.id, access_token));
 	}
 
 	render() {
@@ -31,11 +33,11 @@ export class MessageList extends React.Component {
 			this.props.messages &&
 			this.props.messages.map(message => {
 				return (
-					<li key={message._id} className="message-list-entry">
+					<li key={message.id} className="message-list-entry">
 						<span className="content">{message.content}</span>
 						<span className="date">{message.created.slice(0, 10)}</span>
 						<i
-							id={message._id}
+							id={message.id}
 							className="fas fa-times"
 							onClick={event => this.deleteMessage(event)}
 						/>
@@ -65,7 +67,8 @@ export class MessageList extends React.Component {
 
 const mapStateToProps = state => ({
 	messages: state.interaction.currentBase.messages,
-	loading: state.interaction.loading
+	loading: state.interaction.loading,
+	auth: state.auth.authToken
 	// userBases: state.interaction.userBases
 	// currentAuthUser: state.auth.currentUser.username
 });

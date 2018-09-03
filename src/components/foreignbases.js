@@ -12,18 +12,23 @@ import Loader from "../img/doubleRing.svg";
 
 export class ForeignBases extends React.Component {
 	componentDidMount() {
-		this.props.dispatch(fetchForeignBases(this.props.currentUser.username));
+		const access_token = this.props.auth;
+		this.props.dispatch(
+			fetchForeignBases(this.props.currentUser.username, access_token)
+		);
 	}
 
 	acceptMembership(bool, baseId) {
 		const username = this.props.currentUser.username;
-		this.props.dispatch(modifier(bool, baseId, username));
+		const access_token = this.props.auth;
+		this.props.dispatch(modifier(bool, baseId, username, access_token));
 	}
 
 	removeMeFromBase(event) {
 		const baseId = event.target.id;
 		const username = this.props.currentUser.username;
-		this.props.dispatch(deleteUserFromBase(baseId, username));
+		const access_token = this.props.auth;
+		this.props.dispatch(deleteUserFromBase(baseId, username, access_token));
 	}
 
 	render() {
@@ -40,6 +45,7 @@ export class ForeignBases extends React.Component {
 				);
 			});
 		}
+
 		for (let i = 0; i < propsBases.length; i++) {
 			acceptedBase = this.props.foreignBases.filter(item => {
 				return (
@@ -62,9 +68,13 @@ export class ForeignBases extends React.Component {
 							<span className="baseName">{item.base.title}</span>. Click
 							<span
 								className="accept"
-								onClick={() =>
-									this.acceptMembership(true, item.baseuser.baseId)
-								}
+								onClick={() => {
+									this.acceptMembership(
+										true,
+										item.baseuser.baseId,
+										this.props.auth
+									);
+								}}
 							>
 								HERE
 							</span>
@@ -74,13 +84,12 @@ export class ForeignBases extends React.Component {
 				);
 			})
 		);
-		// console.log(this.props);
+
 		const acceptedBaseList = this.props.loading ? (
 			<img src={Loader} alt="Loading..." />
 		) : (
 			acceptedBase &&
 			acceptedBase.map(item => {
-				// console.log(item);
 				return (
 					<li key={item.base.id} className="base">
 						<Link
@@ -91,7 +100,7 @@ export class ForeignBases extends React.Component {
 						>
 							{item.base.title}
 						</Link>
-						<p>Current Users: /></p>
+						<p>Current Users: </p>
 						<p>Current Messages:</p>
 						<span
 							id={item.base.id}
@@ -116,6 +125,7 @@ export class ForeignBases extends React.Component {
 
 const mapStateToProps = state => ({
 	currentUser: state.auth.currentUser,
+	auth: state.auth.authToken,
 	bases: state.interaction.bases,
 	foreignBases: state.interaction.foreignBases,
 	loading: state.interaction.loading

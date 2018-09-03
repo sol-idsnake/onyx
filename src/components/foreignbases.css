@@ -1,6 +1,6 @@
 .foreignBases {
-	/*display: flex;*/
-	/*flex-direction: column;*/
+	display: flex;
+	flex-direction: column;
 }
 
 .foreignBases > ul > .base {
@@ -10,6 +10,10 @@
 
 .acceptedBasesList {
 	flex-wrap: wrap;
+}
+
+.toBeAcceptedBases {
+	flex-direction: column;
 }
 
 .toBeAcceptedBase {

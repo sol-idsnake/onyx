@@ -11,10 +11,13 @@ export const setEditing = editing => ({
 ///////////////////////////////////
 // Dashcontent fetches all bases created by the current User
 ///////////////////////////////////
-export const fetchBasesByCreatorId = creatorId => dispatch => {
+export const fetchBasesByCreatorId = (creatorId, access_token) => dispatch => {
 	dispatch(fetchBasesByCreatorIdRequest());
 	fetch(`${API_BASE_URL}/baselist/list/${creatorId}`, {
-		method: "GET"
+		method: "GET",
+		headers: {
+			authorization: `Bearer ${access_token}`
+		}
 	})
 		.then(res => {
 			if (!res.ok) {
@@ -49,13 +52,20 @@ export const fetchBasesByCreatorIdError = error => ({
 ///////////////////////////////////
 // addbase.js Add base to DB
 ///////////////////////////////////
-export const addBaseToDb = (userId, title, username) => dispatch => {
+export const addBaseToDb = (
+	userId,
+	title,
+	username,
+	access_token
+) => dispatch => {
 	console.log(userId, title, username);
 	dispatch(addBaseRequest());
 	fetch(`${API_BASE_URL}/baselist/add`, {
 		method: "POST",
 		headers: {
-			"Content-Type": "application/json"
+			"Content-Type": "application/json",
+			authorization: `Bearer ${access_token}`
+
 			// add auth token
 		},
 		body: JSON.stringify({
@@ -91,12 +101,13 @@ export const addBaseError = error => ({
 ///////////////////////////////////
 // Remove Base and users from base
 ///////////////////////////////////
-export const removeBase = id => dispatch => {
+export const removeBase = (id, access_token) => dispatch => {
 	dispatch(removeBaseRequest());
 	fetch(`${API_BASE_URL}/baselist/delete`, {
 		method: "DELETE",
 		headers: {
-			"Content-Type": "application/json"
+			"Content-Type": "application/json",
+			authorization: `Bearer ${access_token}`
 		},
 		body: JSON.stringify({
 			id
@@ -132,10 +143,13 @@ export const removeBaseError = error => ({
 ///////////////////////////////////
 // Fetch foreign bases/userlist on foreignbases.js
 ///////////////////////////////////
-export const fetchForeignBases = userId => dispatch => {
+export const fetchForeignBases = (userId, access_token) => dispatch => {
 	dispatch(fetchForeignBasesRequest());
 	fetch(`${API_BASE_URL}/user-message/foreignbases/${userId}`, {
-		method: "GET"
+		method: "GET",
+		headers: {
+			authorization: `Bearer ${access_token}`
+		}
 	})
 		.then(res => {
 			if (!res.ok) {
@@ -167,10 +181,13 @@ export const fetchForeignBasesError = error => ({
 ///////////////////////////////////
 // Fetch single base, to include members and messages
 ///////////////////////////////////
-export const fetchSingleBase = baseId => dispatch => {
+export const fetchSingleBase = (baseId, access_token) => dispatch => {
 	dispatch(fetchSingleBaseRequest());
 	fetch(`${API_BASE_URL}/baselist/single-base/${baseId}`, {
-		method: "GET"
+		method: "GET",
+		headers: {
+			authorization: `Bearer ${access_token}`
+		}
 	})
 		.then(res => {
 			if (!res.ok) {
@@ -202,13 +219,13 @@ export const fetchSingleBaseError = error => ({
 ///////////////////////////////////
 // Add user to DB via userlist.js
 ///////////////////////////////////
-export const addUserToList = (baseId, userName) => dispatch => {
+export const addUserToList = (baseId, userName, access_token) => dispatch => {
 	dispatch(addUserToListRequest());
-	console.log(baseId, userName);
 	fetch(`${API_BASE_URL}/user-message/addUser`, {
 		method: "POST",
 		headers: {
-			"Content-Type": "application/json"
+			"Content-Type": "application/json",
+			authorization: `Bearer ${access_token}`
 		},
 		body: JSON.stringify({
 			baseId,
@@ -245,12 +262,17 @@ export const addUserToListError = error => ({
 ///////////////////////////////////
 // Remove user from DB when clicking X in the user list
 ///////////////////////////////////
-export const deleteUserFromBase = (baseId, username) => dispatch => {
+export const deleteUserFromBase = (
+	baseId,
+	username,
+	access_token
+) => dispatch => {
 	dispatch(deleteUserFromBaseRequest());
 	fetch(`${API_BASE_URL}/user-message/userDelete/`, {
 		method: "DELETE",
 		headers: {
-			"Content-Type": "application/json"
+			"Content-Type": "application/json",
+			authorization: `Bearer ${access_token}`
 		},
 		body: JSON.stringify({
 			baseId,
@@ -261,9 +283,9 @@ export const deleteUserFromBase = (baseId, username) => dispatch => {
 			if (!res.ok) {
 				return Promise.reject(res.statusText);
 			}
-			return true;
+			return res.json();
 		})
-		.then(() => dispatch(deleteUserFromBaseSuccess(username)))
+		.then(data => dispatch(deleteUserFromBaseSuccess(data)))
 		.then(error => dispatch(deleteUserFromBaseError(error)));
 };
 
@@ -273,9 +295,9 @@ export const deleteUserFromBaseRequest = () => ({
 });
 
 export const DELETE_USER_FROM_BASE_SUCCESS = "DELETE_USER_FROM_BASE_SUCCESS";
-export const deleteUserFromBaseSuccess = user => ({
+export const deleteUserFromBaseSuccess = data => ({
 	type: DELETE_USER_FROM_BASE_SUCCESS,
-	user
+	data
 });
 
 export const DELETE_USER_FROM_BASE_ERROR = "DELETE_USER_FROM_BASE_ERROR";
@@ -287,12 +309,13 @@ export const deleteUserFromBaseError = error => ({
 ///////////////////////////////////
 // When the user accepts membership into a base on foreignbases.js
 ///////////////////////////////////
-export const modifier = (bool, baseId, username) => dispatch => {
+export const modifier = (bool, baseId, username, access_token) => dispatch => {
 	dispatch(modifyValueRequest());
 	fetch(`${API_BASE_URL}/user-message/modify`, {
 		method: "PUT",
 		headers: {
-			"Content-Type": "application/json"
+			"Content-Type": "application/json",
+			authorization: `Bearer ${access_token}`
 		},
 		body: JSON.stringify({ bool, baseId, username })
 	})
@@ -326,12 +349,13 @@ export const modifyValueError = error => ({
 ///////////////////////////////////
 // Add a message to the DB in messagelist.js
 ///////////////////////////////////
-export const addMessageToList = (baseId, content) => dispatch => {
+export const addMessageToList = (baseId, content, access_token) => dispatch => {
 	dispatch(addMessageToListRequest());
 	fetch(`${API_BASE_URL}/user-message/messageAdd`, {
 		method: "POST",
 		headers: {
-			"Content-Type": "application/json"
+			"Content-Type": "application/json",
+			authorization: `Bearer ${access_token}`
 		},
 		body: JSON.stringify({
 			baseId,
@@ -368,10 +392,13 @@ export const addMessageToListError = error => ({
 ///////////////////////////////////
 // Delete a message from the DB in messagelist.js
 ///////////////////////////////////
-export const deleteMessage = messageId => dispatch => {
+export const deleteMessage = (messageId, access_token) => dispatch => {
 	dispatch(deleteMessageRequest());
 	fetch(`${API_BASE_URL}/user-message/deleteMsg/${messageId}`, {
-		method: "DELETE"
+		method: "DELETE",
+		headers: {
+			authorization: `Bearer ${access_token}`
+		}
 	})
 		.then(res => {
 			if (!res.ok) {

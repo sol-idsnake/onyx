@@ -11,7 +11,8 @@ import "./basepage.css";
 export class BasePage extends React.Component {
 	componentDidMount() {
 		const baseId = this.props.match.params.baseId;
-		this.props.dispatch(fetchSingleBase(baseId));
+		const access_token = this.props.auth;
+		this.props.dispatch(fetchSingleBase(baseId, access_token));
 	}
 
 	creator() {
@@ -19,8 +20,8 @@ export class BasePage extends React.Component {
 		return creator;
 	}
 
+	// TODO: remove form if user is not author of base
 	render() {
-		console.log(this.props.location.search);
 		const title = this.props.currentBase ? (
 			<div className="baseHeader">
 				<span>
@@ -34,13 +35,11 @@ export class BasePage extends React.Component {
 			<img src={Loader} alt="Loading..." />
 		);
 
+		// isCreator={this.creator()}
 		return (
 			<div className="basepage">
 				{title}
-				<UserList
-					baseId={this.props.match.params.baseId}
-					isCreator={this.creator()}
-				/>
+				<UserList baseId={this.props.match.params.baseId} />
 				<MessageList baseId={this.props.match.params.baseId} />
 			</div>
 		);
@@ -48,6 +47,7 @@ export class BasePage extends React.Component {
 }
 const mapStateToProps = state => ({
 	loading: state.interaction.loading,
+	auth: state.auth.authToken,
 	currentBase: state.interaction.currentBase
 });
 

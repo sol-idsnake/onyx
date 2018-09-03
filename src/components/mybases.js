@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import requiresLogin from "./requires-login";
 import AddBase from "./addbase";
-import ForeignBases from "./foreignbases";
 import "./mybases.css";
 import { Link } from "react-router-dom";
 import {
@@ -15,22 +14,26 @@ import Loader from "../img/doubleRing.svg";
 export class DashContent extends React.Component {
 	componentDidMount() {
 		const creatorId = this.props.user.userId;
-		this.props.dispatch(fetchBasesByCreatorId(creatorId));
+		const access_token = this.props.auth;
+		this.props.dispatch(fetchBasesByCreatorId(creatorId, access_token));
 	}
 
 	addBase(title) {
+		const access_token = this.props.auth;
 		this.props.dispatch(
 			addBaseToDb(
 				this.props.user.userId,
 				title.trim(),
-				this.props.user.username
+				this.props.user.username,
+				access_token
 			)
 		);
 	}
 
 	deleteBase(id) {
 		// add to also remove all BaseUsers upon delete
-		this.props.dispatch(removeBase(id));
+		const access_token = this.props.auth;
+		this.props.dispatch(removeBase(id, access_token));
 	}
 
 	render() {
@@ -64,6 +67,7 @@ export class DashContent extends React.Component {
 
 const mapStateToProps = state => ({
 	bases: state.interaction.bases,
+	auth: state.auth.authToken,
 	user: state.auth.currentUser,
 	loading: state.interaction.loading
 });
