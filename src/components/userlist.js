@@ -21,17 +21,25 @@ export class UserChat extends React.Component {
 	}
 
 	render() {
-		// console.log(this.props.myValue(this.props.users.length));
 		// --- Add these for input accessibility
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.input = React.createRef();
 		// ---
 
+		console.log(this.props.currentBase.users);
+
+		// let form;
+		// if (
+		// 	this.props.currentBase.users.length != 0 &&
+		// 	!this.props.currentBase.users[0].isCreator
+		// ) {
+		// }
+
 		const users = this.props.loading ? (
 			<img src={Loader} alt="Loading..." />
 		) : (
-			this.props.users &&
-			this.props.users.map(user => {
+			this.props.currentBase.users &&
+			this.props.currentBase.users.map(user => {
 				return (
 					<li key={user.created} className="user-list-entry">
 						<span>{user.userId}</span>
@@ -66,7 +74,7 @@ export class UserChat extends React.Component {
 }
 
 const mapStateToProps = state => ({
-	users: state.interaction.currentBase.users,
+	currentBase: state.interaction.currentBase,
 	loading: state.interaction.loading,
 	currentAuthUser: state.auth.currentUser.username
 });

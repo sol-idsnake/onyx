@@ -20,7 +20,6 @@ export class BasePage extends React.Component {
 	}
 
 	render() {
-		console.log(this.props.location.search);
 		const title = this.props.currentBase ? (
 			<div className="baseHeader">
 				<span>
@@ -37,10 +36,7 @@ export class BasePage extends React.Component {
 		return (
 			<div className="basepage">
 				{title}
-				<UserList
-					baseId={this.props.match.params.baseId}
-					isCreator={this.creator()}
-				/>
+				<UserList baseId={this.props.match.params.baseId} />
 				<MessageList baseId={this.props.match.params.baseId} />
 			</div>
 		);
