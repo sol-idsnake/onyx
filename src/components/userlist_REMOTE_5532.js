@@ -11,16 +11,13 @@ export class UserChat extends React.Component {
 		event.preventDefault();
 		const userId = this.userName.value.trim();
 		const baseId = this.props.baseId;
-		let access_token = this.props.auth;
-		this.props.dispatch(addUserToList(baseId, userId, access_token));
+		this.props.dispatch(addUserToList(baseId, userId));
 		this.userName.value = " ";
 	}
 
 	deleteUser(event) {
 		const userName = event.target.parentNode.innerText.trim();
-		this.props.dispatch(
-			deleteUserFromBase(this.props.baseId, userName, this.props.auth)
-		);
+		this.props.dispatch(deleteUserFromBase(this.props.baseId, userName));
 	}
 
 	render() {
@@ -77,12 +74,7 @@ export class UserChat extends React.Component {
 }
 
 const mapStateToProps = state => ({
-<<<<<<< HEAD
-	users: state.interaction.currentBase.users,
-	auth: state.auth.authToken,
-=======
 	currentBase: state.interaction.currentBase,
->>>>>>> e98ef074381adbe6cdc90547b16fafd1a4b77c8a
 	loading: state.interaction.loading,
 	currentAuthUser: state.auth.currentUser.username
 });

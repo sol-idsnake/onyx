@@ -17,8 +17,7 @@
 }
 
 .userForm > input[type="text"] {
-<
-<<<<<< HEAD
+<<<<<<< HEAD
 	font-size: 0.9em;
 	line-height: 1.5em;
 =======
