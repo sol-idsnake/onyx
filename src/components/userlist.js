@@ -77,12 +77,9 @@ export class UserChat extends React.Component {
 }
 
 const mapStateToProps = state => ({
-<<<<<<< HEAD
 	users: state.interaction.currentBase.users,
 	auth: state.auth.authToken,
-=======
 	currentBase: state.interaction.currentBase,
->>>>>>> e98ef074381adbe6cdc90547b16fafd1a4b77c8a
 	loading: state.interaction.loading,
 	currentAuthUser: state.auth.currentUser.username
 });

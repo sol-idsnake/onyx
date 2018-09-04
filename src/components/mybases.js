@@ -37,18 +37,20 @@ export class DashContent extends React.Component {
 	}
 
 	render() {
+		console.log(this.props.bases);
+
 		let baseList;
 		if (this.props.loading) {
 			baseList = <img src={Loader} alt="Loading..." />;
 		} else {
-			baseList = this.props.bases.map(base => (
-				<li key={base.id} className="base">
-					<Link to={`/single-base/${base.id}`}>{base.title}</Link>
-					<p>Current Users:</p>
-					<p>Current Messages:</p>
+			baseList = this.props.bases.map(item => (
+				<li key={item.base.id} className="base">
+					<Link to={`/single-base/${item.base.id}`}>{item.base.title}</Link>
+					<p>Current Users: {item.users}</p>
+					<p>Current Messages: {item.messages}</p>
 					<span
 						className="fas fa-times"
-						onClick={() => this.deleteBase(base.id)}
+						onClick={() => this.deleteBase(item.id)}
 					/>
 				</li>
 			));

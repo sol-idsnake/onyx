@@ -68,6 +68,7 @@ export default function interactionReducer(state = initialState, action) {
 			error: null
 		});
 	} else if (action.type === ADD_BASE_SUCCESS) {
+		console.log(action);
 		return Object.assign({}, state, {
 			bases: [...state.bases, action.base],
 			loading: false,
