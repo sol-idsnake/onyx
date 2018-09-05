@@ -282,7 +282,9 @@ export const deleteUserFromBase = (
 			if (!res.ok) {
 				return Promise.reject(res.statusText);
 			}
-			return res.json();
+			console.log(res);
+			// return res.json();
+			return true;
 		})
 		.then(data => dispatch(deleteUserFromBaseSuccess(data)))
 		.then(error => dispatch(deleteUserFromBaseError(error)));

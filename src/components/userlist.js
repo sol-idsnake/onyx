@@ -3,17 +3,16 @@ import { connect } from "react-redux";
 import requiresLogin from "./requires-login";
 import { addUserToList, deleteUserFromBase } from "../actions/interaction";
 import Loader from "../img/doubleRing.svg";
+import { reduxForm, Field } from "redux-form";
 
 import "./userlist.css";
 
 export class UserChat extends React.Component {
-	handleSubmit(event) {
-		event.preventDefault();
-		const userId = this.userName.value.trim();
+	onSubmit(value) {
 		const baseId = this.props.baseId;
-		let access_token = this.props.auth;
-		this.props.dispatch(addUserToList(baseId, userId, access_token));
-		this.userName.value = " ";
+		const access_token = this.props.auth;
+		const userName = value.user;
+		this.props.dispatch(addUserToList(baseId, userName, access_token));
 	}
 
 	deleteUser(event) {
@@ -25,8 +24,8 @@ export class UserChat extends React.Component {
 
 	render() {
 		// --- Add these for input accessibility
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.input = React.createRef();
+		// this.handleSubmit = this.handleSubmit.bind(this);
+		// this.input = React.createRef();
 		// ---
 
 		const users = this.props.loading ? (
@@ -51,14 +50,16 @@ export class UserChat extends React.Component {
 				<p>Users</p>
 				<ul className="userlist-ul">{users}</ul>
 				<form
-					onSubmit={this.userName === "" ? "no" : this.handleSubmit}
+					onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}
 					className="userForm"
 				>
-					<input
+					<label htmlFor="user" />
+					<Field
+						name="user"
+						id="user"
 						type="text"
+						component="input"
 						placeholder="Add a user"
-						ref={input => (this.userName = input)}
-						name="userForm"
 					/>
 					<input type="submit" value="Submit" />
 				</form>
@@ -75,4 +76,15 @@ const mapStateToProps = state => ({
 	currentAuthUser: state.auth.currentUser.username
 });
 
-export default requiresLogin()(connect(mapStateToProps)(UserChat));
+UserChat = requiresLogin()(connect(mapStateToProps)(UserChat));
+
+export default reduxForm({
+	form: "userlist" // a unique name for this form
+})(UserChat);
+
+// <input
+// 	type="text"
+// 	placeholder="Add a user"
+// 	ref={input => (this.userName = input)}
+// 	name="userForm"
+// />
