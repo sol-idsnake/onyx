@@ -3,7 +3,7 @@
 	border-radius: 0.3em;
 	display: flex;
 	flex-direction: column;
-	height: 153px;
+	height: 115px;
 	margin: 0 0 1em 1em;
 	padding: 0.5em;
 	position: relative;
@@ -26,11 +26,6 @@
 
 .base > i:hover {
 	opacity: 0.7;
-}
-
-.baseWrapper > li {
-	height: 100px;
-	width: 300px;
 }
 
 .add-list-wrapper {

@@ -68,9 +68,9 @@ export default function interactionReducer(state = initialState, action) {
 			error: null
 		});
 	} else if (action.type === ADD_BASE_SUCCESS) {
-		console.log(action);
 		return Object.assign({}, state, {
 			bases: [...state.bases, action.base],
+			errorMessage: action.base,
 			loading: false,
 			error: null
 		});
@@ -229,8 +229,9 @@ export default function interactionReducer(state = initialState, action) {
 			error: null
 		});
 	} else if (action.type === DELETE_MESSAGE_SUCCESS) {
+		console.log(action);
 		const newArr = state.currentBase.messages.filter(
-			message => action.message !== message._id
+			message => action.message !== message.id
 		);
 		return Object.assign({}, state, {
 			currentBase: {

@@ -58,7 +58,6 @@ export const addBaseToDb = (
 	username,
 	access_token
 ) => dispatch => {
-	console.log(userId, title, username);
 	dispatch(addBaseRequest());
 	fetch(`${API_BASE_URL}/baselist/add`, {
 		method: "POST",

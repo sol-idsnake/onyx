@@ -48,10 +48,8 @@ export class AddBase extends React.Component {
 	}
 }
 
-const mapStateToProps = state => {
-	return {
-		editing: state.interaction.editing
-	};
-};
+const mapStateToProps = state => ({
+	editing: state.interaction.editing
+});
 
 export default requiresLogin()(connect(mapStateToProps)(AddBase));

@@ -29,15 +29,6 @@ export class UserChat extends React.Component {
 		this.input = React.createRef();
 		// ---
 
-		console.log(this.props.currentBase.users);
-
-		// let form;
-		// if (
-		// 	this.props.currentBase.users.length != 0 &&
-		// 	!this.props.currentBase.users[0].isCreator
-		// ) {
-		// }
-
 		const users = this.props.loading ? (
 			<img src={Loader} alt="Loading..." />
 		) : (

@@ -12,8 +12,11 @@ ul {
 }
 
 header > ul > li {
+	background: none;
+	border: 1px solid lightblue;
 	list-style-type: none;
 	margin-right: 1em;
+	padding: 0.5em;
 	text-decoration: none;
 }
 
@@ -27,9 +30,8 @@ header > ul > li {
 	background: none;
 	border: 1px solid lightblue;
 	padding: 0.5em;
-	/*cursor: pointer;*/
 }
 
 .navlinks {
-	align-items: center;
+	/*align-items: center;*/
 }

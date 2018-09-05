@@ -100,8 +100,8 @@ export class ForeignBases extends React.Component {
 						>
 							{item.base.title}
 						</Link>
-						<p>Current Users: </p>
-						<p>Current Messages:</p>
+						<p>Current Users: {item.base.users.length}</p>
+						<p>Current Messages: {item.base.messages.length}</p>
 						<span
 							id={item.base.id}
 							className="optOut"
