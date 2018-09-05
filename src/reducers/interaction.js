@@ -159,6 +159,7 @@ export default function interactionReducer(state = initialState, action) {
 			error: null
 		});
 	} else if (action.type === DELETE_USER_FROM_BASE_SUCCESS) {
+		console.log(action);
 		const newUserArr = state.currentBase.users.filter(
 			user => user.userId !== action.data.baseuser.userId
 		);
