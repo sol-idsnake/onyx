@@ -17,13 +17,9 @@
 }
 
 .userForm > input[type="text"] {
-<
-<<<<<< HEAD
 	font-size: 0.9em;
 	line-height: 1.5em;
-=======
 	margin-bottom: 0;
->>>>>>> e98ef074381adbe6cdc90547b16fafd1a4b77c8a
 	outline: none;
 	margin: 0;
 	padding: 0.3em 0.5em;

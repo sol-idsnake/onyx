@@ -160,21 +160,21 @@ export default function interactionReducer(state = initialState, action) {
 		});
 	} else if (action.type === DELETE_USER_FROM_BASE_SUCCESS) {
 		console.log(action);
-		// const newUserArr = state.currentBase.users.filter(
-		// 	user => user.userId !== action.data.baseuser.userId
-		// );
-		// const newForeignBaseArr = state.foreignBases.filter(
-		// 	data => data.base.title !== action.data.base.title
-		// );
-		// return Object.assign({}, state, {
-		// 	currentBase: {
-		// 		...state.currentBase,
-		// 		users: [...newUserArr]
-		// 	},
-		// 	foreignBases: newForeignBaseArr,
-		// 	loading: false,
-		// 	error: null
-		// });
+		const newUserArr = state.currentBase.users.filter(
+			user => user.userId !== action.data.baseuser.userId
+		);
+		const newForeignBaseArr = state.foreignBases.filter(
+			data => data.base.title !== action.data.base.title
+		);
+		return Object.assign({}, state, {
+			currentBase: {
+				...state.currentBase,
+				users: [...newUserArr]
+			},
+			foreignBases: newForeignBaseArr,
+			loading: false,
+			error: null
+		});
 	} else if (action.type === DELETE_USER_FROM_BASE_ERROR) {
 		return Object.assign({}, state, {
 			error: action.error,

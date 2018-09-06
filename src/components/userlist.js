@@ -3,15 +3,16 @@ import { connect } from "react-redux";
 import requiresLogin from "./requires-login";
 import { addUserToList, deleteUserFromBase } from "../actions/interaction";
 import Loader from "../img/doubleRing.svg";
-import { reduxForm, Field } from "redux-form";
+import { reduxForm, Field, focus } from "redux-form";
+import { nonEmpty, length, isTrimmed } from "../validators";
 
 import "./userlist.css";
 
 export class UserChat extends React.Component {
-	onSubmit(value) {
+	onSubmit(values) {
 		const baseId = this.props.baseId;
 		const access_token = this.props.auth;
-		const userName = value.user;
+		const userName = values.user;
 		this.props.dispatch(addUserToList(baseId, userName, access_token));
 	}
 
@@ -22,12 +23,8 @@ export class UserChat extends React.Component {
 		);
 	}
 
+	// focus on input after submission
 	render() {
-		// --- Add these for input accessibility
-		// this.handleSubmit = this.handleSubmit.bind(this);
-		// this.input = React.createRef();
-		// ---
-
 		const users = this.props.loading ? (
 			<img src={Loader} alt="Loading..." />
 		) : (
@@ -56,12 +53,16 @@ export class UserChat extends React.Component {
 					<label htmlFor="user" />
 					<Field
 						name="user"
-						id="user"
 						type="text"
 						component="input"
 						placeholder="Add a user"
+						// validate={[nonEmpty, isTrimmed]}
 					/>
-					<input type="submit" value="Submit" />
+					<input
+						type="submit"
+						value="Submit"
+						disabled={this.props.pristine || this.props.submitting}
+					/>
 				</form>
 			</aside>
 		);
@@ -79,12 +80,7 @@ const mapStateToProps = state => ({
 UserChat = requiresLogin()(connect(mapStateToProps)(UserChat));
 
 export default reduxForm({
-	form: "userlist" // a unique name for this form
+	form: "userlist", // a unique name for this form
+	onSubmitFail: (errors, dispatch) =>
+		dispatch(focus("userlist", Object.keys(errors)[0]))
 })(UserChat);
-
-// <input
-// 	type="text"
-// 	placeholder="Add a user"
-// 	ref={input => (this.userName = input)}
-// 	name="userForm"
-// />

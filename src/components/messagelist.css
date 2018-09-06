@@ -45,6 +45,20 @@
 	color: darkslategray;
 }
 
+.form-input {
+	width: 100%;
+}
+
+.userForm > .form-input > input[type="text"] {
+	font-size: 0.9em;
+	line-height: 1.5em;
+	margin-bottom: 0;
+	outline: none;
+	margin: 0;
+	padding: 0.3em 0.5em;
+	width: 100%;
+}
+
 .userForm > input[type="submit"] {
 	padding: 0.3em 0.5em;
 	width: 30%;

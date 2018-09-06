@@ -4,7 +4,6 @@ import { Route, withRouter } from "react-router-dom";
 
 import Navbar from "./navbar";
 import LandingPage from "./landingpage";
-import Member from "./member";
 import Register from "./register";
 import LoginPage from "./login";
 import Dashboard from "./dashboard";
@@ -49,7 +48,6 @@ export class App extends React.Component {
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={LoginPage} />
-          <Route exact path="/users" component={Member} />
           <Route exact path="/dashboard" component={Dashboard} />
           <Route exact path="/single-base/:baseId" component={BasePage} />
         </main>

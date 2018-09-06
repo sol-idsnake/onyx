@@ -3,16 +3,19 @@ import { connect } from "react-redux";
 import requiresLogin from "./requires-login";
 import { addMessageToList, deleteMessage } from "../actions/interaction";
 import Loader from "../img/doubleRing.svg";
+import { reduxForm, Field, focus } from "redux-form";
+import { nonEmpty, length, isTrimmed } from "../validators";
+import Input from "./input";
 import "./messagelist.css";
 
+const messageLength = length({ min: 10, max: 160 });
+
 export class MessageList extends React.Component {
-	handleSubmit(event) {
-		event.preventDefault();
+	onSubmit(values) {
 		const baseId = this.props.baseId;
-		const content = this.message.value;
+		const content = values.message;
 		const access_token = this.props.auth;
 		this.props.dispatch(addMessageToList(baseId, content, access_token));
-		this.message.value = " ";
 	}
 
 	deleteMessage(event) {
@@ -21,12 +24,8 @@ export class MessageList extends React.Component {
 		this.props.dispatch(deleteMessage(event.target.id, access_token));
 	}
 
+	// focus on input after submission
 	render() {
-		// --- Add these for input accessibility
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.input = React.createRef();
-		// ---
-
 		const messages = this.props.loading ? (
 			<img src={Loader} alt="Loading..." />
 		) : (
@@ -46,19 +45,27 @@ export class MessageList extends React.Component {
 				);
 			})
 		);
-
 		return (
 			<aside className="messagelist">
 				<p>Messages</p>
 				<ul className="messagelist-ul">{messages}</ul>
-				<form onSubmit={this.handleSubmit} className="userForm">
-					<input
+				<form
+					onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}
+					className="userForm"
+				>
+					<label htmlFor="message" />
+					<Field
+						component={Input}
 						type="text"
-						placeholder="Write a message"
-						ref={input => (this.message = input)}
-						name="userForm"
+						name="message"
+						placeholder="Add a message"
+						validate={[nonEmpty, isTrimmed, messageLength]}
 					/>
-					<input type="submit" value="Submit" />
+					<input
+						type="submit"
+						value="Submit"
+						disabled={this.props.pristine || this.props.submitting}
+					/>
 				</form>
 			</aside>
 		);
@@ -69,8 +76,12 @@ const mapStateToProps = state => ({
 	messages: state.interaction.currentBase.messages,
 	loading: state.interaction.loading,
 	auth: state.auth.authToken
-	// userBases: state.interaction.userBases
-	// currentAuthUser: state.auth.currentUser.username
 });
 
-export default requiresLogin()(connect(mapStateToProps)(MessageList));
+MessageList = requiresLogin()(connect(mapStateToProps)(MessageList));
+
+export default reduxForm({
+	form: "messagelist", // a unique name for this form
+	onSubmitFail: (errors, dispatch) =>
+		dispatch(focus("messagelist", Object.keys(errors)[0]))
+})(MessageList);

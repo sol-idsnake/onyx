@@ -20,7 +20,6 @@ export class BasePage extends React.Component {
 		return creator;
 	}
 
-	// TODO: remove form if user is not author of base
 	render() {
 		const title = this.props.currentBase ? (
 			<div className="baseHeader">
@@ -35,7 +34,6 @@ export class BasePage extends React.Component {
 			<img src={Loader} alt="Loading..." />
 		);
 
-		// isCreator={this.creator()}
 		return (
 			<div className="basepage">
 				{title}
@@ -49,6 +47,7 @@ const mapStateToProps = state => ({
 	loading: state.interaction.loading,
 	auth: state.auth.authToken,
 	currentBase: state.interaction.currentBase
+	// formError: state.form.messagelist
 });
 
 export default requiresLogin()(connect(mapStateToProps)(BasePage));
