@@ -56,7 +56,7 @@ export class UserChat extends React.Component {
 						type="text"
 						component="input"
 						placeholder="Add a user"
-						// validate={[nonEmpty, isTrimmed]}
+						validate={[nonEmpty, isTrimmed, length]}
 					/>
 					<input
 						type="submit"
