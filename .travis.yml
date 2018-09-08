@@ -1,0 +1,16 @@
+language: node_js
+node_js: node
+services:
+- mongodb
+cache:
+  directories:
+  - node_modules
+env:
+- CI=true
+deploy:
+  provider: heroku
+  api_key:
+    secure: HxhSQwrU9dawEvrUCfjGbPAbyfRU6qwRYIFgQ8aTd0zm2fyRdRT/NPonKw9D9uvcIwYHXQ9I73eX+2ku/gGHF3Iu54sHlGIBMf+hmrFseikHgN2Ac1UU6fivuVhfIOEguqs8KH36R7RMasV+zbzwQpiKiYiFuqJ/zh4VlqgBzgcjA2BZlD6u69YQoaaRAoEyXOJJ2SxyAGIcIxmLrztu+uUbYnDMcnPKSvxuUmL1uSHGWmfxTpTRwkdifNonN6RcdPH1dPtK7XVryidaKqCXbZwjJ6dg+67ND1FtQVaO+49DKnPuCtDzT1EucIam/unvbe+++PjXYgOPGYMmR+FM5qlnfcfruGlutBtlfL0SbUPMLjoR+FIbJn7ECkYBrJAfqxTnSZalNX7wVCWzGxK6WLwUb73Diqd4jMdLmFBXET1KDSJznMYniwElY5GIjZYxFM5Yj8XWCZoBiPHo7F9ae4Ibocgs2nORA3aBzDADb0hzvBG+MnNEXERdo12lP4j1PJM1CzHMQJXkn9jgjXDrFbix78OihUilHjPdvprugo4zs0r4AVCnvv8lIzvfg+SK3kSUZYI8XGshtnMVbA0ROb30IODY+srLOapyXPmwc/11J4cfl0YwBtm3/glwAE5qxrdHmp+JlYNZbO+AJb7UOOk4KUHJ/y4Hhy53gKm26Co=
+  app: https://boiling-dawn-20827.herokuapp.com/
+  on:
+    repo: sol-idsnake/onyx
