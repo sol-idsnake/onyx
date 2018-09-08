@@ -13,6 +13,7 @@ export class UserChat extends React.Component {
 		const baseId = this.props.baseId;
 		const access_token = this.props.auth;
 		const userName = values.user;
+		console.log(values);
 		this.props.dispatch(addUserToList(baseId, userName, access_token));
 	}
 
@@ -56,7 +57,7 @@ export class UserChat extends React.Component {
 						type="text"
 						component="input"
 						placeholder="Add a user"
-						validate={[nonEmpty, isTrimmed, length]}
+						validate={[nonEmpty, isTrimmed]}
 					/>
 					<input
 						type="submit"

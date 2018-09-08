@@ -13,9 +13,11 @@ import Loader from "../img/doubleRing.svg";
 export class ForeignBases extends React.Component {
 	componentDidMount() {
 		const access_token = this.props.auth;
-		this.props.dispatch(
-			fetchForeignBases(this.props.currentUser.username, access_token)
-		);
+		if (this.props.currentUser) {
+			this.props.dispatch(
+				fetchForeignBases(this.props.currentUser.username, access_token)
+			);
+		}
 	}
 
 	acceptMembership(bool, baseId) {
@@ -35,25 +37,26 @@ export class ForeignBases extends React.Component {
 		let propsBases = this.props.foreignBases;
 		let toBeAcceptedBase;
 		let acceptedBase;
+		if (this.props.foreignBases) {
+			for (let i = 0; i < propsBases.length; i++) {
+				toBeAcceptedBase = this.props.foreignBases.filter(item => {
+					return (
+						item.baseuser.isCreator === false &&
+						item.baseuser.acceptedMembership === false &&
+						item.base.title !== propsBases[i].title
+					);
+				});
+			}
 
-		for (let i = 0; i < propsBases.length; i++) {
-			toBeAcceptedBase = this.props.foreignBases.filter(item => {
-				return (
-					item.baseuser.isCreator === false &&
-					item.baseuser.acceptedMembership === false &&
-					item.base.title !== propsBases[i].title
-				);
-			});
-		}
-
-		for (let i = 0; i < propsBases.length; i++) {
-			acceptedBase = this.props.foreignBases.filter(item => {
-				return (
-					item.baseuser.isCreator === false &&
-					item.baseuser.acceptedMembership === true &&
-					item.base.title !== propsBases[i].title
-				);
-			});
+			for (let i = 0; i < propsBases.length; i++) {
+				acceptedBase = this.props.foreignBases.filter(item => {
+					return (
+						item.baseuser.isCreator === false &&
+						item.baseuser.acceptedMembership === true &&
+						item.base.title !== propsBases[i].title
+					);
+				});
+			}
 		}
 
 		const toBeAcceptedBaseList = this.props.loading ? (

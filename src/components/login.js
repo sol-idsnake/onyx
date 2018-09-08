@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
+import "./login.css";
 
 import LoginForm from "./loginForm";
 
@@ -9,7 +11,17 @@ export function LoginPage(props) {
 		return <Redirect to="/dashboard" />;
 	}
 
-	return <LoginForm />;
+	return (
+		<div className="login-wrapper">
+			<div className="header">
+				<span>Not a member yet?</span>
+				<Link to="/register" className="register-link">
+					Register here
+				</Link>
+			</div>
+			<LoginForm />
+		</div>
+	);
 }
 
 const mapStateToProps = state => ({

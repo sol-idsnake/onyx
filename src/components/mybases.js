@@ -13,9 +13,11 @@ import Loader from "../img/doubleRing.svg";
 
 export class DashContent extends React.Component {
 	componentDidMount() {
-		const creatorId = this.props.user.userId;
-		const access_token = this.props.auth;
-		this.props.dispatch(fetchBasesByCreatorId(creatorId, access_token));
+		if (this.props.user) {
+			const creatorId = this.props.user.userId;
+			const access_token = this.props.auth;
+			this.props.dispatch(fetchBasesByCreatorId(creatorId, access_token));
+		}
 	}
 
 	addBase(title) {
@@ -40,7 +42,7 @@ export class DashContent extends React.Component {
 		let baseList;
 		if (this.props.loading) {
 			baseList = <img src={Loader} alt="Loading..." />;
-		} else {
+		} else if (this.props.loading === false && this.props.bases) {
 			baseList = this.props.bases.map(item => (
 				<li key={item.id} className="base">
 					<Link to={`/single-base/${item.id}`}>{item.title}</Link>

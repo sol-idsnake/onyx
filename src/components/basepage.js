@@ -12,7 +12,9 @@ export class BasePage extends React.Component {
 	componentDidMount() {
 		const baseId = this.props.match.params.baseId;
 		const access_token = this.props.auth;
-		this.props.dispatch(fetchSingleBase(baseId, access_token));
+		if (this.props.match.params.baseId) {
+			this.props.dispatch(fetchSingleBase(baseId, access_token));
+		}
 	}
 
 	creator() {
@@ -34,11 +36,16 @@ export class BasePage extends React.Component {
 			<img src={Loader} alt="Loading..." />
 		);
 
+		let baseId;
+		if (this.props.match) {
+			baseId = this.props.match.params.baseId;
+		}
+
 		return (
 			<div className="basepage">
 				{title}
-				<UserList baseId={this.props.match.params.baseId} />
-				<MessageList baseId={this.props.match.params.baseId} />
+				<UserList baseId={baseId} />
+				<MessageList baseId={baseId} />
 			</div>
 		);
 	}
@@ -47,7 +54,6 @@ const mapStateToProps = state => ({
 	loading: state.interaction.loading,
 	auth: state.auth.authToken,
 	currentBase: state.interaction.currentBase
-	// formError: state.form.messagelist
 });
 
 export default requiresLogin()(connect(mapStateToProps)(BasePage));

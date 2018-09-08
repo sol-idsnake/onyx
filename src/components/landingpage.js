@@ -20,12 +20,12 @@ export function LandingPage(props) {
       <p>Manage a group of people efficiently and quickly with Onyx.</p>
       <p>Already have an account? Log in or signup</p>
       <div className="controls">
-        <div className="button">
-          <Link to="/login">Login</Link>
-        </div>
-        <div className="button">
-          <Link to="/register">Signup</Link>
-        </div>
+        <Link to="/login" className="button">
+          Login
+        </Link>
+        <Link to="/register" className="button">
+          Signup
+        </Link>
       </div>
     </div>
   );
@@ -43,7 +43,7 @@ export function LandingPage(props) {
 }
 
 const mapStateToProps = state => ({
-  loggedIn: state.auth.currentUser !== null,
+  loggedIn: state.auth.currentUser !== null
 });
 
 export default connect(mapStateToProps)(LandingPage);
