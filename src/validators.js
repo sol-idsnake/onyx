@@ -1,6 +1,7 @@
 // VALIDATORS MUST HANDLE UNDEFINED
 
 export const required = value => (value ? undefined : "Required");
+
 export const nonEmpty = value =>
   value && value.trim() ? undefined : "Cannot be empty";
 
@@ -18,22 +19,8 @@ export const length = length => value => {
     return `Must be at most ${length.max} characters long`;
   }
 };
+
 export const matches = field => (value, allValues) =>
   field in allValues && (value || "").trim() === allValues[field].trim()
     ? undefined
     : "Does not match";
-
-// look up default value pattern
-
-// function(x) {
-//   console.log("foo")
-//   return 2
-// }
-
-// x => 2
-
-// x => {
-//   console.log("foo")
-//   return 2
-
-// }
