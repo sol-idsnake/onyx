@@ -1,6 +1,5 @@
 .landingPage {
-	display: flex;
-	margin: 5% auto 0 auto;
+	margin-top: 2em;
 	text-align: center;
 	width: 648px;
 }
@@ -8,8 +7,11 @@
 .landingText {
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
-	align-content: flex-end;
+}
+
+.logo > img {
+	height: auto;
+	width: 300px;
 }
 
 .controls {
@@ -21,7 +23,7 @@
 	background-color: #eee;
 	border: 0;
 	border-radius: 5px;
-	box-shadow: .5px .5px 1px gray;
+	box-shadow: 1px 1px 1px lightgray;
 	margin: 0 1em;
-	padding: .5em 2em;
+	padding: 0.5em 2em;
 }

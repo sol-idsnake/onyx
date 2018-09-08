@@ -4,7 +4,6 @@
 	grid-template-columns: repeat(auto-fill, 100px);
 	grid-template-rows: auto auto auto auto auto auto;
 	width: 100%;
-	/*grid-auto-flow: row;*/
 }
 
 .sidebar {
@@ -39,4 +38,60 @@
 .myBaseHeader > h4,
 .foreignBaseHeader > h4 {
 	margin: 0;
+}
+
+@media only screen and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
+	.dashboard {
+		align-items: center;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.sidebar {
+		height: auto;
+		margin: 0.5em 0;
+		width: 90%;
+	}
+
+	.sidebar > i {
+		display: none;
+	}
+
+	.myBaseHeader {
+		margin: 0.5em 0;
+	}
+
+	.myBases {
+		align-items: center;
+		flex-direction: column;
+		width: 100%;
+	}
+
+	.base {
+		height: auto;
+		width: 90%;
+	}
+
+	.foreignBaseHeader {
+		margin: 0.5em 0;
+	}
+
+	.foreignBases {
+		align-items: center;
+		flex-direction: column;
+		width: 100%;
+	}
+
+	.toBeAcceptedBase > p {
+		text-align: center;
+	}
+
+	.acceptedBasesList {
+		justify-content: center;
+		width: 100%;
+	}
+
+	.acceptedBasesList > .base {
+		width: 90%;
+	}
 }

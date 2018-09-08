@@ -32,13 +32,28 @@
 }
 
 .message-error {
-	/*color: red;
-	font-weight: 700;
-	grid-column: 3/9;
-	*/
 	grid-row: 3/4;
 }
 
-.message-error > span {
-	/*margin-left: 0.5em;*/
+@media only screen and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
+	.basepage {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.userlist-ul {
+		height: auto;
+		max-height: 250px;
+	}
+
+	.baseHeader {
+		margin: 1em auto;
+		width: 100%;
+	}
+
+	.messagelist {
+		margin: 1em auto;
+		min-width: 0;
+		width: 100%;
+	}
 }

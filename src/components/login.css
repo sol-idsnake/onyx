@@ -1,0 +1,25 @@
+.login-wrapper {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.login-wrapper > .header {
+	margin: 2em 0;
+}
+
+.login-wrapper > .header > span {
+	margin-right: 0.5em;
+}
+
+.login-wrapper > .header > a:hover {
+	text-decoration: underline;
+}
+
+.login-wrapper > .header > span,
+.login-wrapper > .header > a {
+	font-size: 18px;
+	font-weight: 700;
+	font-family: "Nunito Sans", sans-serif;
+}
