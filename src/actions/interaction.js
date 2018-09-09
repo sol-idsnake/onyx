@@ -1,6 +1,6 @@
-require("dotenv").config();
 import { API_BASE_URL } from "../config";
 import fetch from "cross-fetch";
+require("dotenv").config();
 
 // Changes state when adding a base
 export const SET_EDITING = "SET_EDITING";
