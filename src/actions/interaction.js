@@ -1,3 +1,4 @@
+require("dotenv").config();
 import { API_BASE_URL } from "../config";
 import fetch from "cross-fetch";
 
