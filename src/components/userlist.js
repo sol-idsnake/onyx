@@ -4,7 +4,7 @@ import requiresLogin from "./requires-login";
 import { addUserToList, deleteUserFromBase } from "../actions/interaction";
 import Loader from "../img/doubleRing.svg";
 import { reduxForm, Field, focus } from "redux-form";
-import { nonEmpty, length, isTrimmed } from "../validators";
+import { nonEmpty, isTrimmed } from "../validators";
 
 import "./userlist.css";
 
@@ -13,7 +13,6 @@ export class UserChat extends React.Component {
 		const baseId = this.props.baseId;
 		const access_token = this.props.auth;
 		const userName = values.user;
-		console.log(values);
 		this.props.dispatch(addUserToList(baseId, userName, access_token));
 	}
 

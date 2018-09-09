@@ -19,6 +19,10 @@ export function LoginPage(props) {
 					Register here
 				</Link>
 			</div>
+			<div>
+				<p>Username: Tester1 OR Tester2</p>
+				<p>Password: testtesttest (same for both)</p>
+			</div>
 			<LoginForm />
 		</div>
 	);
