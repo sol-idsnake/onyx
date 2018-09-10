@@ -11,6 +11,6 @@ deploy:
   provider: heroku
   api_key:
     secure: AzhdJb4+JEHiWsE7vBrIc0jmOUGxieGr+JKo+ae55gG7+o2ygGn1TKcQZOqsBiv32B7xGl89gienRBjF99Hsgxny5eJLMinINvNc9fJesMr3ED8Ohfw0tJmAytv8UfnHtnixDHSt2xM5KcXusDDWYyE4Kyxq+wuvFC2HQ+t6/0mM+1Pz7r17+h5xFV1o9xzMocpGyiYfyMIbd/vqdeeGnvfHBqtrTdyrFHDM3ArrJ2OvU+LHoqGqF67fqeVh90Z3UorQS3YjTp4wB+XBam6y89cB0VMkLuQORNy0fBpYOmSJTE3aUZ4RhIzi9K78Hc/FI5+1rJquY9UucxOQ4DNl5iCl/pf4tQ7+ay1ZtyyU76lzDzIS5XxPg3DNrI8El5h7zBZiolgxrABqFD12Dzk48Y42rDoRrb5uiufI1On1QBpOCYRThqG7CbfpCeAdOkjUTwVWSGNFq3I13PecxjD19ml7HGKeGGN2NrzAL4CoSO5UKDUIXIlvH9vRTSCB0Ojk0SCFmajbXi5RYZZssDmSqooPeWu0QgiqrYoqoCmsB4vjIOEYN3Mazza5VVKoD4vSpTJmNnExyGbXsG7JSzGLkAr0slcqjqwa5AuudV9uc2d3jcEShjuJjhQTCC8LnpVpTC3P4MmR1hzmX1FbzxY9jJG6wsPs4sIYhprCOgMkQms=
-  app: https://boiling-dawn-20827.herokuapp.com/
+  app: boiling-dawn-20827
   on:
     repo: sol-idsnake/onyx
