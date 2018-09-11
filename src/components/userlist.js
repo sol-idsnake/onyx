@@ -9,11 +9,32 @@ import { nonEmpty, isTrimmed } from "../validators";
 import "./userlist.css";
 
 export class UserChat extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			error: ""
+		};
+	}
+
 	onSubmit(values) {
 		const baseId = this.props.baseId;
 		const access_token = this.props.auth;
 		const userName = values.user;
-		this.props.dispatch(addUserToList(baseId, userName, access_token));
+
+		// some() method tests whether at least one element in
+		// the array passes the test
+		const isUserRepeated = this.props.users.some(user => {
+			return user.userId == userName;
+		});
+
+		let error;
+		if (isUserRepeated) {
+			this.setState({ error: "can't have user twice" });
+		} else {
+			this.props.dispatch(addUserToList(baseId, userName, access_token));
+			this.setState({ error: "" });
+		}
+		values.user = "";
 	}
 
 	deleteUser(event) {
@@ -64,6 +85,7 @@ export class UserChat extends React.Component {
 						disabled={this.props.pristine || this.props.submitting}
 					/>
 				</form>
+				{this.state.error}
 			</aside>
 		);
 	}
