@@ -14,7 +14,7 @@ export const setEditing = editing => ({
 ///////////////////////////////////
 export const fetchBasesByCreatorId = (creatorId, access_token) => dispatch => {
 	dispatch(fetchBasesByCreatorIdRequest());
-	fetch(`${API_BASE_URL}/baselist/list/${creatorId}`, {
+	return fetch(`${API_BASE_URL}/baselist/list/${creatorId}`, {
 		method: "GET",
 		headers: {
 			authorization: `Bearer ${access_token}`
