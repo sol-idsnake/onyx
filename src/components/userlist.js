@@ -24,10 +24,9 @@ export class UserChat extends React.Component {
 		// some() method tests whether at least one element in
 		// the array passes the test
 		const isUserRepeated = this.props.users.some(user => {
-			return user.userId == userName;
+			return user.userId === userName;
 		});
 
-		let error;
 		if (isUserRepeated) {
 			this.setState({ error: "can't have user twice" });
 		} else {
