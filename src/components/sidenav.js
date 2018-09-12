@@ -4,14 +4,12 @@ import requiresLogin from "./requires-login";
 import "./sidenav.css";
 
 export function Sidenav(props) {
-	const upperUsername =
-		props.username.charAt(0).toUpperCase() + props.username.slice(1);
+	const upperUsername = props.username;
 
 	return (
 		<div className="sidebar">
 			<strong>Welcome back, {upperUsername}.</strong>
 			<hr />
-			<i className="fas fa-plus-square fa-2x" />
 		</div>
 	);
 }
