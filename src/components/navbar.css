@@ -29,5 +29,6 @@ header > ul > li {
 .logout {
 	background: none;
 	border: 1px solid lightblue;
+	color: #145175;
 	padding: 0.5em;
 }

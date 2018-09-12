@@ -20,7 +20,7 @@ export function LoginPage(props) {
 				</Link>
 			</div>
 			<div>
-				<p>Username: Tester1 OR Tester2</p>
+				<p>Username: tester1 OR tester2</p>
 				<p>Password: testtesttest (same for both)</p>
 			</div>
 			<LoginForm />
