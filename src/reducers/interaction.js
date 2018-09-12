@@ -140,6 +140,7 @@ export default function interactionReducer(state = initialState, action) {
 			error: null
 		});
 	} else if (action.type === ADD_USER_TO_LIST_SUCCESS) {
+		console.log(action.user);
 		return Object.assign({}, state, {
 			currentBase: {
 				...state.currentBase,
@@ -230,7 +231,6 @@ export default function interactionReducer(state = initialState, action) {
 			error: null
 		});
 	} else if (action.type === DELETE_MESSAGE_SUCCESS) {
-		console.log(action);
 		const newArr = state.currentBase.messages.filter(
 			message => action.message !== message.id
 		);
