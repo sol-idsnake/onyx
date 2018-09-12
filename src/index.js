@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router} from "react-router-dom";
-// import { browserHistory } from 'react-router'
+import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
 import App from "./components/app";
 import store from "./store";
@@ -16,5 +15,4 @@ ReactDOM.render(
 	document.getElementById("root")
 );
 
-// console.log(store.getState());
-store.subscribe(() => console.log(store.getState()));
+// store.subscribe(() => console.log(store.getState()));

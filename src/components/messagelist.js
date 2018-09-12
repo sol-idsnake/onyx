@@ -24,7 +24,6 @@ export class MessageList extends React.Component {
 		this.props.dispatch(deleteMessage(event.target.id, access_token));
 	}
 
-	// focus on input after submission
 	render() {
 		const messages = this.props.loading ? (
 			<img src={Loader} alt="Loading..." />
@@ -81,7 +80,7 @@ const mapStateToProps = state => ({
 MessageList = requiresLogin()(connect(mapStateToProps)(MessageList));
 
 export default reduxForm({
-	form: "messagelist", // a unique name for this form
+	form: "messagelist",
 	onSubmitFail: (errors, dispatch) =>
 		dispatch(focus("messagelist", Object.keys(errors)[0]))
 })(MessageList);

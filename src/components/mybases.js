@@ -33,7 +33,6 @@ export class DashContent extends React.Component {
 	}
 
 	deleteBase(id) {
-		// add to also remove all BaseUsers upon delete
 		const access_token = this.props.auth;
 		this.props.dispatch(removeBase(id, access_token));
 	}

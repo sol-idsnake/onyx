@@ -1,5 +1,4 @@
 // VALIDATORS MUST HANDLE UNDEFINED
-
 export const required = value => (value ? undefined : "Required");
 
 export const nonEmpty = value =>

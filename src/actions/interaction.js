@@ -426,5 +426,3 @@ export const deleteMessageError = error => ({
 	type: "DELETE_MESSAGE_ERROR",
 	error
 });
-
-//  look up js promises

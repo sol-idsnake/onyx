@@ -43,7 +43,6 @@ export class UserChat extends React.Component {
 		);
 	}
 
-	// focus on input after submission
 	render() {
 		const users = this.props.loading ? (
 			<img src={Loader} alt="Loading..." />
@@ -101,7 +100,7 @@ const mapStateToProps = state => ({
 UserChat = requiresLogin()(connect(mapStateToProps)(UserChat));
 
 export default reduxForm({
-	form: "userlist", // a unique name for this form
+	form: "userlist",
 	onSubmitFail: (errors, dispatch) =>
 		dispatch(focus("userlist", Object.keys(errors)[0]))
 })(UserChat);
