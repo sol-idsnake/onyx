@@ -27,7 +27,7 @@ export class UserChat extends React.Component {
 			return user.userId === userName;
 		});
 
-		if (isUserRepeated) {
+		if (isUserRepeated || userName === "") {
 			this.setState({ error: "can't have user twice" });
 		} else {
 			this.props.dispatch(addUserToList(baseId, userName, access_token));
