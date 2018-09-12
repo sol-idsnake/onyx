@@ -12,6 +12,19 @@ User are able to register accounts. Once logged in, users can create and delete 
 
 Each user who has been added to someone else's base will be notified on their home panel, and first has to accept the invitation before having access to the base.
 
+## Screenshots
+Landing page:
+![Landing page](src/img/sample1.png)
+
+Login page:
+![Login page](src/img/sample2.png)
+
+Dashboard page:
+![Dashboard](src/img/sample3.png)
+
+Base page:
+![Base page](src/img/sample4.png)
+
 ## Built with:
 ### Front-End
 * HTML 5
