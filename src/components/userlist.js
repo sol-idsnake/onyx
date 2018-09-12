@@ -19,7 +19,7 @@ export class UserChat extends React.Component {
 	onSubmit(values) {
 		const baseId = this.props.baseId;
 		const access_token = this.props.auth;
-		const userName = values.user;
+		const userName = values.user.toLowerCase();
 
 		// some() method tests whether at least one element in
 		// the array passes the test
