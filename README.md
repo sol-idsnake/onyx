@@ -8,7 +8,7 @@ A member management system. Onyx lets you create a base for any topic, add users
 
 ## Summary
 
-User are able to register accounts. Once logged in, users can create and delete bases, and perform CRUD operations by adding users or messages to each list.
+Users are able to register accounts. Once logged in, users can create and delete bases, and perform CRUD operations by adding users or messages to each list.
 
 Each user who has been added to someone else's base will be notified on their home panel, and first has to accept the invitation before having access to the base.
 
