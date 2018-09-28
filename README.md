@@ -30,7 +30,7 @@ Base page:
 * HTML 5
 * CSS
 * Javascript
-* jQuery
+* React
 
 ### Back-End
 * Node.js
@@ -39,3 +39,12 @@ Base page:
 ### Database
 * Mongo
 * Mongoose
+
+### Testing
+* Enzyme
+* Jest
+
+### Other
+* Redux
+* Passport.js
+* Thunk
