@@ -39,7 +39,6 @@ Base page:
 ### Database
 * Mongo
 * Mongoose
-<<<<<<< HEAD
 
 ### Testing
 * Enzyme
